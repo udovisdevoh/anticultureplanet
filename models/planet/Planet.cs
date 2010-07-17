@@ -97,7 +97,7 @@ namespace AntiCulturePlanet
             this.softnessPassCount = softnessPassCount;
             this.waterPercentage = waterPercentage;
 
-            this.waterThresholdAltitude = 
+            this.waterThresholdAltitude = (int)Math.Round((((((double)maxAltitude) - ((double)minAltitude)) * waterPercentage)) + minAltitude);
 
             tileGrid = new Tile[width, height];
             for (int y = 0; y < height; y++)
