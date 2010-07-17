@@ -1,0 +1,97 @@
+Human
+{
+	Input
+	{
+		Chaque besoin
+		{
+			Calorie (-1: meur de faim, 0: ok, 1: meurt de trop bouffé)
+			Eau (-1: meur de soif, 0: ok, 1: meurt de noyade)
+			Intégrité phisique (-1: meurt de blessure)
+			Stimulation intellectuelle (amusement, curiosité, création, découverte)
+			Intéraction sociale
+			Someil
+			{
+				0 à 1: correct
+				-1 à 0: déplacement ralenti selon fatigue
+			}
+		}
+		
+		Communication
+		{
+			4 output de communication de l'humain le plus proche
+		}
+	}
+	
+	Output
+	{
+		Sujets
+		
+		Verbes
+		{
+			Chaque action possible (sujet, verbe, complément) (faite seulement si distance des item est accetable et si action est possible
+			avec opérateurs fournis ou opérateur est nullaire ou unaire (selon cas))
+			Le verbe a priorité sur le sujet et le complément 
+			Verbes
+			{
+				sleep
+				{
+					me sleep house (marche mieux, rend human protégé contre aggressions)
+					marche 2x mieux à minuit qu'à midi
+				}
+				
+				stack
+				{
+					rock stack rock
+					columnPair stack roof
+					teepee stack skin
+				}
+				
+				sideJoin
+				{
+					column sideJoin column
+				}
+				
+				drink
+				
+				eat
+				
+				touch
+				
+				tie
+				{
+					rope tie stick
+					tiedStick tie stick
+					teepee tie stick
+				}
+			}
+		
+			Nullaire
+			{
+				Seek
+				{
+					Déplace vers direction pour laquelle il y a le plus d'entités hors de porté
+				}
+			}
+		}
+		
+		Compléments
+		
+		4 output de communication
+	}
+}
+
+Cas d'usage d'une action
+{
+	Si humain, sujet et complément dans distance acceptable de l'action
+	{
+		fait action
+	}
+	Sinon si humain est dans distance de déplacement de sujet ou complément
+	{
+		déplace sujet vers complément ou vice-versae d'une unité de déplacement (consommera calories et eau)
+	}
+	Sinon
+	{
+		va vers sujet ou complément (le plus proche des deux)
+	}
+}
