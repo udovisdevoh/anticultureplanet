@@ -35,24 +35,12 @@ namespace AntiCulturePlanet
         /// <param name="other2">other tile 2</param>
         /// <param name="other3">other tile 3</param>
         /// <param name="other4">other tile 4</param>
-        internal void Soften(Tile other1, Tile other2, Tile other3, Tile other4)
+        /// <param name="planet">planet</param>
+        internal void Soften(Tile other1, Tile other2, Tile other3, Tile other4, Planet planet)
         {
             this.altitude = (int)Math.Round((float)(this.altitude + other1.altitude + other2.altitude + other3.altitude + other4.altitude) / 5.0);
             this.temperature = (int)Math.Round((float)(this.temperature + other1.temperature + other2.temperature + other3.temperature + other4.temperature) / 5.0);
-            
-            int thisIsWater, water1, water2, water3, water4;
-            thisIsWater = water1 = water2 = water3 = water4 = 0;
-            if (this.isWater)
-                thisIsWater = 1;
-            if (other1.isWater)
-                water1 = 1;
-            if (other2.isWater)
-                water2 = 1;
-            if (other3.isWater)
-                water3 = 1;
-            if (other4.isWater)
-                water4 = 1;
-            this.isWater = Math.Round((float)(thisIsWater + water1 + water2 + water3 + water4) / 5.0) > 0.5;
+            isWater = altitude < planet.WaterThresholdAltitude;
         }
 
         /// <summary>

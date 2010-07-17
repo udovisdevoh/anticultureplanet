@@ -169,16 +169,16 @@ namespace AntiCulturePlanet
             {
                 for (int y = 0; y < width; y += 2)
                     for (int x = 0; x < width; x += 2)
-                        planet[x, y].Soften(planet[x - 1, y], planet[x + 1, y], planet[x, y - 1], planet[x, y + 1]);
+                        planet[x, y].Soften(planet[x - 1, y], planet[x + 1, y], planet[x, y - 1], planet[x, y + 1],planet);
                 for (int y = 1; y < width; y += 2)
                     for (int x = 0; x < width; x += 2)
-                        planet[x, y].Soften(planet[x - 1, y], planet[x + 1, y], planet[x, y - 1], planet[x, y + 1]);
+                        planet[x, y].Soften(planet[x - 1, y], planet[x + 1, y], planet[x, y - 1], planet[x, y + 1], planet);
                 for (int y = 0; y < width; y += 2)
                     for (int x = 1; x < width; x += 2)
-                        planet[x, y].Soften(planet[x - 1, y], planet[x + 1, y], planet[x, y - 1], planet[x, y + 1]);
+                        planet[x, y].Soften(planet[x - 1, y], planet[x + 1, y], planet[x, y - 1], planet[x, y + 1], planet);
                 for (int y = 1; y < width; y += 2)
                     for (int x = 1; x < width; x += 2)
-                        planet[x, y].Soften(planet[x - 1, y], planet[x + 1, y], planet[x, y - 1], planet[x, y + 1]);
+                        planet[x, y].Soften(planet[x - 1, y], planet[x + 1, y], planet[x, y - 1], planet[x, y + 1], planet);
             }
 
             return planet;
