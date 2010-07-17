@@ -9,6 +9,8 @@ namespace AntiCulturePlanet
     {
         static void Main(string[] args)
         {
+            PlanetGenerator planetGenerator = new PlanetGenerator();
+            Planet planet = planetGenerator.Build(new Random());
         }
     }
 }
