@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="models\planet\Planet.cs" />
     <Compile Include="models\planet\PlanetGenerator.cs" />
+    <Compile Include="models\planet\Tile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
