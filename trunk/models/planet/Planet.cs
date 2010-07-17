@@ -24,12 +24,12 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Temperature at pole (celsius)
         /// </summary>
-        private int minDegree;
+        private int minTemperature;
 
         /// <summary>
         /// Temperature at equator (celsius)
         /// </summary>
-        private int maxDegree;
+        private int maxTemperature;
 
         /// <summary>
         /// How many seconds for a day
@@ -57,6 +57,11 @@ namespace AntiCulturePlanet
         private int softnessPassCount = 1;
 
         /// <summary>
+        /// Wather threshold altitude
+        /// </summary>
+        private int waterThresholdAltitude = 0;
+
+        /// <summary>
         /// Percentage of water
         /// </summary>
         private float waterPercentage;
@@ -76,21 +81,23 @@ namespace AntiCulturePlanet
         /// <param name="yearLength">how many seconds for a year</param>
         /// <param name="minAltitude">minimum altitude</param>
         /// <param name="maxAltitude">maximum altitude</param>
-        /// <param name="minDegree">min temperature (at pole)</param>
-        /// <param name="maxDegree">max temperature (at equator)</param>
+        /// <param name="minTemperature">min temperature (at pole)</param>
+        /// <param name="maxTemperature">max temperature (at equator)</param>
         /// <param name="waterPercentage">percentage of water</param>
-        internal Planet(int width, int height, int minDegree, int maxDegree, int dayLength, int yearLength, int minAltitude, int maxAltitude, int softnessPassCount, float waterPercentage)
+        internal Planet(int width, int height, int minTemperature, int maxTemperature, int dayLength, int yearLength, int minAltitude, int maxAltitude, int softnessPassCount, float waterPercentage)
         {
             this.width = width;
             this.height = height;
-            this.minDegree = minDegree;
-            this.maxDegree = maxDegree;
+            this.minTemperature = minTemperature;
+            this.maxTemperature = maxTemperature;
             this.dayLength = dayLength;
             this.yearLength = yearLength;
             this.minAltitude = minAltitude;
             this.maxAltitude = maxAltitude;
             this.softnessPassCount = softnessPassCount;
             this.waterPercentage = waterPercentage;
+
+            this.waterThresholdAltitude = 
 
             tileGrid = new Tile[width, height];
             for (int y = 0; y < height; y++)
@@ -121,19 +128,19 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Temperature at pole (celsius)
         /// </summary>
-        internal int MinDegree
+        internal int MinTemperature
         {
-            get { return minDegree; }
-            set { minDegree = value; }
+            get { return minTemperature; }
+            set { minTemperature = value; }
         }
 
         /// <summary>
         /// Temperature at equator (celsius)
         /// </summary>
-        internal int MaxDegree
+        internal int MaxTemperature
         {
-            get { return maxDegree; }
-            set { maxDegree = value; }
+            get { return maxTemperature; }
+            set { maxTemperature = value; }
         }
 
         /// <summary>
@@ -185,7 +192,15 @@ namespace AntiCulturePlanet
             get { return waterPercentage; }
             set { waterPercentage = value; }
         }
-        
+
+        /// <summary>
+        /// Wather threshold altitude
+        /// </summary>
+        internal int WaterThresholdAltitude
+        {
+            get { return waterThresholdAltitude; }
+        }
+
         /// <summary>
         /// Tile at position
         /// </summary>
@@ -200,12 +215,12 @@ namespace AntiCulturePlanet
                     x += width;
                 while (y < 0)
                     y += height;
-                while (x > width)
+                while (x >= width)
                     x -= width;
-                while (y > height)
+                while (y >= height)
                     y -= height;
 
-
+                return tileGrid[x, y];
             }
         }
         #endregion
