@@ -24,12 +24,12 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Temperature at pole (celsius)
         /// </summary>
-        private int minDegree = -40;
+        private int minTemperature = -20;
 
         /// <summary>
         /// Temperature at equator (celsius)
         /// </summary>
-        private int maxDegree = 40;
+        private int maxTemperature = 50;
 
         /// <summary>
         /// How many seconds for a day
@@ -59,7 +59,7 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Percentage of water
         /// </summary>
-        private float waterPercentage = 0.4f;
+        private float waterPercentage = 0.5f;
         #endregion
 
         #region Properties
@@ -84,19 +84,19 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Temperature at pole (celsius)
         /// </summary>
-        internal int MinDegree
+        internal int MinTemperature
         {
-            get { return minDegree; }
-            set { minDegree = value; }
+            get { return minTemperature; }
+            set { minTemperature = value; }
         }
 
         /// <summary>
         /// Temperature at equator (celsius)
         /// </summary>
-        internal int MaxDegree
+        internal int MaxTemperature
         {
-            get { return maxDegree; }
-            set { maxDegree = value; }
+            get { return maxTemperature; }
+            set { maxTemperature = value; }
         }
 
         /// <summary>
@@ -157,12 +157,12 @@ namespace AntiCulturePlanet
         /// <returns>planet</returns>
         internal Planet Build(Random random)
         {
-            Planet planet = new Planet(width, height, minDegree, maxDegree, dayLength, yearLength, minAltitude, maxAltitude, softnessPassCount, waterPercentage);
+            Planet planet = new Planet(width, height, minTemperature, maxTemperature, dayLength, yearLength, minAltitude, maxAltitude, softnessPassCount, waterPercentage);
             
             //We randomize each tile
             for (int y = 0; y < width; y++)
                 for (int x = 0; x < width; x++)
-                    planet[x, y].Randomize(planet,random);
+                    planet[x, y].Randomize(planet, random);
 
             //We soften each tile
             for (int currentSoftnessPassCount = 0; currentSoftnessPassCount < softnessPassCount; currentSoftnessPassCount++)
@@ -180,6 +180,8 @@ namespace AntiCulturePlanet
                     for (int x = 1; x < width; x += 2)
                         planet[x, y].Soften(planet[x - 1, y], planet[x + 1, y], planet[x, y - 1], planet[x, y + 1]);
             }
+
+            return planet;
         }
         #endregion
     }
