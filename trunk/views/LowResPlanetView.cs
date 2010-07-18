@@ -5,6 +5,9 @@ using System.Text;
 
 namespace AntiCulturePlanet
 {
+    /// <summary>
+    /// Very low quality planet view
+    /// </summary>
     internal class LowResPlanetView
     {
     }
