@@ -50,10 +50,11 @@
     <Reference Include="Tao.Sdl, Version=1.2.13.0, Culture=neutral, PublicKeyToken=9c7a200e36c0094e, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="controllers\UserInput.cs" />
     <Compile Include="models\planet\Planet.cs" />
     <Compile Include="models\planet\PlanetGenerator.cs" />
     <Compile Include="models\planet\Tile.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="controllers\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="views\LowRes\PlanetViewerLowRes.cs" />
     <Compile Include="views\LowRes\TileViewerLowRes.cs" />
