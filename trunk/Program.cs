@@ -33,7 +33,7 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Full screen or not
         /// </summary>
-        private const bool isFullScreen = true;
+        private const bool isFullScreen = false;
         #endregion
 
         #region Fields and parts
@@ -75,7 +75,7 @@ namespace AntiCulturePlanet
             random = new Random();
             planetGenerator = new PlanetGenerator();
             planet = planetGenerator.Build(random);
-            planetViewer = new LowResPlanetViewer(mainSurface, screenWidth, screenHeight);
+            planetViewer = new PlanetViewerLowRes(mainSurface, screenWidth, screenHeight, planet);
         }
         #endregion
 

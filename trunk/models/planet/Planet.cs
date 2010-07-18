@@ -65,6 +65,11 @@ namespace AntiCulturePlanet
         /// Percentage of water
         /// </summary>
         private float waterPercentage;
+
+        /// <summary>
+        /// Whether planet must be redrawn
+        /// </summary>
+        private bool isNeedRefresh = true;
         #endregion
 
         #region Parts
@@ -102,7 +107,49 @@ namespace AntiCulturePlanet
             tileGrid = new Tile[width, height];
             for (int y = 0; y < height; y++)
                 for (int x = 0; x < width; x++)
-                    tileGrid[x, y] = new Tile();
+                    tileGrid[x, y] = new Tile(x, y);
+        }
+        #endregion
+
+        #region Internal Methods
+        /// <summary>
+        /// Tile at left
+        /// </summary>
+        /// <param name="tile">from tile</param>
+        /// <returns>tile at left</returns>
+        internal Tile GetLeftTile(Tile tile)
+        {
+            return this[tile.X - 1, tile.Y];
+        }
+
+        /// <summary>
+        /// Tile at right
+        /// </summary>
+        /// <param name="tile">from tile</param>
+        /// <returns>tile at right</returns>
+        internal Tile GetRightTile(Tile tile)
+        {
+            return this[tile.X + 1, tile.Y];
+        }
+
+        /// <summary>
+        /// Tile on top
+        /// </summary>
+        /// <param name="tile">from tile</param>
+        /// <returns>tile on top</returns>
+        internal Tile GetTopTile(Tile tile)
+        {
+            return this[tile.X, tile.Y  - 1];
+        }
+
+        /// <summary>
+        /// Tile on bottom
+        /// </summary>
+        /// <param name="tile">from tile</param>
+        /// <returns>tile on bottom</returns>
+        internal Tile GetBottomTile(Tile tile)
+        {
+            return this[tile.X, tile.Y + 1];
         }
         #endregion
 
@@ -222,6 +269,15 @@ namespace AntiCulturePlanet
 
                 return tileGrid[x, y];
             }
+        }
+
+        /// <summary>
+        /// Whether planet must be redrawn
+        /// </summary>
+        public bool IsNeedRefresh
+        {
+            get { return isNeedRefresh; }
+            set { isNeedRefresh = value; }
         }
         #endregion
     }
