@@ -88,6 +88,7 @@ namespace AntiCulturePlanet
             planet.IsNeedRefresh = false;
 
             mainSurface.Blit(groundSurcace);
+            mainSurface.Update();
         }
         #endregion
     }
