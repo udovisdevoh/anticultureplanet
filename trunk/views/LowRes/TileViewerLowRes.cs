@@ -59,10 +59,19 @@ namespace AntiCulturePlanet
         private void DrawSoilTile(Tile tile, Planet planet, Surface surface, int tilePixelWidth, int tilePixelHeight)
         {
             int green = 128;
+            int blue = 0;
+            int red = 75 - (tile.Altitude - planet.WaterThresholdAltitude) * 255 / (planet.MaxAltitude - planet.WaterThresholdAltitude);
+            red += tile.Temperature - planet.MinTemperature;
+            
+            if (red < 0)
+                red = 0;
+            if (red > 255)
+                red = 255;
 
-            int red = (tile.Altitude - planet.WaterThresholdAltitude) * 255 / (planet.MaxAltitude - planet.WaterThresholdAltitude);
+            if (tile.Temperature < 0)
+                blue = 255;
 
-            Color color = Color.FromArgb(255, red, green, 0);
+            Color color = Color.FromArgb(255, red, green, blue);
 
             Rectangle rectangle = new Rectangle(tile.X * tilePixelWidth, tile.Y * tilePixelHeight, tilePixelWidth, tilePixelHeight);
             surface.Fill(rectangle, color);
