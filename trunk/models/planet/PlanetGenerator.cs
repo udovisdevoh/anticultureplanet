@@ -14,12 +14,12 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Width (tiles)
         /// </summary>
-        private int width = 64;
+        private int width = 256;
 
         /// <summary>
         /// Height (tiles)
         /// </summary>
-        private int height = 64;
+        private int height = 256;
 
         /// <summary>
         /// Temperature at pole (celsius)

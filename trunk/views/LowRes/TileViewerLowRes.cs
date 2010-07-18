@@ -115,7 +115,7 @@ namespace AntiCulturePlanet
                     surface.Draw(line, color);
                 }
             }
-            else
+            /*else
             {
                 int randomSnowFlakeCount = (tilePixelWidth * tilePixelHeight) * (100 - (tile.Temperature - planet.MinTemperature) * 6) / 500;
                 for (int i = 0; i < randomSnowFlakeCount; i++)
@@ -126,7 +126,7 @@ namespace AntiCulturePlanet
 
                     surface.Draw(point, Color.White);
                 }
-            }
+            }*/
         }
 
         /// <summary>
@@ -178,7 +178,7 @@ namespace AntiCulturePlanet
                     surface.Draw(line, color);
                 }
             }
-            else
+            /*else
             {
                 int randomSnowFlakeCount = (tilePixelWidth * tilePixelHeight) * (100 - (tile.Temperature - planet.MinTemperature) * 6) / 500;
                 for (int i = 0; i < randomSnowFlakeCount; i++)
@@ -189,7 +189,7 @@ namespace AntiCulturePlanet
 
                     surface.Draw(point, Color.White);
                 }
-            }
+            }*/
         }
         #endregion
     }
