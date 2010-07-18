@@ -91,6 +91,11 @@ namespace AntiCulturePlanet
         /// <returns>temperature at latitude</returns>
         private int BuildTemperatureAtLatitude(int y, int planetHeight, int minTemperature, int maxTemperature, Random random)
         {
+            planetHeight /= 2;
+
+            if (y > planetHeight)
+                y = planetHeight - (y - planetHeight);
+
             int temperature = (y * (maxTemperature - minTemperature)) / planetHeight + minTemperature;
             temperature += random.Next(minTemperature / 7, maxTemperature / 7);
             return temperature;
