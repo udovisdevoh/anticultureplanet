@@ -50,7 +50,7 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Planet's view
         /// </summary>
-        private PlanetViewer planetView;
+        private PlanetViewer planetViewer;
 
         /// <summary>
         /// Random number generator
@@ -75,7 +75,7 @@ namespace AntiCulturePlanet
             random = new Random();
             planetGenerator = new PlanetGenerator();
             planet = planetGenerator.Build(random);
-            planetView = new LowResPlanetViewer(mainSurface, screenWidth, screenHeight);
+            planetViewer = new LowResPlanetViewer(mainSurface, screenWidth, screenHeight);
         }
         #endregion
 
@@ -95,13 +95,15 @@ namespace AntiCulturePlanet
         #endregion
 
         #region Event Handlers
-        public void Update(object sender, TickEventArgs args)
+        internal void Update(object sender, TickEventArgs args)
         {
             double timeDelta = ((TimeSpan)(DateTime.Now - previousDateTime)).TotalMilliseconds / 16.0;
             previousDateTime = DateTime.Now;
+
+            planetViewer.Update(planet);
         }
 
-        public void OnKeyboardDown(object sender, KeyboardEventArgs args)
+        internal void OnKeyboardDown(object sender, KeyboardEventArgs args)
         {
             /*if (args.Key == Key.UpArrow || args.Key == Key.W)
                 userInput.IsPressUp = true;
@@ -119,7 +121,7 @@ namespace AntiCulturePlanet
                 gameViewer.IsMiniMapOn = !gameViewer.IsMiniMapOn;*/
         }
 
-        public void OnKeyboardUp(object sender, KeyboardEventArgs args)
+        internal void OnKeyboardUp(object sender, KeyboardEventArgs args)
         {
             /*if (args.Key == Key.UpArrow || args.Key == Key.W)
                 userInput.IsPressUp = false;
