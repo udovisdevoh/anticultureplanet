@@ -63,7 +63,6 @@ namespace AntiCulturePlanet
         internal void Soften(Planet planet)
         {
             this.altitude = (int)Math.Round((float)(this.altitude + planet.GetLeftTile(this).altitude + planet.GetRightTile(this).altitude + planet.GetTopTile(this).altitude + planet.GetBottomTile(this).altitude) / 5.0);
-            this.temperature = (int)Math.Round((float)(this.temperature + planet.GetLeftTile(this).temperature + planet.GetRightTile(this).temperature + planet.GetTopTile(this).temperature + planet.GetBottomTile(this).temperature) / 5.0);
             isWater = altitude < planet.WaterThresholdAltitude;
         }
 
@@ -75,8 +74,26 @@ namespace AntiCulturePlanet
         internal void Randomize(Planet planet, Random random)
         {
             altitude = random.Next(planet.MinAltitude, planet.MaxAltitude);
-            temperature = random.Next(planet.MinTemperature, planet.MaxTemperature);
+            temperature = BuildTemperatureAtLatitude(y, planet.Height, planet.MinTemperature, planet.MaxTemperature, random);
             isWater = altitude < planet.WaterThresholdAltitude;
+        }
+        #endregion
+
+        #region Private Methods
+        /// <summary>
+        /// Build temperature at latitude
+        /// </summary>
+        /// <param name="y">latitude</param>
+        /// <param name="planetHeight">planet's Y height</param>
+        /// <param name="minTemperature">minimum temperature</param>
+        /// <param name="maxTemperature">maximum temperature</param>
+        /// <param name="random">random number generator</param>
+        /// <returns>temperature at latitude</returns>
+        private int BuildTemperatureAtLatitude(int y, int planetHeight, int minTemperature, int maxTemperature, Random random)
+        {
+            int temperature = (y * (maxTemperature - minTemperature)) / planetHeight + minTemperature;
+            temperature += random.Next(minTemperature / 7, maxTemperature / 7);
+            return temperature;
         }
         #endregion
 
