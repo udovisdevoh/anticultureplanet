@@ -116,6 +116,14 @@ namespace AntiCulturePlanet
                 planetViewer.MoveView(0, 1, planet.Width, planet.Height);
 
             planetViewer.Update(planet);
+
+            Tile tileToChange = planet[random.Next(planet.Width), random.Next(planet.Height)];
+            tileToChange.Randomize(planet, random);
+            for (int i = 0; i < planet.SoftnessPassCount; i++)
+                tileToChange.Soften(planet);
+            planetViewer.Update(tileToChange, planet);
+
+            mainSurface.Update();
         }
 
         internal void OnKeyboardDown(object sender, KeyboardEventArgs args)

@@ -76,6 +76,12 @@ namespace AntiCulturePlanet
             altitude = random.Next(planet.MinAltitude, planet.MaxAltitude);
             temperature = BuildTemperatureAtLatitude(y, planet.Height, planet.MinTemperature, planet.MaxTemperature, random);
             isWater = altitude < planet.WaterThresholdAltitude;
+            
+            this.isNeedRefresh = true;
+            planet.GetLeftTile(this).isNeedRefresh = true;
+            planet.GetRightTile(this).isNeedRefresh = true;
+            planet.GetTopTile(this).isNeedRefresh = true;
+            planet.GetBottomTile(this).isNeedRefresh = true;
         }
         #endregion
 

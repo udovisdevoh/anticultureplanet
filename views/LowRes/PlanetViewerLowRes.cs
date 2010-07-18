@@ -119,7 +119,16 @@ namespace AntiCulturePlanet
             mainSurface.Blit(groundSurcace, new Point(pixelOffsetX + planet.Width * tilePixelWidth, pixelOffsetY - planet.Height * tilePixelHeight));
             mainSurface.Blit(groundSurcace, new Point(pixelOffsetX - planet.Width * tilePixelWidth, pixelOffsetY + planet.Height * tilePixelHeight));
             mainSurface.Blit(groundSurcace, new Point(pixelOffsetX + planet.Width * tilePixelWidth, pixelOffsetY + planet.Height * tilePixelHeight));
-            mainSurface.Update();
+        }
+
+        /// <summary>
+        /// Redraw a single tile
+        /// </summary>
+        /// <param name="tile">tile to redraw</param>
+        /// <param name="planet">planet</param>
+        internal override void Update(Tile tile, Planet planet)
+        {
+            tileViewer.Update(tile, planet, groundSurcace, tilePixelWidth, tilePixelHeight);
         }
 
         /// <summary>
