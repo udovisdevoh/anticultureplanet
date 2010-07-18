@@ -83,7 +83,7 @@ namespace AntiCulturePlanet
                 for (int y = 0; y < planet.Height; y++)
                     for (int x = 0; x < planet.Width; x++)
                         if (planet[x,y].IsNeedRefresh)
-                            tileViewer.Update(planet[x, y], groundSurcace, tilePixelWidth, tilePixelHeight);
+                            tileViewer.Update(planet[x, y], planet, groundSurcace, tilePixelWidth, tilePixelHeight);
 
             planet.IsNeedRefresh = false;
 
