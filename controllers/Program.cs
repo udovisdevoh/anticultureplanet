@@ -33,7 +33,7 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Full screen or not
         /// </summary>
-        private const bool isFullScreen = false;
+        private const bool isFullScreen = true;
         #endregion
 
         #region Fields and parts
