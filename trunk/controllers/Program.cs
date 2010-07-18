@@ -33,7 +33,7 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Full screen or not
         /// </summary>
-        private const bool isFullScreen = true;
+        private const bool isFullScreen = false;
         #endregion
 
         #region Fields and parts
@@ -117,11 +117,11 @@ namespace AntiCulturePlanet
 
             planetViewer.Update(planet);
 
-            Tile tileToChange = planet[random.Next(planet.Width), random.Next(planet.Height)];
+            /*Tile tileToChange = planet[random.Next(planet.Width), random.Next(planet.Height)];
             tileToChange.Randomize(planet, random);
             for (int i = 0; i < planet.SoftnessPassCount; i++)
                 tileToChange.Soften(planet);
-            planetViewer.Update(tileToChange, planet);
+            planetViewer.Update(tileToChange, planet);*/
 
             mainSurface.Update();
         }
