@@ -51,6 +51,11 @@ namespace AntiCulturePlanet
         /// Random number generator
         /// </summary>
         private Random random;
+
+        /// <summary>
+        /// Previous date time (for time delta)
+        /// </summary>
+        private DateTime previousDateTime = DateTime.Now;
         #endregion
 
         #region Constructor
@@ -75,6 +80,14 @@ namespace AntiCulturePlanet
             Events.MouseButtonUp += OnMouseUp;
             Events.MusicFinished += OnMusicFinished;*/
             Events.Run();
+        }
+        #endregion
+
+        #region Event Handlers
+        public void Update(object sender, TickEventArgs args)
+        {
+            double timeDelta = ((TimeSpan)(DateTime.Now - previousDateTime)).TotalMilliseconds / 16.0;
+            previousDateTime = DateTime.Now;
         }
         #endregion
 
