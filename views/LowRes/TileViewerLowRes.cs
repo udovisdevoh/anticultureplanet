@@ -85,6 +85,36 @@ namespace AntiCulturePlanet
 
             Rectangle rectangle = new Rectangle(tile.X * tilePixelWidth, tile.Y * tilePixelHeight, tilePixelWidth, tilePixelHeight);
             surface.Fill(rectangle, color);
+
+
+            if (tile.Temperature >= 0)
+            {
+                int randomPixelCount = (tilePixelWidth * tilePixelHeight) / 16;
+                for (int i = 0; i < randomPixelCount; i++)
+                {
+                    int redLine = red + random.Next(-32, 32);
+                    int greenLine = green + random.Next(-32, 32);
+
+                    redLine = Math.Max(0, redLine);
+                    greenLine = Math.Max(0, greenLine);
+                    redLine = Math.Min(255, redLine);
+                    greenLine = Math.Min(255, greenLine);
+
+                    color = Color.FromArgb(255, redLine, greenLine, blue);
+                    int x = random.Next(0, tilePixelWidth);
+                    int y = random.Next(0, tilePixelHeight);
+                    Point point = new Point(tile.X * tilePixelWidth + x, tile.Y * tilePixelHeight + y);
+
+                    int lineDistanceX = random.Next(tilePixelWidth / (-2), tilePixelWidth / 2);
+                    int lineDistanceY = random.Next(tilePixelWidth / (-2), tilePixelWidth / 2);
+
+                    Point otherPoint = new Point(point.X + lineDistanceX, point.Y + lineDistanceY);
+
+                    Line line = new Line(point, otherPoint);
+
+                    surface.Draw(line, color);
+                }
+            }
         }
 
         /// <summary>
