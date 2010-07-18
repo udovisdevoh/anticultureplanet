@@ -12,6 +12,16 @@ namespace AntiCulturePlanet
     {
         #region Fields
         /// <summary>
+        /// X coordinate
+        /// </summary>
+        private int x;
+
+        /// <summary>
+        /// Y coordinate
+        /// </summary>
+        private int y;
+
+        /// <summary>
         /// Tile's altitude
         /// </summary>
         private int altitude = 0;
@@ -22,24 +32,38 @@ namespace AntiCulturePlanet
         private int temperature = 15;
 
         /// <summary>
-        /// Whether 
+        /// Whether tile is water or not
         /// </summary>
         private bool isWater = false;
+
+        /// <summary>
+        /// Whether tile must be redrawn
+        /// </summary>
+        private bool isNeedRefresh = true;
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        /// Create tile
+        /// </summary>
+        /// <param name="x">x coordinate</param>
+        /// <param name="y">y coordinate</param>
+        internal Tile(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
         #endregion
 
         #region Internal Methods
         /// <summary>
         /// Soften tile's properties according to neighbors
         /// </summary>
-        /// <param name="other1">other tile 1</param>
-        /// <param name="other2">other tile 2</param>
-        /// <param name="other3">other tile 3</param>
-        /// <param name="other4">other tile 4</param>
-        /// <param name="planet">planet</param>
-        internal void Soften(Tile other1, Tile other2, Tile other3, Tile other4, Planet planet)
+        /// <param name="planet">planet (to get neighbor tiles)</param>
+        internal void Soften(Planet planet)
         {
-            this.altitude = (int)Math.Round((float)(this.altitude + other1.altitude + other2.altitude + other3.altitude + other4.altitude) / 5.0);
-            this.temperature = (int)Math.Round((float)(this.temperature + other1.temperature + other2.temperature + other3.temperature + other4.temperature) / 5.0);
+            this.altitude = (int)Math.Round((float)(this.altitude + planet.GetLeftTile(this).altitude + planet.GetRightTile(this).altitude + planet.GetTopTile(this).altitude + planet.GetBottomTile(this).altitude) / 5.0);
+            this.temperature = (int)Math.Round((float)(this.temperature + planet.GetLeftTile(this).temperature + planet.GetRightTile(this).temperature + planet.GetTopTile(this).temperature + planet.GetBottomTile(this).temperature) / 5.0);
             isWater = altitude < planet.WaterThresholdAltitude;
         }
 
@@ -53,6 +77,62 @@ namespace AntiCulturePlanet
             altitude = random.Next(planet.MinAltitude, planet.MaxAltitude);
             temperature = random.Next(planet.MinTemperature, planet.MaxTemperature);
             isWater = altitude < planet.WaterThresholdAltitude;
+        }
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// Tile's X coordinate
+        /// </summary>
+        public int X
+        {
+            get { return x; }
+            set { x = value; }
+        }
+
+        /// <summary>
+        /// Tile's Y coordinate
+        /// </summary>
+        public int Y
+        {
+            get { return y; }
+            set { y = value; }
+        }
+
+        /// <summary>
+        /// Tile's altitude
+        /// </summary>
+        public int Altitude
+        {
+            get { return altitude; }
+            set { altitude = value; }
+        }
+
+        /// <summary>
+        /// Tile's temperature
+        /// </summary>
+        public int Temperature
+        {
+            get { return temperature; }
+            set { temperature = value; }
+        }
+
+        /// <summary>
+        /// Whether tile is water or not
+        /// </summary>
+        public bool IsWater
+        {
+            get { return isWater; }
+            set { isWater = value; }
+        }
+
+        /// <summary>
+        /// Whether tile must be redrawn
+        /// </summary>
+        public bool IsNeedRefresh
+        {
+            get { return isNeedRefresh; }
+            set { isNeedRefresh = value; }
         }
         #endregion
     }

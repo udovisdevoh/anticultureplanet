@@ -54,7 +54,7 @@ namespace AntiCulturePlanet
         /// <summary>
         /// How many time we soften tiles
         /// </summary>
-        private int softnessPassCount = 1;
+        private int softnessPassCount = 2;
 
         /// <summary>
         /// Percentage of water
@@ -169,16 +169,16 @@ namespace AntiCulturePlanet
             {
                 for (int y = 0; y < width; y += 2)
                     for (int x = 0; x < width; x += 2)
-                        planet[x, y].Soften(planet[x - 1, y], planet[x + 1, y], planet[x, y - 1], planet[x, y + 1],planet);
+                        planet[x, y].Soften(planet);
                 for (int y = 1; y < width; y += 2)
                     for (int x = 0; x < width; x += 2)
-                        planet[x, y].Soften(planet[x - 1, y], planet[x + 1, y], planet[x, y - 1], planet[x, y + 1], planet);
+                        planet[x, y].Soften(planet);
                 for (int y = 0; y < width; y += 2)
                     for (int x = 1; x < width; x += 2)
-                        planet[x, y].Soften(planet[x - 1, y], planet[x + 1, y], planet[x, y - 1], planet[x, y + 1], planet);
+                        planet[x, y].Soften(planet);
                 for (int y = 1; y < width; y += 2)
                     for (int x = 1; x < width; x += 2)
-                        planet[x, y].Soften(planet[x - 1, y], planet[x + 1, y], planet[x, y - 1], planet[x, y + 1], planet);
+                        planet[x, y].Soften(planet);
             }
 
             return planet;
