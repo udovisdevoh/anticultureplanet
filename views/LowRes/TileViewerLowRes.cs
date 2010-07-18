@@ -37,16 +37,10 @@ namespace AntiCulturePlanet
             if (tile.IsWater)
             {
                 DrawWaterTile(tile, planet, surface, tilePixelWidth, tilePixelHeight);
-
             }
             else
             {
-                Color color = Color.Green;
-                if (tile.Altitude > 15)
-                    color = Color.Yellow;
-
-                Rectangle rectangle = new Rectangle(tile.X * tilePixelWidth, tile.Y * tilePixelHeight, tilePixelWidth, tilePixelHeight);
-                surface.Fill(rectangle, color);
+                DrawSoilTile(tile, planet, surface, tilePixelWidth, tilePixelHeight);
             }
 
             tile.IsNeedRefresh = false;
@@ -54,6 +48,26 @@ namespace AntiCulturePlanet
         #endregion
 
         #region Private Methods
+        /// <summary>
+        /// Draw soil tile
+        /// </summary>
+        /// <param name="tile">tile</param>
+        /// <param name="planet">planet</param>
+        /// <param name="surface">surface to draw on</param>
+        /// <param name="tilePixelWidth">tile width (pixels)</param>
+        /// <param name="tilePixelHeight">tile height (pixels)</param>
+        private void DrawSoilTile(Tile tile, Planet planet, Surface surface, int tilePixelWidth, int tilePixelHeight)
+        {
+            int green = 128;
+
+            int red = (tile.Altitude - planet.WaterThresholdAltitude) * 255 / (planet.MaxAltitude - planet.WaterThresholdAltitude);
+
+            Color color = Color.FromArgb(255, red, green, 0);
+
+            Rectangle rectangle = new Rectangle(tile.X * tilePixelWidth, tile.Y * tilePixelHeight, tilePixelWidth, tilePixelHeight);
+            surface.Fill(rectangle, color);
+        }
+
         /// <summary>
         /// Draw water tile
         /// </summary>
