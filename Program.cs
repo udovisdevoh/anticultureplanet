@@ -29,6 +29,11 @@ namespace AntiCulturePlanet
         /// Target FPS
         /// </summary>
         private const int targetFps = 60;
+
+        /// <summary>
+        /// Full screen or not
+        /// </summary>
+        private const bool isFullScreen = true;
         #endregion
 
         #region Fields and parts
@@ -56,15 +61,21 @@ namespace AntiCulturePlanet
         /// Previous date time (for time delta)
         /// </summary>
         private DateTime previousDateTime = DateTime.Now;
+
+        /// <summary>
+        /// Main drawing surface
+        /// </summary>
+        private Surface mainSurface;
         #endregion
 
         #region Constructor
         public Program()
         {
+            mainSurface = Video.SetVideoMode(screenWidth, screenHeight, false, false, isFullScreen, true);
             random = new Random();
             planetGenerator = new PlanetGenerator();
             planet = planetGenerator.Build(random);
-            planetView = new LowResPlanetViewer(screenWidth, screenHeight);
+            planetView = new LowResPlanetViewer(mainSurface, screenWidth, screenHeight);
         }
         #endregion
 
@@ -73,9 +84,9 @@ namespace AntiCulturePlanet
         {
             Events.TargetFps = targetFps;
             Events.Tick += Update;
-            /*Events.KeyboardDown += OnKeyboardDown;
+            Events.KeyboardDown += OnKeyboardDown;
             Events.KeyboardUp += OnKeyboardUp;
-            Events.MouseMotion += OnMouseMotion;
+            /*Events.MouseMotion += OnMouseMotion;
             Events.MouseButtonDown += OnMouseDown;
             Events.MouseButtonUp += OnMouseUp;
             Events.MusicFinished += OnMusicFinished;*/
@@ -88,6 +99,42 @@ namespace AntiCulturePlanet
         {
             double timeDelta = ((TimeSpan)(DateTime.Now - previousDateTime)).TotalMilliseconds / 16.0;
             previousDateTime = DateTime.Now;
+        }
+
+        public void OnKeyboardDown(object sender, KeyboardEventArgs args)
+        {
+            /*if (args.Key == Key.UpArrow || args.Key == Key.W)
+                userInput.IsPressUp = true;
+            else if (args.Key == Key.DownArrow || args.Key == Key.S)
+                userInput.IsPressDown = true;
+            else if (args.Key == Key.LeftArrow || args.Key == Key.A)
+                userInput.IsPressLeft = true;
+            else if (args.Key == Key.RightArrow || args.Key == Key.D)
+                userInput.IsPressRight = true;
+            else if (args.Key == Key.LeftShift || args.Key == Key.C)
+                userInput.IsPressCrouch = true;
+            else if (args.Key == Key.Space)
+                userInput.IsPressJump = true;
+            else if (args.Key == Key.Tab)
+                gameViewer.IsMiniMapOn = !gameViewer.IsMiniMapOn;*/
+        }
+
+        public void OnKeyboardUp(object sender, KeyboardEventArgs args)
+        {
+            /*if (args.Key == Key.UpArrow || args.Key == Key.W)
+                userInput.IsPressUp = false;
+            else if (args.Key == Key.DownArrow || args.Key == Key.S)
+                userInput.IsPressDown = false;
+            else if (args.Key == Key.LeftArrow || args.Key == Key.A)
+                userInput.IsPressLeft = false;
+            else if (args.Key == Key.RightArrow || args.Key == Key.D)
+                userInput.IsPressRight = false;
+            else if (args.Key == Key.LeftShift || args.Key == Key.C)
+                userInput.IsPressCrouch = false;
+            else if (args.Key == Key.Space)
+                userInput.IsPressJump = false;
+            else */if (args.Key == Key.Escape)
+                Events.QuitApplication();
         }
         #endregion
 
