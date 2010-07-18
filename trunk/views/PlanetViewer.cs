@@ -16,13 +16,14 @@ namespace AntiCulturePlanet
         /// </summary>
         /// <param name="planet">planet</param>
         internal abstract void Update(Planet planet);
-
         /// <summary>
         /// Move view
         /// </summary>
         /// <param name="tileOffsetX">horizontal tile offset</param>
         /// <param name="tileOffsetY">vertical tile offset</param>
-        internal abstract void MoveView(int tileOffsetX, int tileOffsetY);
+        /// <param name="width">planet's width</param>
+        /// <param name="height">planet's height</param>
+        internal abstract void MoveView(int tileOffsetX, int tileOffsetY, int width, int height);
         #endregion
     }
 }

@@ -52,16 +52,15 @@ namespace AntiCulturePlanet
         /// Ground surface
         /// </summary>
         private Surface groundSurcace;
-
         /// <summary>
         /// Horizontal tile offset
         /// </summary>
-        private int tileOffsetX;
+        private int viewedTileX;
 
         /// <summary>
         /// Vertical tile offset
         /// </summary>
-        private int tileOffsetY;
+        private int viewedTileY;
         #endregion
 
         #region Constructor
@@ -74,8 +73,8 @@ namespace AntiCulturePlanet
         /// <param name="mainSurface">main drawing surface</param>
         public PlanetViewerLowRes(Surface mainSurface, int screenWidth, int screenHeight, Planet planet)
         {
-            tileOffsetX = tilePixelWidth / 2;
-            tileOffsetY = tilePixelHeight / 2;
+            viewedTileX = planet.Width / 2;
+            viewedTileY = planet.Height / 2;
 
             tileViewer = new TileViewerLowRes();
             groundSurcace = new Surface(planet.Width * tilePixelWidth, planet.Height * tilePixelHeight, 32);
@@ -99,11 +98,19 @@ namespace AntiCulturePlanet
                             tileViewer.Update(planet[x, y], planet, groundSurcace, tilePixelWidth, tilePixelHeight);
 
             planet.IsNeedRefresh = false;
-
-            int pixelOffsetX = 0 - tileOffsetX * tilePixelWidth;
-            int pixelOffsetY = 0 - tileOffsetY * tilePixelHeight;
+            int pixelOffsetX = 0 - viewedTileX * tilePixelWidth;
+            int pixelOffsetY = 0 - viewedTileY * tilePixelHeight;
 
             mainSurface.Blit(groundSurcace, new Point(pixelOffsetX, pixelOffsetY));
+            mainSurface.Blit(groundSurcace, new Point(pixelOffsetX - planet.Width * tilePixelWidth, pixelOffsetY));
+            mainSurface.Blit(groundSurcace, new Point(pixelOffsetX + planet.Width * tilePixelWidth, pixelOffsetY));
+            mainSurface.Blit(groundSurcace, new Point(pixelOffsetX - planet.Width * tilePixelWidth, pixelOffsetY));
+            mainSurface.Blit(groundSurcace, new Point(pixelOffsetX, pixelOffsetY + planet.Height * tilePixelHeight));
+            mainSurface.Blit(groundSurcace, new Point(pixelOffsetX, pixelOffsetY - planet.Height * tilePixelHeight));
+            mainSurface.Blit(groundSurcace, new Point(pixelOffsetX - planet.Width * tilePixelWidth, pixelOffsetY - planet.Height * tilePixelHeight));
+            mainSurface.Blit(groundSurcace, new Point(pixelOffsetX + planet.Width * tilePixelWidth, pixelOffsetY - planet.Height * tilePixelHeight));
+            mainSurface.Blit(groundSurcace, new Point(pixelOffsetX - planet.Width * tilePixelWidth, pixelOffsetY + planet.Height * tilePixelHeight));
+            mainSurface.Blit(groundSurcace, new Point(pixelOffsetX + planet.Width * tilePixelWidth, pixelOffsetY + planet.Height * tilePixelHeight));
             mainSurface.Update();
         }
 
@@ -112,10 +119,21 @@ namespace AntiCulturePlanet
         /// </summary>
         /// <param name="tileOffsetX">horizontal tile offset</param>
         /// <param name="tileOffsetY">vertical tile offset</param>
-        internal override void MoveView(int tileOffsetX, int tileOffsetY)
+        /// <param name="width">planet's width</param>
+        /// <param name="height">planet's height</param>
+        internal override void MoveView(int tileOffsetX, int tileOffsetY, int width, int height)
         {
-            this.tileOffsetX += tileOffsetX;
-            this.tileOffsetY += tileOffsetY;
+            this.viewedTileX += tileOffsetX;
+            this.viewedTileY += tileOffsetY;
+
+            while (this.viewedTileX < 0)
+                this.viewedTileX += width;
+            while (this.viewedTileY < 0)
+                this.viewedTileY += height;
+            while (this.viewedTileX >= width)
+                this.viewedTileX -= width;
+            while (this.viewedTileY >= height)
+                this.viewedTileY -= height;
         }
         #endregion
     }
