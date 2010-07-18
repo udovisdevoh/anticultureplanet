@@ -42,6 +42,7 @@ namespace AntiCulturePlanet
             if (tile.IsWater)
             {
                 int blue = (tile.Altitude - planet.MinAltitude) * 255 / (planet.WaterThresholdAltitude - planet.MinAltitude);
+
                 color = Color.FromArgb(255, 0, 0, blue);
                 Rectangle rectangle = new Rectangle(tile.X * tilePixelWidth, tile.Y * tilePixelHeight, tilePixelWidth, tilePixelHeight);
                 surface.Fill(rectangle, color);
