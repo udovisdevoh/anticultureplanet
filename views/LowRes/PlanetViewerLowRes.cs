@@ -52,6 +52,16 @@ namespace AntiCulturePlanet
         /// Ground surface
         /// </summary>
         private Surface groundSurcace;
+
+        /// <summary>
+        /// Horizontal tile offset
+        /// </summary>
+        private int tileOffsetX;
+
+        /// <summary>
+        /// Vertical tile offset
+        /// </summary>
+        private int tileOffsetY;
         #endregion
 
         #region Constructor
@@ -64,6 +74,9 @@ namespace AntiCulturePlanet
         /// <param name="mainSurface">main drawing surface</param>
         public PlanetViewerLowRes(Surface mainSurface, int screenWidth, int screenHeight, Planet planet)
         {
+            tileOffsetX = tilePixelWidth / 2;
+            tileOffsetY = tilePixelHeight / 2;
+
             tileViewer = new TileViewerLowRes();
             groundSurcace = new Surface(planet.Width * tilePixelWidth, planet.Height * tilePixelHeight, 32);
             this.mainSurface = mainSurface;
@@ -87,8 +100,22 @@ namespace AntiCulturePlanet
 
             planet.IsNeedRefresh = false;
 
-            mainSurface.Blit(groundSurcace);
+            int pixelOffsetX = 0 - tileOffsetX * tilePixelWidth;
+            int pixelOffsetY = 0 - tileOffsetY * tilePixelHeight;
+
+            mainSurface.Blit(groundSurcace, new Point(pixelOffsetX, pixelOffsetY));
             mainSurface.Update();
+        }
+
+        /// <summary>
+        /// Move view
+        /// </summary>
+        /// <param name="tileOffsetX">horizontal tile offset</param>
+        /// <param name="tileOffsetY">vertical tile offset</param>
+        internal override void MoveView(int tileOffsetX, int tileOffsetY)
+        {
+            this.tileOffsetX += tileOffsetX;
+            this.tileOffsetY += tileOffsetY;
         }
         #endregion
     }
