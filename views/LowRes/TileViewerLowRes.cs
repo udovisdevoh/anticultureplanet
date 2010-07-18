@@ -89,7 +89,7 @@ namespace AntiCulturePlanet
 
             if (tile.Temperature >= 0)
             {
-                int randomPixelCount = (tilePixelWidth * tilePixelHeight) / 16;
+                int randomPixelCount = (tilePixelWidth * tilePixelHeight) / 8;
                 for (int i = 0; i < randomPixelCount; i++)
                 {
                     int redLine = red + random.Next(-32, 32);
@@ -105,8 +105,8 @@ namespace AntiCulturePlanet
                     int y = random.Next(0, tilePixelHeight);
                     Point point = new Point(tile.X * tilePixelWidth + x, tile.Y * tilePixelHeight + y);
 
-                    int lineDistanceX = random.Next(tilePixelWidth / (-2), tilePixelWidth / 2);
-                    int lineDistanceY = random.Next(tilePixelWidth / (-2), tilePixelWidth / 2);
+                    int lineDistanceX = random.Next(tilePixelWidth / (-4), tilePixelWidth / 4);
+                    int lineDistanceY = random.Next(tilePixelWidth / (-4), tilePixelWidth / 4);
 
                     Point otherPoint = new Point(point.X + lineDistanceX, point.Y + lineDistanceY);
 
