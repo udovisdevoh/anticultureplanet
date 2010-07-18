@@ -107,13 +107,13 @@ namespace AntiCulturePlanet
             previousDateTime = DateTime.Now;
 
             if (userInput.IsPressLeft)
-                planetViewer.MoveView(-1, 0);
+                planetViewer.MoveView(-1, 0, planet.Width, planet.Height);
             if (userInput.IsPressRight)
-                planetViewer.MoveView(1, 0);
+                planetViewer.MoveView(1, 0, planet.Width, planet.Height);
             if (userInput.IsPressUp)
-                planetViewer.MoveView(0, -1);
+                planetViewer.MoveView(0, -1, planet.Width, planet.Height);
             if (userInput.IsPressDown)
-                planetViewer.MoveView(0, 1);
+                planetViewer.MoveView(0, 1, planet.Width, planet.Height);
 
             planetViewer.Update(planet);
         }
