@@ -52,6 +52,7 @@
     <Compile Include="models\planet\Tile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="views\LowResPlanetView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="jpeg.dll">
@@ -105,9 +106,6 @@
     <Content Include="zlib1.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="views\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
