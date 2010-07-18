@@ -68,12 +68,12 @@ namespace AntiCulturePlanet
         {
             Events.TargetFps = targetFps;
             Events.Tick += Update;
-            Events.KeyboardDown += OnKeyboardDown;
+            /*Events.KeyboardDown += OnKeyboardDown;
             Events.KeyboardUp += OnKeyboardUp;
             Events.MouseMotion += OnMouseMotion;
             Events.MouseButtonDown += OnMouseDown;
             Events.MouseButtonUp += OnMouseUp;
-            Events.MusicFinished += OnMusicFinished;
+            Events.MusicFinished += OnMusicFinished;*/
             Events.Run();
         }
         #endregion
