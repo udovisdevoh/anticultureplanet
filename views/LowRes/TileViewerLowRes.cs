@@ -122,7 +122,7 @@ namespace AntiCulturePlanet
                     int y = random.Next(0, tilePixelHeight);
                     Point point = new Point(tile.X * tilePixelWidth + x, tile.Y * tilePixelHeight + y);
 
-                    int lineDistance = random.Next(tilePixelWidth / (-4), tilePixelWidth / 4);
+                    int lineDistance = random.Next(tilePixelWidth / (-2), tilePixelWidth / 2);
 
                     /*if (x + lineDistance >= tilePixelWidth && !planet.GetRightTile(tile).IsWater)
                         continue;
