@@ -14,17 +14,17 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Width (tiles)
         /// </summary>
-        private int width = 128;
+        private int width = 256;
 
         /// <summary>
         /// Height (tiles)
         /// </summary>
-        private int height = 128;
+        private int height = 256;
 
         /// <summary>
         /// Temperature at pole (celsius)
         /// </summary>
-        private int minTemperature = -20;
+        private int minTemperature = -10;
 
         /// <summary>
         /// Temperature at equator (celsius)
@@ -44,22 +44,22 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Minimum altitude
         /// </summary>
-        private int minAltitude = -30;
+        private int minAltitude = -70;
 
         /// <summary>
         /// Maximum altitude
         /// </summary>
-        private int maxAltitude = 30;
+        private int maxAltitude = 70;
 
         /// <summary>
         /// How many time we soften tiles
         /// </summary>
-        private int softnessPassCount = 2;
+        private int softnessPassCount = 5;
 
         /// <summary>
         /// Percentage of water
         /// </summary>
-        private float waterPercentage = 0.5f;
+        private float waterPercentage = 0.45f;
         #endregion
 
         #region Properties
