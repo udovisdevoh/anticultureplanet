@@ -16,6 +16,7 @@ namespace AntiCulturePlanet
         /// </summary>
         /// <param name="planet">planet</param>
         internal abstract void Update(Planet planet);
+
         /// <summary>
         /// Move view
         /// </summary>
