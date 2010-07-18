@@ -11,7 +11,7 @@ namespace AntiCulturePlanet
     internal abstract class PlanetViewer
     {
         /// <summary>
-        /// Refresh planet display
+        /// Refresh planet display and mark as IsNeedRefresh = false
         /// </summary>
         /// <param name="planet">planet</param>
         internal abstract void Update(Planet planet);
