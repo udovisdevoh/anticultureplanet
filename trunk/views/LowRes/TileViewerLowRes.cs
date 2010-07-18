@@ -124,10 +124,10 @@ namespace AntiCulturePlanet
 
                     int lineDistance = random.Next(tilePixelWidth / (-4), tilePixelWidth / 4);
 
-                    if (x + lineDistance >= tilePixelWidth && !planet.GetRightTile(tile).IsWater)
+                    /*if (x + lineDistance >= tilePixelWidth && !planet.GetRightTile(tile).IsWater)
                         continue;
                     else if (x + lineDistance < 0 && !planet.GetLeftTile(tile).IsWater)
-                        continue;
+                        continue;*/
 
                     Point otherPoint = new Point(point.X + lineDistance, point.Y);
 
