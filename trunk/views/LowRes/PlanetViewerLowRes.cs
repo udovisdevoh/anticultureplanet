@@ -36,12 +36,12 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Width of a tile (per pixel)
         /// </summary>
-        private int tilePixelWidth = 32;
+        private int tilePixelWidth = 16;
 
         /// <summary>
         /// Width of a tile (per pixel)
         /// </summary>
-        private int tilePixelHeight = 32;
+        private int tilePixelHeight = 16;
 
         /// <summary>
         /// Main drawing surface
