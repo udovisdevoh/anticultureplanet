@@ -18,12 +18,12 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Screen width
         /// </summary>
-        private const int screenWidth = 640;
+        private const int screenWidth = 800;
 
         /// <summary>
         /// Screen height
         /// </summary>
-        private const int screenHeight = 480;
+        private const int screenHeight = 600;
 
         /// <summary>
         /// Target FPS
