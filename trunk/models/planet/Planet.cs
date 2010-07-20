@@ -70,6 +70,11 @@ namespace AntiCulturePlanet
         /// Whether planet must be redrawn
         /// </summary>
         private bool isNeedRefresh = true;
+
+        /// <summary>
+        /// List of entities
+        /// </summary>
+        private HashSet<AbstractEntity> entityList;
         #endregion
 
         #region Parts
@@ -108,6 +113,8 @@ namespace AntiCulturePlanet
             for (int y = 0; y < height; y++)
                 for (int x = 0; x < width; x++)
                     tileGrid[x, y] = new Tile(x, y);
+
+            this.entityList = new HashSet<AbstractEntity>();
         }
         #endregion
 
