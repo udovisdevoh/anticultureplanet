@@ -62,9 +62,9 @@ namespace AntiCulturePlanet
         private int waterThresholdAltitude = 0;
 
         /// <summary>
-        /// Percentage of water
+        /// Altitude of water
         /// </summary>
-        private float waterPercentage;
+        private float waterAltitude;
 
         /// <summary>
         /// Whether planet must be redrawn
@@ -100,7 +100,7 @@ namespace AntiCulturePlanet
             this.minAltitude = minAltitude;
             this.maxAltitude = maxAltitude;
             this.softnessPassCount = softnessPassCount;
-            this.waterPercentage = waterPercentage;
+            this.waterAltitude = waterPercentage;
 
             this.waterThresholdAltitude = (int)Math.Round((((((double)maxAltitude) - ((double)minAltitude)) * waterPercentage)) + minAltitude);
 
@@ -272,12 +272,12 @@ namespace AntiCulturePlanet
         }
 
         /// <summary>
-        /// Percentage of water
+        /// Altitude of water
         /// </summary>
-        internal float WaterPercentage
+        internal float WaterAltitude
         {
-            get { return waterPercentage; }
-            set { waterPercentage = value; }
+            get { return waterAltitude; }
+            set { waterAltitude = value; }
         }
 
         /// <summary>

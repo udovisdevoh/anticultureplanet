@@ -57,9 +57,9 @@ namespace AntiCulturePlanet
         private int softnessPassCount = 5;
 
         /// <summary>
-        /// Percentage of water
+        /// Altitude of water (from 0 to 1)
         /// </summary>
-        private float waterPercentage = 0.4f;
+        private float waterAltitude = 0.3f;
         #endregion
 
         #region Properties
@@ -141,12 +141,12 @@ namespace AntiCulturePlanet
         }
 
         /// <summary>
-        /// Percentage of water
+        /// Altitude of water
         /// </summary>
-        internal float WaterPercentage
+        internal float WaterAltitude
         {
-            get { return waterPercentage; }
-            set { waterPercentage = value; }
+            get { return waterAltitude; }
+            set { waterAltitude = value; }
         }
         #endregion
 
@@ -157,7 +157,7 @@ namespace AntiCulturePlanet
         /// <returns>planet</returns>
         internal Planet Build(Random random)
         {
-            Planet planet = new Planet(width, height, minTemperature, maxTemperature, dayLength, yearLength, minAltitude, maxAltitude, softnessPassCount, waterPercentage);
+            Planet planet = new Planet(width, height, minTemperature, maxTemperature, dayLength, yearLength, minAltitude, maxAltitude, softnessPassCount, waterAltitude);
             
             //We randomize each tile
             for (int y = 0; y < width; y++)
@@ -165,11 +165,11 @@ namespace AntiCulturePlanet
                     planet[x, y].Randomize(planet, random);
 
             //We draw some extra random water rivers
-            for (int riverCount = 0; riverCount < 10; riverCount++)
+            for (int riverCount = 0; riverCount < 20; riverCount++)
             {
                 int riverX = random.Next(width);
                 int riverY = random.Next(height);
-                for (int riverPosition = 0; riverPosition < 1000; riverPosition++)
+                for (int riverPosition = 0; riverPosition < 10000; riverPosition++)
                 {
                     planet[riverX, riverY].IsWater = true;
                     planet[riverX, riverY].Altitude = random.Next(minAltitude, planet.WaterThresholdAltitude);
