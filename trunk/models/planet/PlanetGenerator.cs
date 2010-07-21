@@ -52,6 +52,16 @@ namespace AntiCulturePlanet
         private int maxAltitude = 70;
 
         /// <summary>
+        /// How many river
+        /// </summary>
+        private int howManyRiver = 20;
+
+        /// <summary>
+        /// River length
+        /// </summary>
+        private int riverLength = 10000;
+
+        /// <summary>
         /// How many time we soften tiles
         /// </summary>
         private int softnessPassCount = 5;
@@ -148,6 +158,24 @@ namespace AntiCulturePlanet
             get { return waterAltitude; }
             set { waterAltitude = value; }
         }
+
+        /// <summary>
+        /// How many river
+        /// </summary>
+        internal int HowManyRiver
+        {
+            get { return howManyRiver; }
+            set { howManyRiver = value; }
+        }
+
+        /// <summary>
+        /// River length
+        /// </summary>
+        private int RiverLength
+        {
+            get { return riverLength; }
+            set { riverLength = value; }
+        }
         #endregion
 
         #region Internal Methods
@@ -165,11 +193,11 @@ namespace AntiCulturePlanet
                     planet[x, y].Randomize(planet, random);
 
             //We draw some extra random water rivers
-            for (int riverCount = 0; riverCount < 20; riverCount++)
+            for (int riverCount = 0; riverCount < howManyRiver; riverCount++)
             {
                 int riverX = random.Next(width);
                 int riverY = random.Next(height);
-                for (int riverPosition = 0; riverPosition < 10000; riverPosition++)
+                for (int riverPosition = 0; riverPosition < riverLength; riverPosition++)
                 {
                     planet[riverX, riverY].IsWater = true;
                     planet[riverX, riverY].Altitude = random.Next(minAltitude, planet.WaterThresholdAltitude);
