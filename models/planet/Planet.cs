@@ -151,6 +151,46 @@ namespace AntiCulturePlanet
         {
             return this[tile.X, tile.Y + 1];
         }
+
+        /// <summary>
+        /// Tile on bottom right
+        /// </summary>
+        /// <param name="tile">from tile</param>
+        /// <returns>tile on bottom right</returns>
+        internal Tile GetBottomRightTile(Tile tile)
+        {
+            return this[tile.X + 1, tile.Y + 1];
+        }
+
+        /// <summary>
+        /// Tile on bottom left
+        /// </summary>
+        /// <param name="tile">from tile</param>
+        /// <returns>tile on bottom left</returns>
+        internal Tile GetBottomLeftTile(Tile tile)
+        {
+            return this[tile.X - 1, tile.Y + 1];
+        }
+
+        /// <summary>
+        /// Tile on top left
+        /// </summary>
+        /// <param name="tile">from tile</param>
+        /// <returns>tile on top left</returns>
+        internal Tile GetTopLeftTile(Tile tile)
+        {
+            return this[tile.X - 1, tile.Y - 1];
+        }
+
+        /// <summary>
+        /// Tile on top right
+        /// </summary>
+        /// <param name="tile">from tile</param>
+        /// <returns>tile on top right</returns>
+        internal Tile GetTopRightTile(Tile tile)
+        {
+            return this[tile.X + 1, tile.Y - 1];
+        }
         #endregion
 
         #region Properties

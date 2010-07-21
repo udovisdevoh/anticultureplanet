@@ -164,6 +164,20 @@ namespace AntiCulturePlanet
                 for (int x = 0; x < width; x++)
                     planet[x, y].Randomize(planet, random);
 
+            //We draw some extra random water rivers
+            for (int riverCount = 0; riverCount < 10; riverCount++)
+            {
+                int riverX = random.Next(width);
+                int riverY = random.Next(height);
+                for (int riverPosition = 0; riverPosition < 1000; riverPosition++)
+                {
+                    planet[riverX, riverY].IsWater = true;
+                    planet[riverX, riverY].Altitude = random.Next(minAltitude, planet.WaterThresholdAltitude);
+                    riverX += random.Next(-1, 2);
+                    riverY += random.Next(-1, 2);
+                }
+            }
+
             //We soften each tile
             for (int currentSoftnessPassCount = 0; currentSoftnessPassCount < softnessPassCount; currentSoftnessPassCount++)
             {
