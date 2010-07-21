@@ -72,8 +72,17 @@ namespace AntiCulturePlanet
                     if (this.altitude > planet.GetTopTile(this).altitude && this.altitude > planet.GetBottomTile(this).altitude)
                         this.altitude = Math.Max(planet.GetTopTile(this).altitude, planet.GetBottomTile(this).altitude);
 
+                if (planet.GetTopLeftTile(this).altitude < planet.WaterThresholdAltitude && planet.GetBottomRightTile(this).altitude < planet.WaterThresholdAltitude)
+                    if (this.altitude > planet.GetTopLeftTile(this).altitude && this.altitude > planet.GetBottomRightTile(this).altitude)
+                        this.altitude = Math.Max(planet.GetTopLeftTile(this).altitude, planet.GetBottomRightTile(this).altitude);
 
-                if (planet.GetTopTile(this).altitude < planet.WaterThresholdAltitude && planet.GetRightTile(this).altitude < planet.WaterThresholdAltitude)
+                if (planet.GetTopRightTile(this).altitude < planet.WaterThresholdAltitude && planet.GetBottomLeftTile(this).altitude < planet.WaterThresholdAltitude)
+                    if (this.altitude > planet.GetTopRightTile(this).altitude && this.altitude > planet.GetBottomLeftTile(this).altitude)
+                        this.altitude = Math.Max(planet.GetTopRightTile(this).altitude, planet.GetBottomLeftTile(this).altitude);
+
+
+
+                /*if (planet.GetTopTile(this).altitude < planet.WaterThresholdAltitude && planet.GetRightTile(this).altitude < planet.WaterThresholdAltitude)
                     if (this.altitude > planet.GetTopTile(this).altitude && this.altitude > planet.GetRightTile(this).altitude)
                         this.altitude = Math.Max(planet.GetTopTile(this).altitude, planet.GetRightTile(this).altitude);
 
@@ -87,7 +96,7 @@ namespace AntiCulturePlanet
 
                 if (planet.GetBottomTile(this).altitude < planet.WaterThresholdAltitude && planet.GetLeftTile(this).altitude < planet.WaterThresholdAltitude)
                     if (this.altitude > planet.GetBottomTile(this).altitude && this.altitude > planet.GetLeftTile(this).altitude)
-                        this.altitude = Math.Max(planet.GetBottomTile(this).altitude, planet.GetLeftTile(this).altitude);
+                        this.altitude = Math.Max(planet.GetBottomTile(this).altitude, planet.GetLeftTile(this).altitude);*/
             }
 
             this.altitude = (int)Math.Round((float)(this.altitude + planet.GetLeftTile(this).altitude + planet.GetRightTile(this).altitude + planet.GetTopTile(this).altitude + planet.GetBottomTile(this).altitude) / 5.0);
