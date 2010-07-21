@@ -193,11 +193,12 @@ namespace AntiCulturePlanet
                     planet[x, y].Randomize(planet, random);
 
             //We draw some extra random water rivers
+            int riverLengthRelative = (int)Math.Round(((double)riverLength) * ((double)width) * ((double)height) / 262144.0);
             for (int riverCount = 0; riverCount < howManyRiver; riverCount++)
             {
                 int riverX = random.Next(width);
                 int riverY = random.Next(height);
-                for (int riverPosition = 0; riverPosition < riverLength; riverPosition++)
+                for (int riverPosition = 0; riverPosition < riverLengthRelative; riverPosition++)
                 {
                     planet[riverX, riverY].IsWater = true;
                     planet[riverX, riverY].Altitude = random.Next(minAltitude, planet.WaterThresholdAltitude);
