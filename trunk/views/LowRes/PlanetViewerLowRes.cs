@@ -92,18 +92,19 @@ namespace AntiCulturePlanet
         internal override void Update(Planet planet)
         {
             if (planet.IsNeedRefresh)
+            {
                 for (int y = 0; y < planet.Height; y++)
                     for (int x = 0; x < planet.Width; x++)
-                        if (planet[x,y].IsNeedRefresh)
-                            if (!planet[x,y].IsWater)
+                        if (planet[x, y].IsNeedRefresh)
+                            if (!planet[x, y].IsWater)
                                 tileViewer.Update(planet[x, y], planet, groundSurcace, tilePixelWidth, tilePixelHeight);
-            
-            if (planet.IsNeedRefresh)
+
                 for (int y = 0; y < planet.Height; y++)
                     for (int x = 0; x < planet.Width; x++)
                         if (planet[x, y].IsNeedRefresh)
                             if (planet[x, y].IsWater)
                                 tileViewer.Update(planet[x, y], planet, groundSurcace, tilePixelWidth, tilePixelHeight);
+            }
 
             planet.IsNeedRefresh = false;
             int pixelOffsetX = 0 - viewedTileX * tilePixelWidth;
