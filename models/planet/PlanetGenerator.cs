@@ -59,7 +59,7 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Percentage of water
         /// </summary>
-        private float waterPercentage = 0.45f;
+        private float waterPercentage = 0.4f;
         #endregion
 
         #region Properties
