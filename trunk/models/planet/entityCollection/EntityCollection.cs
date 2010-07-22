@@ -49,7 +49,12 @@ namespace AntiCulturePlanet
         /// </summary>
         /// <param name="type">entity type</param>
         /// <returns>amount of entity of specified type</returns>
-        internal abstract int CountType(Type type);
+        internal int CountType(Type type)
+        {
+            int count = 0;
+            typeCount.TryGetValue(type, out count);
+            return count;
+        }
         #endregion
     }
 }

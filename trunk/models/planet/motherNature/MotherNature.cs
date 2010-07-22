@@ -6,7 +6,7 @@ using System.Text;
 namespace AntiCulturePlanet
 {
     /// <summary>
-    /// Regulates natural cycles
+    /// Regulates quantity of natural things
     /// </summary>
     class MotherNature
     {
