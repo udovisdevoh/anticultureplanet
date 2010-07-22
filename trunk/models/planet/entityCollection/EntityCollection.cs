@@ -42,7 +42,7 @@ namespace AntiCulturePlanet
         /// <param name="entity1">entity 1</param>
         /// <param name="entity2">entity 2</param>
         /// <returns>distance between 2 entities (1 = 1 tile height or width)</returns>
-        internal abstract float GetDistance(AbstractEntity entity1, AbstractEntity entity2);
+        //internal abstract float GetDistance(AbstractEntity entity1, AbstractEntity entity2);
 
         /// <summary>
         /// Count the amount of entity of specified type
