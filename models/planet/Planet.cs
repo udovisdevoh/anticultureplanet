@@ -22,7 +22,7 @@ namespace AntiCulturePlanet
         private EntityCollection entityCollection;
 
         /// <summary>
-        /// Regulates natural cycles
+        /// Regulates quantity of natural things
         /// </summary>
         private MotherNature motherNature;
         #endregion
