@@ -62,8 +62,6 @@ namespace AntiCulturePlanet
         /// <param name="planet">planet (to get neighbor tiles)</param>
         internal void Soften(Planet planet)
         {
-            #warning Optimize Get[Direction]Tile by adding a lazy cache to tile class
-
             if (this.altitude >= planet.WaterThresholdAltitude)
             {
                 if (planet.GetLeftTile(this).altitude < planet.WaterThresholdAltitude && planet.GetRightTile(this).altitude < planet.WaterThresholdAltitude)
