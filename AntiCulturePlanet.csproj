@@ -56,6 +56,8 @@
     <Compile Include="models\planet\entities\animals\humans\AbstractHumanEntity.cs" />
     <Compile Include="models\planet\entities\animals\humans\ManEntity.cs" />
     <Compile Include="models\planet\entities\animals\humans\WomanEntity.cs" />
+    <Compile Include="models\planet\entityCollection\EntityCollection.cs" />
+    <Compile Include="models\planet\motherNature\MotherNature.cs" />
     <Compile Include="models\planet\Planet.cs" />
     <Compile Include="models\planet\PlanetGenerator.cs" />
     <Compile Include="models\planet\Tile.cs" />

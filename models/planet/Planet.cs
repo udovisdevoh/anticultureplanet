@@ -10,6 +10,23 @@ namespace AntiCulturePlanet
     /// </summary>
     internal class Planet
     {
+        #region Parts
+        /// <summary>
+        /// Tile grid
+        /// </summary>
+        private Tile[,] tileGrid;
+
+        /// <summary>
+        /// Contains the entities on the planet
+        /// </summary>
+        private EntityCollection entityCollection;
+
+        /// <summary>
+        /// Regulates natural cycles
+        /// </summary>
+        private MotherNature motherNature;
+        #endregion
+
         #region Fields
         /// <summary>
         /// Planet's width
@@ -72,10 +89,6 @@ namespace AntiCulturePlanet
         private bool isNeedRefresh = true;
         #endregion
 
-        #region Parts
-        private Tile[,] tileGrid;
-        #endregion
-
         #region Constructor
         /// <summary>
         /// Build a planet (don't use directly, use PlanetGenerator instead)
@@ -91,6 +104,9 @@ namespace AntiCulturePlanet
         /// <param name="waterPercentage">percentage of water</param>
         internal Planet(int width, int height, int minTemperature, int maxTemperature, int dayLength, int yearLength, int minAltitude, int maxAltitude, int softnessPassCount, float waterPercentage)
         {
+            motherNature = new MotherNature();
+            entityCollection = new EntityCollection();
+
             this.width = width;
             this.height = height;
             this.minTemperature = minTemperature;
