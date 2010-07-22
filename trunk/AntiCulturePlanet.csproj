@@ -66,6 +66,76 @@
     <Compile Include="views\PlanetViewer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\graphics\png\anvil.png" />
+    <Content Include="assets\graphics\png\apple.png" />
+    <Content Include="assets\graphics\png\banana.png" />
+    <Content Include="assets\graphics\png\blueberry.png" />
+    <Content Include="assets\graphics\png\bone.png" />
+    <Content Include="assets\graphics\png\boneknife.png" />
+    <Content Include="assets\graphics\png\club.png" />
+    <Content Include="assets\graphics\png\corpse.png" />
+    <Content Include="assets\graphics\png\cuttingstone.png" />
+    <Content Include="assets\graphics\png\decomposition.png" />
+    <Content Include="assets\graphics\png\feces.png" />
+    <Content Include="assets\graphics\png\female.png" />
+    <Content Include="assets\graphics\png\fire.png" />
+    <Content Include="assets\graphics\png\healingplant.png" />
+    <Content Include="assets\graphics\png\herb.png" />
+    <Content Include="assets\graphics\png\human.png" />
+    <Content Include="assets\graphics\png\animals\humans\man\PrehistoricMan1.png" />
+    <Content Include="assets\graphics\png\animals\humans\man\PrehistoricMan2.png" />
+    <Content Include="assets\graphics\png\animals\humans\man\PrehistoricMan3.png" />
+    <Content Include="assets\graphics\png\animals\humans\woman\PrehistoricWoman1.png" />
+    <Content Include="assets\graphics\png\animals\humans\woman\PrehistoricWoman2.png" />
+    <Content Include="assets\graphics\png\animals\humans\woman\PrehistoricWoman3.png" />
+    <Content Include="assets\graphics\png\ironaxe.png" />
+    <Content Include="assets\graphics\png\ironhammer.png" />
+    <Content Include="assets\graphics\png\ironspear.png" />
+    <Content Include="assets\graphics\png\ironsword.png" />
+    <Content Include="assets\graphics\png\lumber.png" />
+    <Content Include="assets\graphics\png\lumberhouse.png" />
+    <Content Include="assets\graphics\png\Man.png" />
+    <Content Include="assets\graphics\png\mannonstick.png" />
+    <Content Include="assets\graphics\png\mineral.png" />
+    <Content Include="assets\graphics\png\mud.png" />
+    <Content Include="assets\graphics\png\mudhut.png" />
+    <Content Include="assets\graphics\png\orange.png" />
+    <Content Include="assets\graphics\png\palmtree.png" />
+    <Content Include="assets\graphics\png\palmtree2.png" />
+    <Content Include="assets\graphics\png\palmtree3.png" />
+    <Content Include="assets\graphics\png\pinetree.png" />
+    <Content Include="assets\graphics\png\pinetree2.png" />
+    <Content Include="assets\graphics\png\pinetree3.png" />
+    <Content Include="assets\graphics\png\plant.png" />
+    <Content Include="assets\graphics\png\poundingstone.png" />
+    <Content Include="assets\graphics\png\rock.png" />
+    <Content Include="assets\graphics\png\rope.png" />
+    <Content Include="assets\graphics\png\skeleton.png" />
+    <Content Include="assets\graphics\png\skin.png" />
+    <Content Include="assets\graphics\png\sperm.png" />
+    <Content Include="assets\graphics\png\spikystone.png" />
+    <Content Include="assets\graphics\png\steak.png" />
+    <Content Include="assets\graphics\png\stick.png" />
+    <Content Include="assets\graphics\png\stone.png" />
+    <Content Include="assets\graphics\png\stoneaxe.png" />
+    <Content Include="assets\graphics\png\stonehammer.png" />
+    <Content Include="assets\graphics\png\stonehut.png" />
+    <Content Include="assets\graphics\png\stonespear.png" />
+    <Content Include="assets\graphics\png\tepee.png" />
+    <Content Include="assets\graphics\png\things\stone1.png" />
+    <Content Include="assets\graphics\png\torch.png" />
+    <Content Include="assets\graphics\png\Tree.png" />
+    <Content Include="assets\graphics\png\tree2.png" />
+    <Content Include="assets\graphics\png\tree3.png" />
+    <Content Include="assets\graphics\png\urine.png" />
+    <Content Include="assets\graphics\png\vomit.png" />
+    <Content Include="assets\graphics\png\water.png" />
+    <Content Include="assets\graphics\png\woman.png" />
+    <Content Include="assets\graphics\png\womannonstick.png" />
+    <Content Include="assets\graphics\png\woodbow.png" />
+    <Content Include="assets\graphics\png\youngpalmtree.png" />
+    <Content Include="assets\graphics\png\youngpinetree.png" />
+    <Content Include="assets\graphics\png\youngtree.png" />
     <Content Include="jpeg.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -117,6 +187,18 @@
     <Content Include="zlib1.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\graphics\originals\PrehistoricMan1.fla" />
+    <None Include="assets\graphics\originals\PrehistoricMan2.fla" />
+    <None Include="assets\graphics\originals\PrehistoricMan3.fla" />
+    <None Include="assets\graphics\originals\PrehistoricWoman1.fla" />
+    <None Include="assets\graphics\originals\PrehistoricWoman2.fla" />
+    <None Include="assets\graphics\originals\PrehistoricWoman3.fla" />
+    <None Include="assets\graphics\originals\Stone1.fla" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="assets\graphics\png\plants\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
