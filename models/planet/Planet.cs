@@ -388,6 +388,14 @@ namespace AntiCulturePlanet
             get { return isNeedRefresh; }
             set { isNeedRefresh = value; }
         }
+
+        /// <summary>
+        /// All the entities on planet
+        /// </summary>
+        public EntityCollection EntityCollection
+        {
+            get { return entityCollection; }
+        }
         #endregion
     }
 }
