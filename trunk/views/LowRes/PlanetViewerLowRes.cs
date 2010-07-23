@@ -24,6 +24,11 @@ namespace AntiCulturePlanet
         private TileViewerLowRes tileViewer;
 
         /// <summary>
+        /// Entity viewer
+        /// </summary>
+        private EntityViewer entityViewer;
+
+        /// <summary>
         /// Screen width
         /// </summary>
         private int screenWidth;
@@ -81,6 +86,8 @@ namespace AntiCulturePlanet
             this.mainSurface = mainSurface;
             this.screenWidth = screenWidth;
             this.screenHeight = screenHeight;
+
+            entityViewer = new EntityViewerLowRes();
         }
         #endregion
 
@@ -121,7 +128,7 @@ namespace AntiCulturePlanet
             mainSurface.Blit(groundSurcace, new Point(pixelOffsetX - planet.Width * tilePixelWidth, pixelOffsetY + planet.Height * tilePixelHeight));
             mainSurface.Blit(groundSurcace, new Point(pixelOffsetX + planet.Width * tilePixelWidth, pixelOffsetY + planet.Height * tilePixelHeight));
 
-            #warning Implement Sprite Viewer
+            entityViewer.Update(planet.EntityCollection);
         }
 
         /// <summary>

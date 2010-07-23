@@ -65,6 +65,8 @@
     <Compile Include="models\planet\Tile.cs" />
     <Compile Include="controllers\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="views\EntityViewer.cs" />
+    <Compile Include="views\LowRes\entityViewer\EntityViewerLowRes.cs" />
     <Compile Include="views\LowRes\PlanetViewerLowRes.cs" />
     <Compile Include="views\LowRes\TileViewerLowRes.cs" />
     <Compile Include="views\PlanetViewer.cs" />
