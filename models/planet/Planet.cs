@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 
 namespace AntiCulturePlanet
 {
@@ -25,6 +26,11 @@ namespace AntiCulturePlanet
         /// Regulates quantity of natural things
         /// </summary>
         private MotherNature motherNature;
+
+        /// <summary>
+        /// Random number generator
+        /// </summary>
+        private Random random;
         #endregion
 
         #region Fields
@@ -102,8 +108,9 @@ namespace AntiCulturePlanet
         /// <param name="minTemperature">min temperature (at pole)</param>
         /// <param name="maxTemperature">max temperature (at equator)</param>
         /// <param name="waterPercentage">percentage of water</param>
-        internal Planet(int width, int height, int minTemperature, int maxTemperature, int dayLength, int yearLength, int minAltitude, int maxAltitude, int softnessPassCount, float waterPercentage)
+        internal Planet(int width, int height, int minTemperature, int maxTemperature, int dayLength, int yearLength, int minAltitude, int maxAltitude, int softnessPassCount, float waterPercentage, Random random)
         {
+            this.random = random;
             motherNature = new MotherNature();
             entityCollection = new EntityCollection();
 
@@ -128,6 +135,15 @@ namespace AntiCulturePlanet
         #endregion
 
         #region Internal Methods
+        /// <summary>
+        /// Update the planet
+        /// <param name="currentTime">current time</param>
+        /// </summary>
+        internal void Update(DateTime currentTime)
+        {
+            motherNature.Update(entityCollection, this, currentTime);
+        }
+
         /// <summary>
         /// Tile at left
         /// </summary>
@@ -206,6 +222,43 @@ namespace AntiCulturePlanet
         internal Tile GetTopRightTile(Tile tile)
         {
             return this[tile.X + 1, tile.Y - 1];
+        }
+
+        /// <summary>
+        /// Get random ground position
+        /// </summary>
+        /// <returns>random ground position</returns>
+        internal Point GetRandomGroundPosition()
+        {
+            Point point;
+            do
+            {
+                point = GetRandomPosition();
+            } while (tileGrid[point.X, point.Y].IsWater);
+            return point;
+        }
+
+        /// <summary>
+        /// Get random water position
+        /// </summary>
+        /// <returns>random water position</returns>
+        internal Point GetRandomWaterPosition()
+        {
+            Point point;
+            do
+            {
+                point = GetRandomPosition();
+            } while (!tileGrid[point.X, point.Y].IsWater);
+            return point;
+        }
+
+        /// <summary>
+        /// Random position
+        /// </summary>
+        /// <returns>Random position</returns>
+        internal Point GetRandomPosition()
+        {
+            return new Point(random.Next(0, width), random.Next(0, height));
         }
         #endregion
 

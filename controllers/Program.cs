@@ -33,7 +33,7 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Full screen or not
         /// </summary>
-        private const bool isFullScreen = true;
+        private const bool isFullScreen = false;
         #endregion
 
         #region Fields and parts
@@ -101,10 +101,16 @@ namespace AntiCulturePlanet
         #endregion
 
         #region Event Handlers
+        /// <summary>
+        /// Update program
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="args">arguments</param>
         internal void Update(object sender, TickEventArgs args)
         {
+            DateTime currentTime = DateTime.Now;
             double timeDelta = ((TimeSpan)(DateTime.Now - previousDateTime)).TotalMilliseconds / 16.0;
-            previousDateTime = DateTime.Now;
+            previousDateTime = currentTime;
 
             if (userInput.IsPressLeft)
                 planetViewer.MoveView(-1, 0, planet.Width, planet.Height);
@@ -114,6 +120,8 @@ namespace AntiCulturePlanet
                 planetViewer.MoveView(0, -1, planet.Width, planet.Height);
             if (userInput.IsPressDown)
                 planetViewer.MoveView(0, 1, planet.Width, planet.Height);
+
+            planet.Update(currentTime);
 
             planetViewer.Update(planet);
 

@@ -6,9 +6,9 @@ using System.Text;
 namespace AntiCulturePlanet
 {
     /// <summary>
-    /// Represents a man
+    /// Large stone entity
     /// </summary>
-    class ManEntity : AbstractHumanEntity
+    class LargeStoneEntity : AbstractEntity
     {
         #region Internal Methods
         /// <summary>
@@ -17,7 +17,7 @@ namespace AntiCulturePlanet
         /// <returns>Decay time</returns>
         internal override double BuildDecayTime()
         {
-            return 1.0;
+            return 100.0;
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace AntiCulturePlanet
         /// <returns>size</returns>
         internal override double BuildSize()
         {
-            return 1.0;
+            return 1.5;
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace AntiCulturePlanet
         /// <returns>mass</returns>
         internal override double BuildMass()
         {
-            return 1.0;
+            return 6.0;
         }
         #endregion
     }
