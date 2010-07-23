@@ -185,7 +185,7 @@ namespace AntiCulturePlanet
         /// <returns>planet</returns>
         internal Planet Build(Random random)
         {
-            Planet planet = new Planet(width, height, minTemperature, maxTemperature, dayLength, yearLength, minAltitude, maxAltitude, softnessPassCount, waterAltitude);
+            Planet planet = new Planet(width, height, minTemperature, maxTemperature, dayLength, yearLength, minAltitude, maxAltitude, softnessPassCount, waterAltitude, random);
             
             //We randomize each tile
             for (int y = 0; y < width; y++)

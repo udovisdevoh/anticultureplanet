@@ -56,5 +56,20 @@ namespace AntiCulturePlanet
             return count;
         }
         #endregion
+
+        /// <summary>
+        /// Add entity
+        /// </summary>
+        /// <param name="entity">entity to add</param>
+        internal void Add(AbstractEntity entity)
+        {
+            internalCollection.Add(entity);
+            int typeCountValue = 0;
+            Type type = entity.GetType();
+            if (typeCount.TryGetValue(type, out typeCountValue))
+                typeCount[type]++;
+            else
+                typeCount.Add(type, 1);
+        }
     }
 }

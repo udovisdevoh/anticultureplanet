@@ -42,6 +42,38 @@ namespace AntiCulturePlanet
         private double decayTime;
         #endregion
 
+        #region Constructor
+        /// <summary>
+        /// Build abstract entity
+        /// </summary>
+        public AbstractEntity()
+        {
+            mass = BuildMass();
+            size = BuildSize();
+            decayTime = BuildDecayTime();
+        }
+        #endregion
+
+        #region Abstract Methods
+        /// <summary>
+        /// Build decay time
+        /// </summary>
+        /// <returns>Build decay time</returns>
+        internal abstract double BuildDecayTime();
+
+        /// <summary>
+        /// Build size
+        /// </summary>
+        /// <returns>Build size</returns>
+        internal abstract double BuildSize();
+
+        /// <summary>
+        /// Build mass
+        /// </summary>
+        /// <returns>Build mass</returns>
+        internal abstract double BuildMass();
+        #endregion
+
         #region Properties
         /// <summary>
         /// X position
