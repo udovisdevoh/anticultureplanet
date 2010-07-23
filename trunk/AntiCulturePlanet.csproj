@@ -70,6 +70,8 @@
     <Compile Include="views\lowRes\PlanetViewerLowRes.cs" />
     <Compile Include="views\lowRes\TileViewerLowRes.cs" />
     <Compile Include="views\PlanetViewer.cs" />
+    <Compile Include="views\sprite\EntitySprite.cs" />
+    <Compile Include="views\sprite\SpriteManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\graphics\png\anvil.png" />
@@ -205,7 +207,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\graphics\png\plants\" />
-    <Folder Include="views\sprite\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
