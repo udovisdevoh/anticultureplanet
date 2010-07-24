@@ -30,9 +30,7 @@ namespace AntiCulturePlanet
             foreach (AbstractEntity entity in entityCollection)
             {
                 Surface spriteSurface = entity.EntitySprite.GetSurface((int)Math.Round(entity.Size * tilePixelWidth), (int)Math.Round(entity.Size * tilePixelHeight));
-
-
-                surface.Blit(spriteSurface, new Point(viewedTileX * tilePixelWidth, viewedTileY * tilePixelHeight));
+                surface.Blit(spriteSurface, new Point((int)Math.Round(entity.X * tilePixelWidth), (int)Math.Round(entity.Y * tilePixelHeight)));
             }
         }
     }
