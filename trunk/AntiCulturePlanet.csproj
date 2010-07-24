@@ -51,18 +51,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="controllers\UserInput.cs" />
-    <Compile Include="models\planet\entities\AbstractEntity.cs" />
-    <Compile Include="models\planet\entities\animals\AbstractAnimalEntity.cs" />
-    <Compile Include="models\planet\entities\animals\humans\AbstractHumanEntity.cs" />
-    <Compile Include="models\planet\entities\animals\humans\ManEntity.cs" />
-    <Compile Include="models\planet\entities\animals\humans\WomanEntity.cs" />
-    <Compile Include="models\planet\entities\things\LargeStoneEntity.cs" />
-    <Compile Include="models\planet\entityCollection\EntityCollection.cs" />
-    <Compile Include="models\planet\motherNature\MotherNature.cs" />
-    <Compile Include="models\planet\motherNature\parts\EntityRegulator.cs" />
-    <Compile Include="models\planet\Planet.cs" />
-    <Compile Include="models\planet\PlanetGenerator.cs" />
-    <Compile Include="models\planet\Tile.cs" />
+    <Compile Include="models\entities\AbstractEntity.cs" />
+    <Compile Include="models\entities\animals\AbstractAnimalEntity.cs" />
+    <Compile Include="models\entities\animals\humans\AbstractHumanEntity.cs" />
+    <Compile Include="models\entities\animals\humans\ManEntity.cs" />
+    <Compile Include="models\entities\animals\humans\WomanEntity.cs" />
+    <Compile Include="models\entities\things\LargeStoneEntity.cs" />
+    <Compile Include="models\entityCollection\EntityCollection.cs" />
+    <Compile Include="models\motherNature\MotherNature.cs" />
+    <Compile Include="models\motherNature\parts\EntityRegulator.cs" />
+    <Compile Include="models\NoAvailableSpaceException.cs" />
+    <Compile Include="models\Planet.cs" />
+    <Compile Include="models\PlanetGenerator.cs" />
+    <Compile Include="models\Tile.cs" />
     <Compile Include="controllers\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="views\lowRes\entityViewer\EntityViewerLowRes.cs" />

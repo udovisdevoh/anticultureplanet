@@ -34,6 +34,11 @@ namespace AntiCulturePlanet
         /// Full screen or not
         /// </summary>
         private const bool isFullScreen = true;
+
+        /// <summary>
+        /// Max time we try to find a random place on map with some criteria
+        /// </summary>
+        public const int MaxTryFindRandomTilePosition = 100;
         #endregion
 
         #region Fields and parts
