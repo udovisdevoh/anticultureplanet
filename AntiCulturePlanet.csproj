@@ -59,7 +59,6 @@
     <Compile Include="models\entities\things\LargeStoneEntity.cs" />
     <Compile Include="models\entities\things\MediumStoneEntity.cs" />
     <Compile Include="models\entities\things\SmallStoneEntity.cs" />
-    <Compile Include="models\entities\things\SoilEntity.cs" />
     <Compile Include="models\entityCollection\EntityCollection.cs" />
     <Compile Include="models\motherNature\MotherNature.cs" />
     <Compile Include="models\motherNature\EntityRegulator.cs" />
