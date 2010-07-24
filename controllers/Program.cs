@@ -33,12 +33,17 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Full screen or not
         /// </summary>
-        private const bool isFullScreen = true;
+        private const bool isFullScreen = false;
 
         /// <summary>
         /// Max time we try to find a random place on map with some criteria
         /// </summary>
         public const int MaxTryFindRandomTilePosition = 100;
+
+        /// <summary>
+        /// How many seconds before mother nature refreshes global decay
+        /// </summary>
+        public const double DecayRefreshTime = 1.0;
         #endregion
 
         #region Fields and parts

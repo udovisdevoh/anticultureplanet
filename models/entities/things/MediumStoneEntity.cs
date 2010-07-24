@@ -6,9 +6,9 @@ using System.Text;
 namespace AntiCulturePlanet
 {
     /// <summary>
-    /// Represents a woman
+    /// Medium stone entity
     /// </summary>
-    class WomanEntity : AbstractHumanEntity
+    class MediumStoneEntity : AbstractEntity
     {
         #region Internal Methods
         /// <summary>
@@ -17,7 +17,7 @@ namespace AntiCulturePlanet
         /// <returns>Decay time</returns>
         protected override double BuildDecayTime()
         {
-            return 1.1;
+            return 50.0;
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace AntiCulturePlanet
         /// <returns>size</returns>
         protected override double BuildSize()
         {
-            return 1.8;
+            return 2;
         }
 
         /// <summary>
@@ -35,13 +35,12 @@ namespace AntiCulturePlanet
         /// <returns>mass</returns>
         protected override double BuildMass()
         {
-            return 0.9;
+            return 1;
         }
 
         /// <summary>
         /// Build entity sprite
         /// </summary>
-        /// <returns>entity sprite</returns>
         protected override EntitySprite BuildEntitySprite()
         {
             return SpriteManager.GetSprite(this.GetType());
