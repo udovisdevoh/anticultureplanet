@@ -58,12 +58,12 @@ namespace AntiCulturePlanet
         internal void UpdateForDecay(EntityCollection entityCollection, Planet planet, DateTime currentTime)
         {
             TimeSpan timeSpanSinceLastDecayUpdate = (TimeSpan)(currentTime - lastDecayUpdateTime);
-            if (timeSpanSinceLastDecayUpdate.Seconds > Program.DecayRefreshTime)
+            if (timeSpanSinceLastDecayUpdate.Seconds * Program.SpeedMultiplier > Program.DecayRefreshTime)
             {
                 foreach (AbstractEntity entity in new List<AbstractEntity>(entityCollection))
                 {
                     TimeSpan timeSpanSinceCreation = (TimeSpan)(currentTime - entity.CreationTime);
-                    if (timeSpanSinceCreation.TotalSeconds > entity.DecayTime)
+                    if (timeSpanSinceCreation.TotalSeconds * Program.SpeedMultiplier > entity.DecayTime)
                     {
                         entity.Decay(planet, entityCollection);
                     }

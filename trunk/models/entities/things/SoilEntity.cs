@@ -6,9 +6,9 @@ using System.Text;
 namespace AntiCulturePlanet
 {
     /// <summary>
-    /// Small stone entity
+    /// Soil entity
     /// </summary>
-    class SmallStoneEntity : AbstractEntity
+    class SoilEntity : AbstractEntity
     {
         #region Internal Methods
         /// <summary>
@@ -17,7 +17,7 @@ namespace AntiCulturePlanet
         /// <returns>Decay time</returns>
         protected override double BuildDecayTime()
         {
-            return 100.0;
+            return 1000.0;
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace AntiCulturePlanet
         /// <returns>size</returns>
         protected override double BuildSize()
         {
-            return 1;
+            return 4;
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace AntiCulturePlanet
         /// <returns>mass</returns>
         protected override double BuildMass()
         {
-            return 0.25;
+            return 1;
         }
 
         /// <summary>
@@ -48,13 +48,14 @@ namespace AntiCulturePlanet
 
         /// <summary>
         /// Get decay entities when this entity decays
+        /// can be null if decays into nothing
         /// </summary>
         /// <param name="planet">planet</param>
         /// <param name="entityCollection">entity collection</param>
         /// <returns>decay entities (when this entity decays)</returns>
         protected override IEnumerable<AbstractEntity> GetDecayEntities(Planet planet, EntityCollection entityCollection)
         {
-            return new AbstractEntity[] { new SoilEntity() };
+            return null;
         }
 
         /// <summary>
@@ -72,7 +73,7 @@ namespace AntiCulturePlanet
         /// <returns>ZIndex layer</returns>
         protected override ZIndexLayer BuildZIndexLayer()
         {
-            return ZIndexLayer.OnFloor;
+            return ZIndexLayer.IsFloor;
         }
 
         /// <summary>
@@ -108,7 +109,7 @@ namespace AntiCulturePlanet
         /// <returns></returns>
         protected override bool BuildIsAffectedByCollision()
         {
-            return true;
+            return false;
         }
         #endregion
     }
