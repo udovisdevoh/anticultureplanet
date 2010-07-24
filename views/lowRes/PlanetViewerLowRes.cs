@@ -115,8 +115,6 @@ namespace AntiCulturePlanet
             int pixelOffsetX = 0 - viewedTileX * tilePixelWidth;
             int pixelOffsetY = 0 - viewedTileY * tilePixelHeight;
 
-            entityViewerLowRes.Update(groundSurcace, planet.EntityCollection, screenWidth, screenHeight, viewedTileX, viewedTileY, tilePixelWidth, tilePixelHeight);
-
             mainSurface.Blit(groundSurcace, new Point(pixelOffsetX, pixelOffsetY));
             mainSurface.Blit(groundSurcace, new Point(pixelOffsetX - planet.Width * tilePixelWidth, pixelOffsetY));
             mainSurface.Blit(groundSurcace, new Point(pixelOffsetX + planet.Width * tilePixelWidth, pixelOffsetY));
@@ -127,6 +125,8 @@ namespace AntiCulturePlanet
             mainSurface.Blit(groundSurcace, new Point(pixelOffsetX + planet.Width * tilePixelWidth, pixelOffsetY - planet.Height * tilePixelHeight));
             mainSurface.Blit(groundSurcace, new Point(pixelOffsetX - planet.Width * tilePixelWidth, pixelOffsetY + planet.Height * tilePixelHeight));
             mainSurface.Blit(groundSurcace, new Point(pixelOffsetX + planet.Width * tilePixelWidth, pixelOffsetY + planet.Height * tilePixelHeight));
+
+            entityViewerLowRes.Update(mainSurface, planet.EntityCollection, screenWidth, screenHeight, viewedTileX, viewedTileY, tilePixelWidth, tilePixelHeight);
         }
 
         /// <summary>
