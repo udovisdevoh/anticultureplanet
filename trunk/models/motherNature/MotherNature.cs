@@ -31,7 +31,8 @@ namespace AntiCulturePlanet
             lastDecayUpdateTime = DateTime.Now;
             entityRegulatorList = new List<EntityRegulator>();
             entityRegulatorList.Add(new EntityRegulator(new LargeStoneEntity(), 0.001, 1));
-            entityRegulatorList.Add(new EntityRegulator(new SoilEntity(), 0.001, 1));
+            entityRegulatorList.Add(new EntityRegulator(new MediumStoneEntity(), 0.002, 1));
+            entityRegulatorList.Add(new EntityRegulator(new SmallStoneEntity(), 0.004, 1));
         }
         #endregion
 
