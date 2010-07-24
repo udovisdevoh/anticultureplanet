@@ -29,8 +29,15 @@ namespace AntiCulturePlanet
         {
             foreach (AbstractEntity entity in entityCollection)
             {
-                Surface spriteSurface = entity.EntitySprite.GetSurface((int)Math.Round(entity.Size * tilePixelWidth), (int)Math.Round(entity.Size * tilePixelHeight));
-                surface.Blit(spriteSurface, new Point((int)Math.Round(entity.X * tilePixelWidth), (int)Math.Round(entity.Y * tilePixelHeight)));
+                int surfaceWidth = (int)Math.Round(entity.Size * tilePixelWidth);
+                int surfaceHeight = (int)Math.Round(entity.Size * tilePixelHeight);
+
+                Surface spriteSurface = entity.EntitySprite.GetSurface(surfaceWidth, surfaceHeight);
+
+                int spriteLeftCornerX = (int)Math.Round(entity.X * tilePixelWidth) - surfaceWidth / 2 + tilePixelWidth / 2;
+                int spriteLeftCornerY = (int)Math.Round(entity.Y * tilePixelHeight) - surfaceHeight / 2 + tilePixelHeight / 2;
+
+                surface.Blit(spriteSurface, new Point(spriteLeftCornerX, spriteLeftCornerY));
             }
         }
     }
