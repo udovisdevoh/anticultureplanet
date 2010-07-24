@@ -242,7 +242,7 @@ namespace AntiCulturePlanet
                 if (tryCount > Program.MaxTryFindRandomTilePosition)
                     throw new NoAvailableSpaceException();
 
-            } while (tileGrid[(int)point.X, (int)point.Y].IsWater);
+            } while (this[(int)Math.Round(point.X), (int)Math.Round(point.Y)].IsWater);
             return point;
         }
 
@@ -263,7 +263,7 @@ namespace AntiCulturePlanet
                 if (tryCount > Program.MaxTryFindRandomTilePosition)
                     throw new NoAvailableSpaceException();
 
-            } while (!tileGrid[(int)point.X, (int)point.Y].IsWater);
+            } while (!this[(int)Math.Round(point.X), (int)Math.Round(point.Y)].IsWater);
             return point;
         }
 
