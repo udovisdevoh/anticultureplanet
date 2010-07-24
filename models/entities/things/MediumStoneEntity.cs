@@ -102,6 +102,15 @@ namespace AntiCulturePlanet
         {
             return false;
         }
+
+        /// <summary>
+        /// Whether entity is affected by collisions
+        /// </summary>
+        /// <returns></returns>
+        protected override bool BuildIsAffectedByCollision()
+        {
+            return true;
+        }
         #endregion
     }
 }

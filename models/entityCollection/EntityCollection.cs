@@ -104,6 +104,8 @@ namespace AntiCulturePlanet
         /// <returns>Whether entity is in collision with other entity</returns>
         internal bool IsDetectCollision(AbstractEntity entity, Planet planet)
         {
+            if (!entity.IsAffectedByCollision)
+                return false;
             foreach (AbstractEntity otherEntity in internalCollection)
                 if (IsDetectCollision(entity, otherEntity, planet))
                     return true;
@@ -121,6 +123,9 @@ namespace AntiCulturePlanet
         /// <returns>Whether entity is in collision with other entity</returns>
         private bool IsDetectCollision(AbstractEntity entity1, AbstractEntity entity2, Planet planet)
         {
+            if (!entity1.IsAffectedByCollision || !entity2.IsAffectedByCollision)
+                return false;
+
             double distanceFromCenter = GetDistance(entity1, entity2, planet);
             return distanceFromCenter - entity1.Radius - entity2.Radius <= 0;
         }

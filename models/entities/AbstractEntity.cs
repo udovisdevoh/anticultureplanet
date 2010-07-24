@@ -78,6 +78,11 @@ namespace AntiCulturePlanet
         /// Whether we keep sprite of previous entity when this is the result of a decay
         /// </summary>
         private bool isKeepSpriteOfPreviousEntity;
+
+        /// <summary>
+        /// Whether entity is affected by collisions
+        /// </summary>
+        private bool isAffectedByCollision;
         #endregion
 
         #region Constructor
@@ -96,34 +101,17 @@ namespace AntiCulturePlanet
             isKeepSizeOfPreviousEntity = BuildIsKeepSizeOfPreviousEntity();
             isKeepMassOfPreviousEntity = BuildIsKeepMassOfPreviousEntity();
             isKeepSpriteOfPreviousEntity = BuildIsKeepSpriteOfPreviousEntity();
+            isAffectedByCollision = BuildIsAffectedByCollision();
         }
         #endregion
 
         #region Internal Methods
         /// <summary>
-        /// Update entity
-        /// </summary>
-        /// <param name="currentTime">current time</param>
-        /// <param name="planet">planet</param>
-        /// <param name="entityCollection">entity collection</param>
-        internal void Update(DateTime currentTime, Planet planet, EntityCollection entityCollection)
-        {
-            TimeSpan timeSpanSinceCreation = (TimeSpan)(currentTime - creationTime);
-
-            if (timeSpanSinceCreation.TotalSeconds > decayTime)
-            {
-                Decay(planet, entityCollection);
-            }
-        }
-        #endregion
-
-        #region Private Methods
-        /// <summary>
         /// Occurs when an entity decays
         /// </summary>
         /// <param name="planet">planet</param>
         /// <param name="entityCollection">entity collection</param>
-        private void Decay(Planet planet, EntityCollection entityCollection)
+        internal void Decay(Planet planet, EntityCollection entityCollection)
         {
             entityCollection.Remove(this);
             IEnumerable<AbstractEntity> decayEntityList = GetDecayEntities(planet, entityCollection);
@@ -222,6 +210,12 @@ namespace AntiCulturePlanet
         /// </summary>
         /// <returns>Is Keep size of previous entity</returns>
         protected abstract bool BuildIsKeepSizeOfPreviousEntity();
+
+        /// <summary>
+        /// Build Whether entity is affected by collision
+        /// </summary>
+        /// <returns>whether entity is affected by collision</returns>
+        protected abstract bool BuildIsAffectedByCollision();
         #endregion
 
         #region Properties
@@ -335,6 +329,23 @@ namespace AntiCulturePlanet
         {
             get { return isKeepSpriteOfPreviousEntity; }
         }
+
+        /// <summary>
+        /// Whether entity is affected by collisions
+        /// </summary>
+        internal bool IsAffectedByCollision
+        {
+            get { return isAffectedByCollision; }
+        }
+
+        /// <summary>
+        /// Creation time
+        /// </summary>
+        internal DateTime CreationTime
+        {
+            get { return creationTime; }
+        }
         #endregion
+
     }
 }

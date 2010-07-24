@@ -61,7 +61,13 @@ namespace AntiCulturePlanet
             if (timeSpanSinceLastDecayUpdate.Seconds > Program.DecayRefreshTime)
             {
                 foreach (AbstractEntity entity in new List<AbstractEntity>(entityCollection))
-                    entity.Update(currentTime, planet, entityCollection);
+                {
+                    TimeSpan timeSpanSinceCreation = (TimeSpan)(currentTime - entity.CreationTime);
+                    if (timeSpanSinceCreation.TotalSeconds > entity.DecayTime)
+                    {
+                        entity.Decay(planet, entityCollection);
+                    }
+                }
 
                 lastDecayUpdateTime = DateTime.Now;
             }
