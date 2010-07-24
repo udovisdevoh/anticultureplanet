@@ -6,9 +6,9 @@ using System.Text;
 namespace AntiCulturePlanet
 {
     /// <summary>
-    /// Medium stone entity
+    /// Small stone entity
     /// </summary>
-    class MediumStoneEntity : AbstractEntity
+    class SmallStoneEntity : AbstractEntity
     {
         #region Internal Methods
         /// <summary>
@@ -17,7 +17,7 @@ namespace AntiCulturePlanet
         /// <returns>Decay time</returns>
         protected override double BuildDecayTime()
         {
-            return 50.0;
+            return 20.0;
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace AntiCulturePlanet
         /// <returns>size</returns>
         protected override double BuildSize()
         {
-            return 2;
+            return 1;
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace AntiCulturePlanet
         /// <returns>mass</returns>
         protected override double BuildMass()
         {
-            return 1;
+            return 0.25;
         }
 
         /// <summary>
@@ -54,7 +54,8 @@ namespace AntiCulturePlanet
         /// <returns>decay entities (when this entity decays)</returns>
         protected override IEnumerable<AbstractEntity> GetDecayEntities(Planet planet, EntityCollection entityCollection)
         {
-            return new AbstractEntity[] { new SmallStoneEntity(), new SmallStoneEntity() };
+            #warning Replace that to soil
+            return new AbstractEntity[] { new SmallStoneEntity() };
         }
 
         /// <summary>
