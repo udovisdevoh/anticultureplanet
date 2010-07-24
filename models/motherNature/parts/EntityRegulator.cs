@@ -28,7 +28,7 @@ namespace AntiCulturePlanet
         private double minimumPercentage = 0.001;
 
         /// <summary>
-        /// How many seconds before stones are updated
+        /// How many seconds before entities are regulated
         /// </summary>
         private int timeInterval = 1;
 
@@ -71,7 +71,7 @@ namespace AntiCulturePlanet
         internal void Update(EntityCollection entityCollection, Planet planet, DateTime currentTime)
         {
             int howManySecondSpan = ((TimeSpan)(currentTime - latestRefreshTime)).Seconds;
-            if (howManySecondSpan >= timeInterval)
+            if (howManySecondSpan * Program.SpeedMultiplier >= timeInterval)
             {
                 //We create new entities when there are not enough of them
                 try

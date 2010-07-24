@@ -59,6 +59,7 @@
     <Compile Include="models\entities\things\LargeStoneEntity.cs" />
     <Compile Include="models\entities\things\MediumStoneEntity.cs" />
     <Compile Include="models\entities\things\SmallStoneEntity.cs" />
+    <Compile Include="models\entities\things\SoilEntity.cs" />
     <Compile Include="models\entityCollection\EntityCollection.cs" />
     <Compile Include="models\motherNature\MotherNature.cs" />
     <Compile Include="models\motherNature\parts\EntityRegulator.cs" />
@@ -92,6 +93,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\graphics\entities\SmallStoneEntity0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\graphics\entities\SoilEntity0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\graphics\entities\WomanEntity0.png">
@@ -226,6 +230,7 @@
     <None Include="assets\graphics\originals\PrehistoricWoman1.fla" />
     <None Include="assets\graphics\originals\PrehistoricWoman2.fla" />
     <None Include="assets\graphics\originals\PrehistoricWoman3.fla" />
+    <None Include="assets\graphics\originals\Soil.fla" />
     <None Include="assets\graphics\originals\Stone1.fla" />
   </ItemGroup>
   <ItemGroup>

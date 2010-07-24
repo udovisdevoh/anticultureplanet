@@ -115,35 +115,38 @@ namespace AntiCulturePlanet
         {
             entityCollection.Remove(this);
             IEnumerable<AbstractEntity> decayEntityList = GetDecayEntities(planet, entityCollection);
-            foreach (AbstractEntity decayEntity in decayEntityList)
+            if (decayEntityList != null)
             {
-                try
+                foreach (AbstractEntity decayEntity in decayEntityList)
                 {
-                    int tryCount = 0;
-                    do
+                    try
                     {
-                        PointF position = planet.GetRandomDecayPosition(this);
-                        decayEntity.x = position.X;
-                        decayEntity.y = position.Y;
-                        tryCount++;
-                        if (tryCount > Program.MaxTryFindRandomTilePosition)
-                            throw new NoAvailableSpaceException();
-                    } while (entityCollection.IsDetectCollision(decayEntity,planet));
+                        int tryCount = 0;
+                        do
+                        {
+                            PointF position = planet.GetRandomDecayPosition(this);
+                            decayEntity.x = position.X;
+                            decayEntity.y = position.Y;
+                            tryCount++;
+                            if (tryCount > Program.MaxTryFindRandomTilePosition)
+                                throw new NoAvailableSpaceException();
+                        } while (entityCollection.IsDetectCollision(decayEntity, planet));
 
-                    if (decayEntity.IsKeepMassOfPreviousEntity)
-                        decayEntity.Mass = this.Mass;
+                        if (decayEntity.IsKeepMassOfPreviousEntity)
+                            decayEntity.Mass = this.Mass;
 
-                    if (decayEntity.IsKeepSizeOfPreviousEntity)
-                        decayEntity.Size = this.Size;
+                        if (decayEntity.IsKeepSizeOfPreviousEntity)
+                            decayEntity.Size = this.Size;
 
-                    if (decayEntity.IsKeepSpriteOfPreviousEntity)
-                        decayEntity.EntitySprite = this.EntitySprite;
+                        if (decayEntity.IsKeepSpriteOfPreviousEntity)
+                            decayEntity.EntitySprite = this.EntitySprite;
 
-                    entityCollection.Add(decayEntity);
-                }
-                catch (NoAvailableSpaceException)
-                {
-                    //There was no available space for new decay entity
+                        entityCollection.Add(decayEntity);
+                    }
+                    catch (NoAvailableSpaceException)
+                    {
+                        //There was no available space for new decay entity
+                    }
                 }
             }
         }
@@ -176,9 +179,11 @@ namespace AntiCulturePlanet
 
         /// <summary>
         /// Occurs when entity decays, returns new entities
+        /// can be null if decays into nothing
         /// </summary>
         /// <param name="planet">planet</param>
         /// <param name="entityCollection">entity collection</param>
+        /// <returns>when entity decays, returns new entities, or null if entity decays into nothing</returns>
         protected abstract IEnumerable<AbstractEntity> GetDecayEntities(Planet planet, EntityCollection entityCollection);
 
         /// <summary>
