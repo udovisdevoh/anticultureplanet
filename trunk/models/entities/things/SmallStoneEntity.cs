@@ -17,7 +17,7 @@ namespace AntiCulturePlanet
         /// <returns>Decay time</returns>
         protected override double BuildDecayTime()
         {
-            return 100.0;
+            return -1;
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace AntiCulturePlanet
         /// <returns>decay entities (when this entity decays)</returns>
         protected override IEnumerable<AbstractEntity> GetDecayEntities(Planet planet, EntityCollection entityCollection)
         {
-            return new AbstractEntity[] { new SoilEntity() };
+            return null;
         }
 
         /// <summary>

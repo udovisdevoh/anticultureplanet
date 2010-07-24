@@ -31,6 +31,7 @@ namespace AntiCulturePlanet
             lastDecayUpdateTime = DateTime.Now;
             entityRegulatorList = new List<EntityRegulator>();
             entityRegulatorList.Add(new EntityRegulator(new LargeStoneEntity(), 0.001, 1));
+            entityRegulatorList.Add(new EntityRegulator(new SoilEntity(), 0.001, 1));
         }
         #endregion
 
@@ -62,6 +63,9 @@ namespace AntiCulturePlanet
             {
                 foreach (AbstractEntity entity in new List<AbstractEntity>(entityCollection))
                 {
+                    if (entity.DecayTime < 0)//Some entites never decay
+                        continue;
+
                     TimeSpan timeSpanSinceCreation = (TimeSpan)(currentTime - entity.CreationTime);
                     if (timeSpanSinceCreation.TotalSeconds * Program.SpeedMultiplier > entity.DecayTime)
                     {
