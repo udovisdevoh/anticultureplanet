@@ -71,8 +71,8 @@ namespace AntiCulturePlanet
         internal void Update(EntityCollection entityCollection, Planet planet, DateTime currentTime)
         {
             int howManySecondSpan = ((TimeSpan)(currentTime - latestRefreshTime)).Seconds;
-            //if (howManySecondSpan * Program.SpeedMultiplier >= timeInterval)
-            //{
+            if (howManySecondSpan * Program.SpeedMultiplier >= timeInterval)
+            {
                 //We create new entities when there are not enough of them
                 try
                 {
@@ -112,7 +112,7 @@ namespace AntiCulturePlanet
                 {
                     //We couldn't add more entities because there was too many collisions
                 }
-            //}
+            }
         }
         #endregion
     }
