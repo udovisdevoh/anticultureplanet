@@ -48,7 +48,7 @@ namespace AntiCulturePlanet
         {
             double scaleX = (double)(width) / (double)(originalSurface.Width);
             double scaleY = (double)(height) / (double)(originalSurface.Height);
-            return originalSurface.CreateScaledSurface(scaleX, scaleY, true);
+            return originalSurface.CreateScaledSurface(scaleX, scaleY, false);
         }
         #endregion
     }
