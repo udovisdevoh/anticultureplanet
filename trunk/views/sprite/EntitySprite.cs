@@ -13,7 +13,7 @@ namespace AntiCulturePlanet
     /// </summary>
     internal class EntitySprite
     {
-        #region Fields
+        #region Fields and parts
         /// <summary>
         /// Image file name
         /// </summary>
@@ -23,6 +23,11 @@ namespace AntiCulturePlanet
         /// Orignal surface
         /// </summary>
         private Surface originalSurface;
+
+        /// <summary>
+        /// To cache scalled sprites
+        /// </summary>
+        private Dictionary<int, Surface> scallingCache;
         #endregion
 
         #region Consturctor
@@ -34,6 +39,7 @@ namespace AntiCulturePlanet
         {
             this.imageFileName = imageFileName;
             originalSurface = new Surface("assets/graphics/entities/" + imageFileName);
+            scallingCache = new Dictionary<int, Surface>();
         }
         #endregion
 
@@ -46,9 +52,16 @@ namespace AntiCulturePlanet
         /// <returns>surface of specified size</returns>
         internal Surface GetSurface(int width, int height)
         {
-            double scaleX = (double)(width) / (double)(originalSurface.Width);
-            double scaleY = (double)(height) / (double)(originalSurface.Height);
-            return originalSurface.CreateScaledSurface(scaleX, scaleY, false);
+            Surface surface;
+            if (!scallingCache.TryGetValue(width * 128 + height, out surface))
+            {
+                double scaleX = (double)(width) / (double)(originalSurface.Width);
+                double scaleY = (double)(height) / (double)(originalSurface.Height);
+                surface = originalSurface.CreateScaledSurface(scaleX, scaleY, true);
+                scallingCache.Add(width * 128 + height, surface);
+            }
+
+            return surface;
         }
         #endregion
     }
