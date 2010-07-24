@@ -142,6 +142,7 @@ namespace AntiCulturePlanet
         internal void Update(DateTime currentTime)
         {
             motherNature.Update(entityCollection, this, currentTime);
+            motherNature.UpdateForDecay(entityCollection, this, currentTime);
         }
 
         /// <summary>
@@ -273,6 +274,32 @@ namespace AntiCulturePlanet
         internal PointF GetRandomPosition()
         {
             return new PointF((float)(random.NextDouble() * width), (float)(random.NextDouble() * height));
+        }
+
+        /// <summary>
+        /// Get random position for new entity to decay from old entity
+        /// </summary>
+        /// <param name="oldEntity">old entity</param>
+        /// <returns>random position for new entity to decay from old entity</returns>
+        internal PointF GetRandomDecayPosition(AbstractEntity oldEntity)
+        {
+            double xOffset = random.NextDouble() * oldEntity.Size - (oldEntity.Size / 2.0);
+            double yOffset = random.NextDouble() * oldEntity.Size - (oldEntity.Size / 2.0);
+
+            double xPosition = oldEntity.X - xOffset;
+            double yPosition = oldEntity.Y - yOffset;
+
+            while (xPosition < 0)
+                xPosition += width;
+            while (yPosition < 0)
+                yPosition += height;
+
+            while (xPosition >= width)
+                xPosition -= width;
+            while (yPosition >= height)
+                yPosition -= height;
+
+            return new PointF((float)xPosition, (float)yPosition);
         }
         #endregion
 

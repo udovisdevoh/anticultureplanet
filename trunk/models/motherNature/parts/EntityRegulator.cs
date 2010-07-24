@@ -9,7 +9,7 @@ namespace AntiCulturePlanet
     /// <summary>
     /// Possible positions for entities to appear
     /// </summary>
-    enum PositionCriteria {OnGround, OnWater, Anywhere};
+    enum PositionCriteria {Ground, Water, Anywhere};
 
     /// <summary>
     /// Regulates the amount of stones
@@ -47,16 +47,16 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Entity regulator
         /// <param name="entity">entity for type</param>
-        /// <param name="positionCriteria">position criteria</param>
         /// <param name="minimumPercentage">minimum percentage</param>
         /// <param name="timeInterval">time interval (in seconds)</param>
         /// </summary>
-        public EntityRegulator(AbstractEntity entity, double minimumPercentage, int timeInterval, PositionCriteria positionCriteria)
+        public EntityRegulator(AbstractEntity entity, double minimumPercentage, int timeInterval)
         {
             latestRefreshTime = DateTime.Now;
-            this.positionCriteria = positionCriteria;
+            this.positionCriteria = entity.PositionCriteria;
             this.minimumPercentage = minimumPercentage;
             this.timeInterval = timeInterval;
+            this.positionCriteria = entity.PositionCriteria;
             entityType = entity.GetType();
         }
         #endregion
@@ -86,9 +86,9 @@ namespace AntiCulturePlanet
                         int tryCount = 0;
                         do
                         {
-                            if (positionCriteria == PositionCriteria.OnGround)
+                            if (positionCriteria == PositionCriteria.Ground)
                                 pointF = planet.GetRandomGroundPosition();
-                            else if (positionCriteria == PositionCriteria.OnWater)
+                            else if (positionCriteria == PositionCriteria.Water)
                                 pointF = planet.GetRandomWaterPosition();
                             else
                                 pointF = planet.GetRandomPosition();

@@ -83,6 +83,20 @@ namespace AntiCulturePlanet
         }
 
         /// <summary>
+        /// Remove entity from entity collection
+        /// </summary>
+        /// <param name="entity">entity to remove</param>
+        internal bool Remove(AbstractEntity entity)
+        {
+            if (!internalCollection.Contains(entity))
+                return false;
+            internalCollection.Remove(entity);
+            Type type = entity.GetType();
+            typeCount[type]--;
+            return true;
+        }
+
+        /// <summary>
         /// Whether entity is in collision with other entity
         /// </summary>
         /// <param name="entity">entity</param>
@@ -95,7 +109,9 @@ namespace AntiCulturePlanet
                     return true;
             return false;
         }
+        #endregion
 
+        #region Private Methods
         /// <summary>
         /// Whether entity is in collision with other entity
         /// </summary>
@@ -119,6 +135,11 @@ namespace AntiCulturePlanet
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return internalCollection.GetEnumerator();
+        }
+
+        public void CopyTo(AbstractEntity[] array, int arrayIndex)
+        {
+            internalCollection.CopyTo(array, arrayIndex);
         }
         #endregion
     }

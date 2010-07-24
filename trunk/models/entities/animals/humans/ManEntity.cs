@@ -15,7 +15,7 @@ namespace AntiCulturePlanet
         /// Build decay time
         /// </summary>
         /// <returns>Decay time</returns>
-        internal override double BuildDecayTime()
+        protected override double BuildDecayTime()
         {
             return 1.0;
         }
@@ -24,7 +24,7 @@ namespace AntiCulturePlanet
         /// Build size
         /// </summary>
         /// <returns>size</returns>
-        internal override double BuildSize()
+        protected override double BuildSize()
         {
             return 2.0;
         }
@@ -33,7 +33,7 @@ namespace AntiCulturePlanet
         /// Build mass
         /// </summary>
         /// <returns>mass</returns>
-        internal override double BuildMass()
+        protected override double BuildMass()
         {
             return 1.0;
         }
@@ -42,9 +42,30 @@ namespace AntiCulturePlanet
         /// Build entity sprite
         /// </summary>
         /// <returns>entity sprite</returns>
-        internal override EntitySprite BuildEntitySprite()
+        protected override EntitySprite BuildEntitySprite()
         {
             return SpriteManager.GetSprite(this.GetType());
+        }
+
+        /// <summary>
+        /// Get decay entities when this entity decays
+        /// </summary>
+        /// <param name="planet">planet</param>
+        /// <param name="entityCollection">entity collection</param>
+        /// <returns>decay entities (when this entity decays)</returns>
+        protected override IEnumerable<AbstractEntity> GetDecayEntities(Planet planet, EntityCollection entityCollection)
+        {
+            #warning Implement
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Position criteria
+        /// </summary>
+        /// <returns>Position criteria</returns>
+        protected override PositionCriteria BuildPositionCriteria()
+        {
+            return PositionCriteria.Ground;
         }
         #endregion
     }
