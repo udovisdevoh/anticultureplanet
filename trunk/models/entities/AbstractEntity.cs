@@ -63,6 +63,21 @@ namespace AntiCulturePlanet
         /// Z Index layer
         /// </summary>
         private ZIndexLayer zIndexLayer;
+
+        /// <summary>
+        /// Whether we keep size of previous entity when this is the result of a decay
+        /// </summary>
+        private bool isKeepSizeOfPreviousEntity;
+
+        /// <summary>
+        /// Whether we keep mass of previous entity when this is the result of a decay
+        /// </summary>
+        private bool isKeepMassOfPreviousEntity;
+
+        /// <summary>
+        /// Whether we keep sprite of previous entity when this is the result of a decay
+        /// </summary>
+        private bool isKeepSpriteOfPreviousEntity;
         #endregion
 
         #region Constructor
@@ -78,6 +93,9 @@ namespace AntiCulturePlanet
             entitySprite = BuildEntitySprite();
             positionCriteria = BuildPositionCriteria();
             zIndexLayer = BuildZIndexLayer();
+            isKeepSizeOfPreviousEntity = BuildIsKeepSizeOfPreviousEntity();
+            isKeepMassOfPreviousEntity = BuildIsKeepMassOfPreviousEntity();
+            isKeepSpriteOfPreviousEntity = BuildIsKeepSpriteOfPreviousEntity();
         }
         #endregion
 
@@ -123,6 +141,15 @@ namespace AntiCulturePlanet
                         if (tryCount > Program.MaxTryFindRandomTilePosition)
                             throw new NoAvailableSpaceException();
                     } while (entityCollection.IsDetectCollision(decayEntity,planet));
+
+                    if (decayEntity.IsKeepMassOfPreviousEntity)
+                        decayEntity.Mass = this.Mass;
+
+                    if (decayEntity.IsKeepSizeOfPreviousEntity)
+                        decayEntity.Size = this.Size;
+
+                    if (decayEntity.IsKeepSpriteOfPreviousEntity)
+                        decayEntity.EntitySprite = this.EntitySprite;
 
                     entityCollection.Add(decayEntity);
                 }
@@ -177,6 +204,24 @@ namespace AntiCulturePlanet
         /// </summary>
         /// <returns>ZIndex layer</returns>
         protected abstract ZIndexLayer BuildZIndexLayer();
+
+        /// <summary>
+        /// Build Is Keep sprite of previous entity
+        /// </summary>
+        /// <returns>Is Keep sprite of previous entity</returns>
+        protected abstract bool BuildIsKeepSpriteOfPreviousEntity();
+
+        /// <summary>
+        /// Build Is Keep mass of previous entity
+        /// </summary>
+        /// <returns>Is Keep mass of previous entity</returns>
+        protected abstract bool BuildIsKeepMassOfPreviousEntity();
+
+        /// <summary>
+        /// Build Is Keep size of previous entity
+        /// </summary>
+        /// <returns>Is Keep size of previous entity</returns>
+        protected abstract bool BuildIsKeepSizeOfPreviousEntity();
         #endregion
 
         #region Properties
@@ -240,6 +285,7 @@ namespace AntiCulturePlanet
         internal EntitySprite EntitySprite
         {
             get { return entitySprite; }
+            set { entitySprite = value; }
         }
 
         /// <summary>
@@ -256,6 +302,38 @@ namespace AntiCulturePlanet
         internal PositionCriteria PositionCriteria
         {
             get { return positionCriteria; }
+        }
+
+        /// <summary>
+        /// ZIndex layer
+        /// </summary>
+        internal ZIndexLayer ZIndexLayer
+        {
+            get{return zIndexLayer;}
+        }
+
+        /// <summary>
+        /// Whether we keep size of previous entity when this is the result of a decay
+        /// </summary>
+        internal bool IsKeepSizeOfPreviousEntity
+        {
+            get { return isKeepSizeOfPreviousEntity; }
+        }
+
+        /// <summary>
+        /// Whether we keep mass of previous entity when this is the result of a decay
+        /// </summary>
+        internal bool IsKeepMassOfPreviousEntity
+        {
+            get { return isKeepMassOfPreviousEntity; }
+        }
+
+        /// <summary>
+        /// Whether we keep sprite of previous entity when this is the result of a decay
+        /// </summary>
+        internal bool IsKeepSpriteOfPreviousEntity
+        {
+            get { return isKeepSpriteOfPreviousEntity; }
         }
         #endregion
     }

@@ -74,6 +74,33 @@ namespace AntiCulturePlanet
         {
             return ZIndexLayer.OnFloor;
         }
+
+        /// <summary>
+        /// Build Is keep sprite of previous entity
+        /// </summary>
+        /// <returns>Is keep sprite of previous entity</returns>
+        protected override bool BuildIsKeepSpriteOfPreviousEntity()
+        {
+            return false;
+        }
+
+        /// <summary>
+        /// Build Is keep mass of previous entity
+        /// </summary>
+        /// <returns>Is keep mass of previous entity</returns>
+        protected override bool BuildIsKeepMassOfPreviousEntity()
+        {
+            return false;
+        }
+
+        /// <summary>
+        /// Build Is keep size of previous entity
+        /// </summary>
+        /// <returns>Is keep size of previous entity</returns>
+        protected override bool BuildIsKeepSizeOfPreviousEntity()
+        {
+            return false;
+        }
         #endregion
     }
 }
