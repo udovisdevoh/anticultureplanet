@@ -6,6 +6,8 @@ using System.Drawing;
 
 namespace AntiCulturePlanet
 {
+    enum ZIndexLayer { IsFloor, OnFloor, Air }
+
     /// <summary>
     /// Represents entities on the planet (people, trees, animals, rocks, tools)
     /// </summary>
@@ -56,6 +58,11 @@ namespace AntiCulturePlanet
         /// Position criteria
         /// </summary>
         private PositionCriteria positionCriteria;
+
+        /// <summary>
+        /// Z Index layer
+        /// </summary>
+        private ZIndexLayer zIndexLayer;
         #endregion
 
         #region Constructor
@@ -70,6 +77,7 @@ namespace AntiCulturePlanet
             decayTime = BuildDecayTime();
             entitySprite = BuildEntitySprite();
             positionCriteria = BuildPositionCriteria();
+            zIndexLayer = BuildZIndexLayer();
         }
         #endregion
 
@@ -163,6 +171,12 @@ namespace AntiCulturePlanet
         /// </summary>
         /// <returns>position criteria</returns>
         protected abstract PositionCriteria BuildPositionCriteria();
+
+        /// <summary>
+        /// Build ZIndex layer
+        /// </summary>
+        /// <returns>ZIndex layer</returns>
+        protected abstract ZIndexLayer BuildZIndexLayer();
         #endregion
 
         #region Properties

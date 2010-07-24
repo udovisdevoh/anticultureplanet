@@ -66,6 +66,15 @@ namespace AntiCulturePlanet
         {
             return PositionCriteria.Ground;
         }
+
+        /// <summary>
+        /// ZIndex layer
+        /// </summary>
+        /// <returns>ZIndex layer</returns>
+        protected override ZIndexLayer BuildZIndexLayer()
+        {
+            return ZIndexLayer.OnFloor;
+        }
         #endregion
     }
 }
