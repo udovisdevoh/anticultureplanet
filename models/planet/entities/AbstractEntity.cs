@@ -40,6 +40,11 @@ namespace AntiCulturePlanet
         /// Decay Time (seconds)
         /// </summary>
         private double decayTime;
+
+        /// <summary>
+        /// Entity's sprite
+        /// </summary>
+        private EntitySprite entitySprite;
         #endregion
 
         #region Constructor
@@ -51,6 +56,7 @@ namespace AntiCulturePlanet
             mass = BuildMass();
             size = BuildSize();
             decayTime = BuildDecayTime();
+            entitySprite = BuildEntitySprite();
         }
         #endregion
 
@@ -72,6 +78,12 @@ namespace AntiCulturePlanet
         /// </summary>
         /// <returns>Build mass</returns>
         internal abstract double BuildMass();
+
+        /// <summary>
+        /// Build sprite for entity
+        /// </summary>
+        /// <returns>sprite for entity</returns>
+        internal abstract EntitySprite BuildEntitySprite();
         #endregion
 
         #region Properties
@@ -127,6 +139,14 @@ namespace AntiCulturePlanet
         {
             get { return decayTime; }
             set { decayTime = value; }
+        }
+
+        /// <summary>
+        /// Entity's sprite definition
+        /// </summary>
+        internal EntitySprite EntitySprite
+        {
+            get { return entitySprite; }
         }
         #endregion
     }

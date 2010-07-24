@@ -26,7 +26,7 @@ namespace AntiCulturePlanet
         /// <returns>size</returns>
         internal override double BuildSize()
         {
-            return 1.0;
+            return 2.0;
         }
 
         /// <summary>
@@ -36,6 +36,15 @@ namespace AntiCulturePlanet
         internal override double BuildMass()
         {
             return 1.0;
+        }
+
+        /// <summary>
+        /// Build entity sprite
+        /// </summary>
+        /// <returns>entity sprite</returns>
+        internal override EntitySprite BuildEntitySprite()
+        {
+            return SpriteManager.GetSprite(this.GetType());
         }
         #endregion
     }

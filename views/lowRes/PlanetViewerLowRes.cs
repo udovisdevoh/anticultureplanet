@@ -5,8 +5,6 @@ using System.Text;
 using System.Drawing;
 using SdlDotNet.Graphics;
 using SdlDotNet.Core;
-using SdlDotNet.Input;
-using SdlDotNet.Audio;
 using SdlDotNet.Graphics.Primitives;
 
 
@@ -26,7 +24,7 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Entity viewer
         /// </summary>
-        private EntityViewer entityViewer;
+        private EntityViewerLowRes entityViewerLowRes;
 
         /// <summary>
         /// Screen width
@@ -87,7 +85,7 @@ namespace AntiCulturePlanet
             this.screenWidth = screenWidth;
             this.screenHeight = screenHeight;
 
-            entityViewer = new EntityViewerLowRes();
+            entityViewerLowRes = new EntityViewerLowRes();
         }
         #endregion
 
@@ -117,6 +115,8 @@ namespace AntiCulturePlanet
             int pixelOffsetX = 0 - viewedTileX * tilePixelWidth;
             int pixelOffsetY = 0 - viewedTileY * tilePixelHeight;
 
+            entityViewerLowRes.Update(groundSurcace, planet.EntityCollection, screenWidth, screenHeight, viewedTileX, viewedTileY, tilePixelWidth, tilePixelHeight);
+
             mainSurface.Blit(groundSurcace, new Point(pixelOffsetX, pixelOffsetY));
             mainSurface.Blit(groundSurcace, new Point(pixelOffsetX - planet.Width * tilePixelWidth, pixelOffsetY));
             mainSurface.Blit(groundSurcace, new Point(pixelOffsetX + planet.Width * tilePixelWidth, pixelOffsetY));
@@ -127,8 +127,6 @@ namespace AntiCulturePlanet
             mainSurface.Blit(groundSurcace, new Point(pixelOffsetX + planet.Width * tilePixelWidth, pixelOffsetY - planet.Height * tilePixelHeight));
             mainSurface.Blit(groundSurcace, new Point(pixelOffsetX - planet.Width * tilePixelWidth, pixelOffsetY + planet.Height * tilePixelHeight));
             mainSurface.Blit(groundSurcace, new Point(pixelOffsetX + planet.Width * tilePixelWidth, pixelOffsetY + planet.Height * tilePixelHeight));
-
-            entityViewer.Update(planet.EntityCollection);
         }
 
         /// <summary>

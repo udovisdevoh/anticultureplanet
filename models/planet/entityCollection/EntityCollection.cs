@@ -8,7 +8,7 @@ namespace AntiCulturePlanet
     /// <summary>
     /// Contains all the entities on a planet
     /// </summary>
-    internal class EntityCollection
+    internal class EntityCollection : IEnumerable<AbstractEntity>
     {
         #region Fields and Parts
         /// <summary>
@@ -71,5 +71,17 @@ namespace AntiCulturePlanet
             else
                 typeCount.Add(type, 1);
         }
+
+        #region IEnumerable<AbstractEntity> Members
+        public IEnumerator<AbstractEntity> GetEnumerator()
+        {
+            return internalCollection.GetEnumerator();
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return internalCollection.GetEnumerator();
+        }
+        #endregion
     }
 }
