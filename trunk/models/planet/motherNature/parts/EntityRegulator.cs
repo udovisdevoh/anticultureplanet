@@ -73,6 +73,8 @@ namespace AntiCulturePlanet
             int howManySecondSpan = ((TimeSpan)(currentTime - latestRefreshTime)).Seconds;
             if (howManySecondSpan >= timeInterval)
             {
+                //We create new entities when there are not enough of them
+
                 int minimumEntityCount = (int)Math.Round(minimumPercentage * (double)planet.Width * (double)planet.Height);
                 if (entityCollection.CountType(entityType) < minimumEntityCount)
                 {
