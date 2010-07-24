@@ -25,24 +25,58 @@ namespace AntiCulturePlanet
         /// <param name="viewedTileY">viewed tile y (view position)</param>
         /// <param name="tilePixelWidth">tile width</param>
         /// <param name="tilePixelHeight">tile height</param>
-        internal void Update(Surface surfaceToDrawOn, EntityCollection entityCollection, int screenWidth, int screenHeight, int viewedTileX, int viewedTileY, int tilePixelWidth, int tilePixelHeight)
+        /// <param name="mapSurfaceWidth">map surface width (tiles)</param>
+        /// <param name="mapSurfaceHeight">map surface height (tiles)</param>
+        internal void Update(Surface surfaceToDrawOn, EntityCollection entityCollection, int screenWidth, int screenHeight, int viewedTileX, int viewedTileY, int tilePixelWidth, int tilePixelHeight, int mapWidth, int mapHeight)
         {
+            int totalMapSurfaceWidth = mapWidth * tilePixelWidth;
+            int totalMapSurfaceHeight = mapHeight * tilePixelHeight;
+            
+            int spriteWidth;
+            int spriteHeight;
+
+            int absolutePositionX;
+            int absolutePositionY;
+
+            int screenRelativePositionX;
+            int screenRelativePositionY;
+
             foreach (AbstractEntity entity in entityCollection)
             {
-                int spriteWidth = (int)Math.Round(entity.Size * tilePixelWidth);
-                int spriteHeight = (int)Math.Round(entity.Size * tilePixelHeight);
+                spriteWidth = (int)Math.Round(entity.Size * tilePixelWidth);
+                spriteHeight = (int)Math.Round(entity.Size * tilePixelHeight);
 
-                int absolutePositionX = (int)Math.Round(entity.X * tilePixelWidth) - spriteWidth / 2 + tilePixelWidth / 2;
-                int absolutePositionY = (int)Math.Round(entity.Y * tilePixelHeight) - spriteHeight / 2 + tilePixelHeight / 2;
+                absolutePositionX = (int)Math.Round(entity.X * tilePixelWidth) - spriteWidth / 2 + tilePixelWidth / 2;
+                absolutePositionY = (int)Math.Round(entity.Y * tilePixelHeight) - spriteHeight / 2 + tilePixelHeight / 2;
 
-                int screenRelativePositionX = absolutePositionX - viewedTileX * tilePixelWidth;
-                int screenRelativePositionY = absolutePositionY - viewedTileY * tilePixelHeight;
+                screenRelativePositionX = absolutePositionX - viewedTileX * tilePixelWidth;
+                screenRelativePositionY = absolutePositionY - viewedTileY * tilePixelHeight;
+                
+                Update(entity, surfaceToDrawOn, screenWidth, screenHeight, screenRelativePositionX, screenRelativePositionY, spriteWidth, spriteHeight, totalMapSurfaceWidth, totalMapSurfaceHeight, -1, -1, totalMapSurfaceWidth, totalMapSurfaceHeight);
+                Update(entity, surfaceToDrawOn, screenWidth, screenHeight, screenRelativePositionX, screenRelativePositionY, spriteWidth, spriteHeight, totalMapSurfaceWidth, totalMapSurfaceHeight, -1, 0, totalMapSurfaceWidth, totalMapSurfaceHeight);
+                Update(entity, surfaceToDrawOn, screenWidth, screenHeight, screenRelativePositionX, screenRelativePositionY, spriteWidth, spriteHeight, totalMapSurfaceWidth, totalMapSurfaceHeight, -1, 1, totalMapSurfaceWidth, totalMapSurfaceHeight);
 
-                if (screenRelativePositionX > screenWidth || screenRelativePositionY > screenHeight || screenRelativePositionX + spriteWidth <= 0 || screenRelativePositionY + spriteHeight <= 0)
-                    continue;
+                Update(entity, surfaceToDrawOn, screenWidth, screenHeight, screenRelativePositionX, screenRelativePositionY, spriteWidth, spriteHeight, totalMapSurfaceWidth, totalMapSurfaceHeight, 0, -1, totalMapSurfaceWidth, totalMapSurfaceHeight);
+                Update(entity, surfaceToDrawOn, screenWidth, screenHeight, screenRelativePositionX, screenRelativePositionY, spriteWidth, spriteHeight, totalMapSurfaceWidth, totalMapSurfaceHeight, 0, 0, totalMapSurfaceWidth, totalMapSurfaceHeight);
+                Update(entity, surfaceToDrawOn, screenWidth, screenHeight, screenRelativePositionX, screenRelativePositionY, spriteWidth, spriteHeight, totalMapSurfaceWidth, totalMapSurfaceHeight, 0, 1, totalMapSurfaceWidth, totalMapSurfaceHeight);
 
+                Update(entity, surfaceToDrawOn, screenWidth, screenHeight, screenRelativePositionX, screenRelativePositionY, spriteWidth, spriteHeight, totalMapSurfaceWidth, totalMapSurfaceHeight, 1, -1, totalMapSurfaceWidth, totalMapSurfaceHeight);
+                Update(entity, surfaceToDrawOn, screenWidth, screenHeight, screenRelativePositionX, screenRelativePositionY, spriteWidth, spriteHeight, totalMapSurfaceWidth, totalMapSurfaceHeight, 1, 0, totalMapSurfaceWidth, totalMapSurfaceHeight);
+                Update(entity, surfaceToDrawOn, screenWidth, screenHeight, screenRelativePositionX, screenRelativePositionY, spriteWidth, spriteHeight, totalMapSurfaceWidth, totalMapSurfaceHeight, 1, 1, totalMapSurfaceWidth, totalMapSurfaceHeight);
+            }
+        }
+
+        private void Update(AbstractEntity entity, Surface surfaceToDrawOn, int screenWidth, int screenHeight, int screenRelativePositionX, int screenRelativePositionY, int spriteWidth, int spriteHeight, int mapSurfaceWidth, int mapSurfaceHeight, int totalMapWidthOffset, int totalMapHeightOffset, int totalMapSurfaceWidth, int totalMapSurfaceHeight)
+        {
+            screenRelativePositionX += (totalMapWidthOffset * totalMapSurfaceWidth);
+            screenRelativePositionY += (totalMapHeightOffset * totalMapSurfaceHeight);
+
+            bool isSpriteOnViewableXAxis = (screenRelativePositionX <= screenWidth) && (screenRelativePositionX + spriteWidth >= 0);
+            bool isSpriteOnViewableYAxis = (screenRelativePositionY <= screenHeight) && (screenRelativePositionY + spriteHeight >= 0);
+
+            if (isSpriteOnViewableXAxis && isSpriteOnViewableYAxis)
+            {
                 Surface spriteSurface = entity.EntitySprite.GetSurface(spriteWidth, spriteHeight);
-
                 surfaceToDrawOn.Blit(spriteSurface, new Point(screenRelativePositionX, screenRelativePositionY));
             }
         }
