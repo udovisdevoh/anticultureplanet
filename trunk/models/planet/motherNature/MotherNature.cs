@@ -24,7 +24,7 @@ namespace AntiCulturePlanet
         public MotherNature()
         {
             entityRegulatorList = new List<EntityRegulator>();
-            entityRegulatorList.Add(new EntityRegulator(new LargeStoneEntity(), 0.001, 1, PositionCriteria.OnGround));
+            entityRegulatorList.Add(new EntityRegulator(new LargeStoneEntity(), 0.01, 1, PositionCriteria.OnGround));
         }
         #endregion
 
