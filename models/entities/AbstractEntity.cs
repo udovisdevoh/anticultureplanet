@@ -154,7 +154,7 @@ namespace AntiCulturePlanet
 
         #region Abstract Methods
         /// <summary>
-        /// Build decay time
+        /// Build decay time (-1 for immortal items)
         /// </summary>
         /// <returns>Build decay time</returns>
         protected abstract double BuildDecayTime();

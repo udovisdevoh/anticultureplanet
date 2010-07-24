@@ -48,7 +48,7 @@ namespace AntiCulturePlanet
         /// <summary>
         /// 1: normal, 2: double speed, 0.5: half the speed
         /// </summary>
-        public const double SpeedMultiplier = 17.0;
+        public const double SpeedMultiplier = 1.0;
         #endregion
 
         #region Fields and parts

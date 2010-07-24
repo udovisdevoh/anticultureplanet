@@ -62,7 +62,7 @@
     <Compile Include="models\entities\things\SoilEntity.cs" />
     <Compile Include="models\entityCollection\EntityCollection.cs" />
     <Compile Include="models\motherNature\MotherNature.cs" />
-    <Compile Include="models\motherNature\parts\EntityRegulator.cs" />
+    <Compile Include="models\motherNature\EntityRegulator.cs" />
     <Compile Include="models\NoAvailableSpaceException.cs" />
     <Compile Include="models\Planet.cs" />
     <Compile Include="models\PlanetGenerator.cs" />
