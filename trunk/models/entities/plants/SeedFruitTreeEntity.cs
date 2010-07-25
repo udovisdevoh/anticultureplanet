@@ -7,7 +7,6 @@ namespace AntiCulturePlanet
 {
     class SeedFruitTreeEntity : AbstractPlantEntity
     {
-        #region Internal Methods
         /// <summary>
         /// Build decay time
         /// </summary>
@@ -73,6 +72,10 @@ namespace AntiCulturePlanet
             #warning Adjust
             return 0.00003125;
         }
-        #endregion
+
+        protected override int BuildMinimumTemperatureForNextGrowingPhase()
+        {
+            return 4;
+        }
     }
 }
