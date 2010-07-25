@@ -38,17 +38,17 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Planet width
         /// </summary>
-        private const int planetWidth = 512;
+        private const int planetWidth = 64;
 
         /// <summary>
         /// Planet height
         /// </summary>
-        private const int planetHeight = 512;
+        private const int planetHeight = 64;
 
         /// <summary>
         /// 1: normal, 2: double speed, 0.5: half the speed
         /// </summary>
-        public const double SpeedMultiplier = 1.0;
+        public const double SpeedMultiplier = 10.0;
 
         /// <summary>
         /// Max time we try to find a random place on map with some criteria

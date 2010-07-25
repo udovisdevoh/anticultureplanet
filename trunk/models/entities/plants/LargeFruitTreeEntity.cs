@@ -8,21 +8,21 @@ namespace AntiCulturePlanet
     /// <summary>
     /// Represents a small tree
     /// </summary>
-    class SmallFruitTreeEntity : AbstractPlantEntity
+    class LargeFruitTreeEntity : AbstractPlantEntity
     {
         protected override double BuildDecayTime()
         {
-            return 50;
+            return 1000;
         }
 
         protected override double BuildSize()
         {
-            return 1;
+            return 3;
         }
 
         protected override double BuildMass()
         {
-            return 0.25;
+            return 5;
         }
 
         protected override EntitySprite BuildEntitySprite()
@@ -42,7 +42,7 @@ namespace AntiCulturePlanet
         /// <returns>next phase entity for plant (or null if there is no next phase)</returns>
         protected override AbstractEntity GetNextGrowingPhaseEntity()
         {
-            return new MediumFruitTreeEntity();
+            return null;
         }
 
         /// <summary>
