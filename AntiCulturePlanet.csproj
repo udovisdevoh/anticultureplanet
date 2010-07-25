@@ -56,11 +56,11 @@
     <Compile Include="models\entities\animals\humans\AbstractHumanEntity.cs" />
     <Compile Include="models\entities\animals\humans\ManEntity.cs" />
     <Compile Include="models\entities\animals\humans\WomanEntity.cs" />
-    <Compile Include="models\entities\plants\SeedEntity.cs" />
+    <Compile Include="models\entities\plants\SeedFruitTreeEntity.cs" />
     <Compile Include="models\entities\minerals\LargeStoneEntity.cs" />
     <Compile Include="models\entities\minerals\MediumStoneEntity.cs" />
     <Compile Include="models\entities\minerals\SmallStoneEntity.cs" />
-    <Compile Include="models\entities\plants\SmallTreeEntity.cs" />
+    <Compile Include="models\entities\plants\SmallFruitTreeEntity.cs" />
     <Compile Include="models\entities\plants\TrunkEntity.cs" />
     <Compile Include="models\entityCollection\EntityCollection.cs" />
     <Compile Include="models\motherNature\MotherNature.cs" />
@@ -94,13 +94,13 @@
     <Content Include="assets\graphics\entities\MediumStoneEntity0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\graphics\entities\SeedEntity0.png">
+    <Content Include="assets\graphics\entities\SeedFruitTreeEntity0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\graphics\entities\SmallStoneEntity0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\graphics\entities\SmallTreeEntity0.png">
+    <Content Include="assets\graphics\entities\SmallFruitTreeEntity0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\graphics\entities\SoilEntity0.png">
