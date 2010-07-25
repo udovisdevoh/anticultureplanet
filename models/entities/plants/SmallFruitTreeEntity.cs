@@ -55,5 +55,10 @@ namespace AntiCulturePlanet
             #warning Adjust
             return 0.0000625;
         }
+
+        protected override int BuildMinimumTemperatureForNextGrowingPhase()
+        {
+            return 4;
+        }
     }
 }

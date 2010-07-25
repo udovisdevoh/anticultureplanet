@@ -15,6 +15,11 @@ namespace AntiCulturePlanet
         /// Minimum water percentage on tile for next growing phase
         /// </summary>
         private double minimumWaterPercentageOnTileForNextGrowingPhase;
+
+        /// <summary>
+        /// Minimum temperature needed for next growing stage
+        /// </summary>
+        private int minimumTemperatureForNextGrowingPhase;
         #endregion
 
         #region Constructor
@@ -24,6 +29,7 @@ namespace AntiCulturePlanet
         public AbstractPlantEntity() : base()
         {
             minimumWaterPercentageOnTileForNextGrowingPhase = BuildMinimumWaterPercentageOnTileForNextGrowingPhase();
+            minimumTemperatureForNextGrowingPhase = BuildMinimumTemperatureForNextGrowingPhase();
         }
         #endregion
 
@@ -72,6 +78,12 @@ namespace AntiCulturePlanet
         /// </summary>
         /// <returns>minimum water percentage (from 0 to 1) for next growing phase</returns>
         protected abstract double BuildMinimumWaterPercentageOnTileForNextGrowingPhase();
+
+        /// <summary>
+        /// Build minimum temperature needed for next growing stage
+        /// </summary>
+        /// <returns>minimum temperature needed for next growing stage</returns>
+        protected abstract int BuildMinimumTemperatureForNextGrowingPhase();
         #endregion
 
         #region Internal Methods
@@ -82,7 +94,10 @@ namespace AntiCulturePlanet
         /// <param name="entityCollection">Entity Collection</param>
         internal void GoToNextPhaseOrDecay(Planet planet, EntityCollection entityCollection)
         {
-            if (planet.GetTile(this).WaterPercentage < this.minimumWaterPercentageOnTileForNextGrowingPhase)
+            Tile tile = planet.GetTile(this);
+            
+            if (tile.WaterPercentage < minimumWaterPercentageOnTileForNextGrowingPhase
+                || tile.Temperature < minimumTemperatureForNextGrowingPhase)
             {
                 Decay(planet, entityCollection);
                 return;
