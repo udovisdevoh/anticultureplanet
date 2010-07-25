@@ -5,31 +5,14 @@ using System.Text;
 
 namespace AntiCulturePlanet
 {
-    class TrunkEntity : AbstractPlantEntity
+    /// <summary>
+    /// Represents all minerals
+    /// </summary>
+    abstract class AbstractMineralEntity : AbstractEntity
     {
         protected override double BuildDecayTime()
         {
-            return 30;
-        }
-
-        protected override double BuildSize()
-        {
-            return 3;
-        }
-
-        protected override double BuildMass()
-        {
-            return 5;
-        }
-
-        protected override EntitySprite BuildEntitySprite()
-        {
-            return SpriteManager.GetSprite(this.GetType());
-        }
-
-        protected override IEnumerable<AbstractEntity> GetDecayEntities(Planet planet, EntityCollection entityCollection)
-        {
-            return null;
+            return -1;
         }
 
         protected override PositionCriteria BuildPositionCriteria()
@@ -42,6 +25,11 @@ namespace AntiCulturePlanet
             return ZIndexLayer.OnFloor;
         }
 
+        protected override IEnumerable<AbstractEntity> GetDecayEntities(Planet planet, EntityCollection entityCollection)
+        {
+            return null;
+        }
+
         protected override bool BuildIsKeepSpriteOfPreviousEntity()
         {
             return false;
@@ -49,12 +37,12 @@ namespace AntiCulturePlanet
 
         protected override bool BuildIsKeepMassOfPreviousEntity()
         {
-            return true;
+            return false;
         }
 
         protected override bool BuildIsKeepSizeOfPreviousEntity()
         {
-            return true;
+            return false;
         }
 
         protected override bool BuildIsAffectedByCollision()

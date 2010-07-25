@@ -5,33 +5,11 @@ using System.Text;
 
 namespace AntiCulturePlanet
 {
-    class TrunkEntity : AbstractPlantEntity
+    /// <summary>
+    /// Represents seeds, plants and trees
+    /// </summary>
+    abstract class AbstractPlantEntity : AbstractEntity
     {
-        protected override double BuildDecayTime()
-        {
-            return 30;
-        }
-
-        protected override double BuildSize()
-        {
-            return 3;
-        }
-
-        protected override double BuildMass()
-        {
-            return 5;
-        }
-
-        protected override EntitySprite BuildEntitySprite()
-        {
-            return SpriteManager.GetSprite(this.GetType());
-        }
-
-        protected override IEnumerable<AbstractEntity> GetDecayEntities(Planet planet, EntityCollection entityCollection)
-        {
-            return null;
-        }
-
         protected override PositionCriteria BuildPositionCriteria()
         {
             return PositionCriteria.Ground;
@@ -49,12 +27,12 @@ namespace AntiCulturePlanet
 
         protected override bool BuildIsKeepMassOfPreviousEntity()
         {
-            return true;
+            return false;
         }
 
         protected override bool BuildIsKeepSizeOfPreviousEntity()
         {
-            return true;
+            return false;
         }
 
         protected override bool BuildIsAffectedByCollision()
