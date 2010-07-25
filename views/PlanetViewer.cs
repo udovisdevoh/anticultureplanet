@@ -24,7 +24,7 @@ namespace AntiCulturePlanet
         /// <param name="tileOffsetY">vertical tile offset</param>
         /// <param name="width">planet's width</param>
         /// <param name="height">planet's height</param>
-        internal abstract void MoveView(int tileOffsetX, int tileOffsetY, int width, int height);
+        internal abstract void MoveView(double tileOffsetX, double tileOffsetY, int width, int height);
 
         /// <summary>
         /// Redraw a single tile

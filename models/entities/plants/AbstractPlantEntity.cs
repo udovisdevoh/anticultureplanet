@@ -172,7 +172,7 @@ namespace AntiCulturePlanet
 
             TimeSpan timeSpanSinceLastReproduction = (TimeSpan)(currentTime - latestReproductionTime);
 
-            if (timeSpanSinceLastReproduction.Seconds >= reproductionCycleTime)
+            if (timeSpanSinceLastReproduction.TotalSeconds >= reproductionCycleTime)
             {
                 AbstractEntity reproductionSpore = GetReproductionSporeEntity();
 
