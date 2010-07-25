@@ -53,7 +53,7 @@ namespace AntiCulturePlanet
         protected override double BuildMinimumWaterPercentageOnTileForNextGrowingPhase()
         {
             #warning Adjust
-            return 0.001;
+            return 0.0000625;
         }
     }
 }
