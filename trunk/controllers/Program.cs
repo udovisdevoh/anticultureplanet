@@ -36,6 +36,21 @@ namespace AntiCulturePlanet
         private const bool isFullScreen = false;
 
         /// <summary>
+        /// Planet width
+        /// </summary>
+        private const int planetWidth = 512;
+
+        /// <summary>
+        /// Planet height
+        /// </summary>
+        private const int planetHeight = 512;
+
+        /// <summary>
+        /// 1: normal, 2: double speed, 0.5: half the speed
+        /// </summary>
+        public const double SpeedMultiplier = 1.0;
+
+        /// <summary>
         /// Max time we try to find a random place on map with some criteria
         /// </summary>
         public const int MaxTryFindRandomTilePosition = 100;
@@ -44,11 +59,6 @@ namespace AntiCulturePlanet
         /// How many seconds before mother nature refreshes global decay
         /// </summary>
         public const double DecayRefreshTime = 1.0;
-
-        /// <summary>
-        /// 1: normal, 2: double speed, 0.5: half the speed
-        /// </summary>
-        public const double SpeedMultiplier = 1.0;
         #endregion
 
         #region Fields and parts
@@ -95,6 +105,8 @@ namespace AntiCulturePlanet
             mainSurface = Video.SetVideoMode(screenWidth, screenHeight, false, false, isFullScreen, true);
             random = new Random();
             planetGenerator = new PlanetGenerator(random);
+            planetGenerator.Width = planetWidth;
+            planetGenerator.Height = planetHeight;
             planet = planetGenerator.Build();
             planetViewer = new PlanetViewerLowRes(mainSurface, screenWidth, screenHeight, planet);
         }
