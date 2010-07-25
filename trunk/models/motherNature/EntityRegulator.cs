@@ -46,10 +46,10 @@ namespace AntiCulturePlanet
         #region Constructor
         /// <summary>
         /// Entity regulator
+        /// </summary>
         /// <param name="entity">entity for type</param>
         /// <param name="minimumPercentage">minimum percentage</param>
         /// <param name="timeInterval">time interval (in seconds)</param>
-        /// </summary>
         public EntityRegulator(AbstractEntity entity, double minimumPercentage, int timeInterval)
         {
             latestRefreshTime = DateTime.Now;
