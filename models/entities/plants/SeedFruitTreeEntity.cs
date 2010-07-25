@@ -70,7 +70,7 @@ namespace AntiCulturePlanet
         protected override double BuildMinimumWaterPercentageOnTileForNextGrowingPhase()
         {
             #warning Adjust
-            return 0.00003125;
+            return 0.000015625;
         }
 
         protected override int BuildMinimumTemperatureForNextGrowingPhase()
