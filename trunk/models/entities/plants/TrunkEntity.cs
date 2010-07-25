@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AntiCulturePlanet
 {
-    class TrunkEntity : AbstractPlantEntity
+    class TrunkEntity : AbstractEntity
     {
         protected override double BuildDecayTime()
         {

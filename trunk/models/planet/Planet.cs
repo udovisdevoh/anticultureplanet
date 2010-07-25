@@ -142,7 +142,7 @@ namespace AntiCulturePlanet
         internal void Update(DateTime currentTime)
         {
             motherNature.Update(entityCollection, this, currentTime);
-            motherNature.UpdateForDecay(entityCollection, this, currentTime);
+            motherNature.UpdateForTransformations(entityCollection, this, currentTime);
         }
 
         /// <summary>
@@ -300,6 +300,16 @@ namespace AntiCulturePlanet
                 yPosition -= height;
 
             return new PointF((float)xPosition, (float)yPosition);
+        }
+
+        /// <summary>
+        /// Return tile on which the entity is
+        /// </summary>
+        /// <param name="abstractEntity">entity</param>
+        /// <returns>tile on which the entity is</returns>
+        internal Tile GetTile(AbstractEntity abstractEntity)
+        {
+            return this[(int)Math.Round(abstractEntity.X), (int)Math.Round(abstractEntity.Y)];
         }
         #endregion
 
