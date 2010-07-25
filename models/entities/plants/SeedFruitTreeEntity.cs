@@ -69,7 +69,7 @@ namespace AntiCulturePlanet
         /// <returns>minimum water percentage (from 0 to 1) for next growing phase</returns>
         protected override double BuildMinimumWaterPercentageOnTileForNextGrowingPhase()
         {
-            return 0.0275;
+            return 0.02;
         }
 
         protected override int BuildMinimumTemperatureForNextGrowingPhase()

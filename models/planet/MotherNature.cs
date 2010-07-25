@@ -15,16 +15,6 @@ namespace AntiCulturePlanet
         /// List of entity regulators
         /// </summary>
         private List<EntityRegulator> entityRegulatorList;
-
-        /// <summary>
-        /// Last time decay was updated (globally)
-        /// </summary>
-        private DateTime lastDecayUpdateTime;
-
-        /// <summary>
-        /// Last time reproduction was updated (globally)
-        /// </summary>
-        private DateTime lastReproductionUpdateTime;
         #endregion
 
         #region Constructor
@@ -33,8 +23,6 @@ namespace AntiCulturePlanet
         /// </summary>
         public MotherNature()
         {
-            lastDecayUpdateTime = DateTime.Now;
-            lastReproductionUpdateTime = DateTime.Now;
             entityRegulatorList = new List<EntityRegulator>();
 
             //Minerals
@@ -50,70 +38,15 @@ namespace AntiCulturePlanet
 
         #region Internal Methods
         /// <summary>
-        /// Update natural stuff
+        /// Update population regulator
         /// </summary>
         /// <param name="planet">planet</param>
         /// <param name="currentTime">current time</param>
-        internal void Update(Planet planet, DateTime currentTime)
+        internal void UpdatePopulationRegualtor(Planet planet, DateTime currentTime)
         {
             foreach (EntityRegulator entityRegulator in entityRegulatorList)
             {
                 entityRegulator.Update(planet, currentTime);
-            }
-        }
-
-        /// <summary>
-        /// Update entities for decay and phase transformation
-        /// </summary>
-        /// <param name="planet">planet</param>
-        /// <param name="currentTime">current time</param>
-        internal void UpdateForTransformations(Planet planet, DateTime currentTime)
-        {
-            TimeSpan timeSpanSinceLastDecayUpdate = (TimeSpan)(currentTime - lastDecayUpdateTime);
-            if (timeSpanSinceLastDecayUpdate.Seconds * Program.SpeedMultiplier > Program.EntityTransformationRefreshTime)
-            {
-                foreach (AbstractEntity entity in new List<AbstractEntity>(planet.EntityCollection))
-                {
-                    if (entity.DecayTime < 0)//Some entites never decay
-                        continue;
-
-                    TimeSpan timeSpanSinceCreation = (TimeSpan)(currentTime - entity.CreationTime);
-                    if (timeSpanSinceCreation.TotalSeconds * Program.SpeedMultiplier > entity.DecayTime)
-                    {
-                        if (entity is AbstractPlantEntity)
-                        {
-                            ((AbstractPlantEntity)(entity)).GoToNextPhaseOrDecay(planet);
-                        }
-                        else
-                        {
-                            entity.Decay(planet);
-                        }
-                    }
-                }
-
-                lastDecayUpdateTime = DateTime.Now;
-            }
-        }
-
-        /// <summary>
-        /// Update plants for reproduction
-        /// </summary>
-        /// <param name="planet">planet</param>
-        /// <param name="currentTime">current time</param>
-        internal void UpdatePlantsForReproduction(Planet planet, DateTime currentTime)
-        {
-            TimeSpan timeSpanSinceLastReproductionUpdate = (TimeSpan)(currentTime - lastReproductionUpdateTime);
-            if (timeSpanSinceLastReproductionUpdate.Seconds * Program.SpeedMultiplier > Program.EntityTransformationRefreshTime)
-            {
-                foreach (AbstractEntity entity in new List<AbstractEntity>(planet.EntityCollection))
-                {
-                    if (entity is AbstractPlantEntity)
-                    {
-                        AbstractPlantEntity plant = (AbstractPlantEntity)entity;
-                        plant.TryReproduce(planet, currentTime);
-                    }
-                }
-                lastReproductionUpdateTime = DateTime.Now;
             }
         }
         #endregion
