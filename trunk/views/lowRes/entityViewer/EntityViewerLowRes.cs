@@ -27,7 +27,7 @@ namespace AntiCulturePlanet
         /// <param name="tilePixelHeight">tile height</param>
         /// <param name="mapSurfaceWidth">map surface width (tiles)</param>
         /// <param name="mapSurfaceHeight">map surface height (tiles)</param>
-        internal void Update(Surface surfaceToDrawOn, EntityCollection entityCollection, int screenWidth, int screenHeight, int viewedTileX, int viewedTileY, int tilePixelWidth, int tilePixelHeight, int mapWidth, int mapHeight)
+        internal void Update(Surface surfaceToDrawOn, EntityCollection entityCollection, int screenWidth, int screenHeight, double viewedTileX, double viewedTileY, int tilePixelWidth, int tilePixelHeight, int mapWidth, int mapHeight)
         {
             int totalMapSurfaceWidth = mapWidth * tilePixelWidth;
             int totalMapSurfaceHeight = mapHeight * tilePixelHeight;
@@ -49,8 +49,8 @@ namespace AntiCulturePlanet
                 absolutePositionX = (int)Math.Round(entity.X * tilePixelWidth) - spriteWidth / 2 + tilePixelWidth / 2;
                 absolutePositionY = (int)Math.Round(entity.Y * tilePixelHeight) - spriteHeight / 2 + tilePixelHeight / 2;
 
-                screenRelativePositionX = absolutePositionX - viewedTileX * tilePixelWidth;
-                screenRelativePositionY = absolutePositionY - viewedTileY * tilePixelHeight;
+                screenRelativePositionX = (int)(absolutePositionX - viewedTileX * (double)(tilePixelWidth));
+                screenRelativePositionY = (int)(absolutePositionY - viewedTileY * (double)(tilePixelHeight));
                 
                 Update(entity, surfaceToDrawOn, screenWidth, screenHeight, screenRelativePositionX, screenRelativePositionY, spriteWidth, spriteHeight, totalMapSurfaceWidth, totalMapSurfaceHeight, -1, -1, totalMapSurfaceWidth, totalMapSurfaceHeight);
                 Update(entity, surfaceToDrawOn, screenWidth, screenHeight, screenRelativePositionX, screenRelativePositionY, spriteWidth, spriteHeight, totalMapSurfaceWidth, totalMapSurfaceHeight, -1, 0, totalMapSurfaceWidth, totalMapSurfaceHeight);

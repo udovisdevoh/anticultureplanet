@@ -58,12 +58,12 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Horizontal tile offset
         /// </summary>
-        private int viewedTileX;
+        private double viewedTileX;
 
         /// <summary>
         /// Vertical tile offset
         /// </summary>
-        private int viewedTileY;
+        private double viewedTileY;
         #endregion
 
         #region Constructor
@@ -112,8 +112,8 @@ namespace AntiCulturePlanet
             }
 
             planet.IsNeedRefresh = false;
-            int pixelOffsetX = 0 - viewedTileX * tilePixelWidth;
-            int pixelOffsetY = 0 - viewedTileY * tilePixelHeight;
+            int pixelOffsetX = (int)(0 - (viewedTileX * (double)tilePixelWidth));
+            int pixelOffsetY = (int)(0 - (viewedTileY * (double)tilePixelHeight));
 
             mainSurface.Blit(groundSurcace, new Point(pixelOffsetX, pixelOffsetY));
             mainSurface.Blit(groundSurcace, new Point(pixelOffsetX - planet.Width * tilePixelWidth, pixelOffsetY));
@@ -146,7 +146,7 @@ namespace AntiCulturePlanet
         /// <param name="tileOffsetY">vertical tile offset</param>
         /// <param name="width">planet's width</param>
         /// <param name="height">planet's height</param>
-        internal override void MoveView(int tileOffsetX, int tileOffsetY, int width, int height)
+        internal override void MoveView(double tileOffsetX, double tileOffsetY, int width, int height)
         {
             this.viewedTileX += tileOffsetX;
             this.viewedTileY += tileOffsetY;

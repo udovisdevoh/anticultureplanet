@@ -84,7 +84,7 @@ namespace AntiCulturePlanet
         /// <param name="currentTime">current time</param>
         internal void Update(Planet planet, DateTime currentTime)
         {
-            int howManySecondSpan = ((TimeSpan)(currentTime - latestRefreshTime)).Seconds;
+            double howManySecondSpan = ((TimeSpan)(currentTime - latestRefreshTime)).TotalSeconds;
             if (howManySecondSpan * Program.SpeedMultiplier >= timeInterval)
             {
                 //We create new entities when there are not enough of them
