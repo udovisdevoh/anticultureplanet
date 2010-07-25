@@ -41,6 +41,11 @@ namespace AntiCulturePlanet
         /// Latest refresh time
         /// </summary>
         private DateTime latestRefreshTime;
+
+        /// <summary>
+        /// (default: null) We can consider other entities in regulation, for instance: regulating seeds considering the amount of trees
+        /// </summary>
+        private IEnumerable<AbstractEntity> listConsiderOtherEntitiesInRegulationCategory = null;
         #endregion
 
         #region Constructor
@@ -50,13 +55,23 @@ namespace AntiCulturePlanet
         /// <param name="entity">entity for type</param>
         /// <param name="minimumPercentage">minimum percentage</param>
         /// <param name="timeInterval">time interval (in seconds)</param>
-        public EntityRegulator(AbstractEntity entity, double minimumPercentage, int timeInterval)
+        public EntityRegulator(AbstractEntity entity, double minimumPercentage, int timeInterval) : this(entity, null, minimumPercentage,timeInterval) {}
+
+        /// <summary>
+        /// Entity regulator
+        /// </summary>
+        /// <param name="entity">entity for type</param>
+        /// <param name="minimumPercentage">minimum percentage</param>
+        /// <param name="timeInterval">time interval (in seconds)</param>
+        /// <param name="listConsiderOtherEntitiesInRegulationCategory">(default: null) we can consider other entities in regulation, for instance: regulating seeds considering the amount of trees</param>
+        public EntityRegulator(AbstractEntity entity, IEnumerable<AbstractEntity> listConsiderOtherEntitiesInRegulationCategory, double minimumPercentage, int timeInterval)
         {
             latestRefreshTime = DateTime.Now;
             this.positionCriteria = entity.PositionCriteria;
             this.minimumPercentage = minimumPercentage;
             this.timeInterval = timeInterval;
             this.positionCriteria = entity.PositionCriteria;
+            this.listConsiderOtherEntitiesInRegulationCategory = listConsiderOtherEntitiesInRegulationCategory;
             entityType = entity.GetType();
         }
         #endregion
@@ -77,7 +92,13 @@ namespace AntiCulturePlanet
                 try
                 {
                     int minimumEntityCount = (int)Math.Round(minimumPercentage * (double)planet.Width * (double)planet.Height);
-                    if (entityCollection.CountType(entityType) < minimumEntityCount)
+
+                    int actualCount = entityCollection.CountType(entityType);
+                    if (listConsiderOtherEntitiesInRegulationCategory != null)
+                        foreach (AbstractEntity otherEntityKind in listConsiderOtherEntitiesInRegulationCategory)
+                            actualCount += entityCollection.CountType(otherEntityKind.GetType());
+
+                    if (actualCount < minimumEntityCount)
                     {
                         PointF pointF;
 

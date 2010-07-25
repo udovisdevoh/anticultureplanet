@@ -58,6 +58,8 @@
     <Compile Include="models\entities\animals\humans\WomanEntity.cs" />
     <Compile Include="models\entities\minerals\AbstractMineralEntity.cs" />
     <Compile Include="models\entities\plants\AbstractPlantEntity.cs" />
+    <Compile Include="models\entities\plants\LargeFruitTreeEntity.cs" />
+    <Compile Include="models\entities\plants\MediumFruitTreeEntity.cs" />
     <Compile Include="models\entities\plants\SeedFruitTreeEntity.cs" />
     <Compile Include="models\entities\minerals\LargeStoneEntity.cs" />
     <Compile Include="models\entities\minerals\MediumStoneEntity.cs" />
@@ -81,6 +83,9 @@
     <Compile Include="views\sprite\SpriteManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\graphics\entities\LargeFruitTreeEntity0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\graphics\entities\LargeStoneEntity0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -91,6 +96,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\graphics\entities\ManEntity2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\graphics\entities\MediumFruitTreeEntity0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\graphics\entities\MediumStoneEntity0.png">
@@ -237,14 +245,18 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\graphics\originals\MediumTree.fla" />
     <None Include="assets\graphics\originals\PrehistoricMan1.fla" />
     <None Include="assets\graphics\originals\PrehistoricMan2.fla" />
     <None Include="assets\graphics\originals\PrehistoricMan3.fla" />
     <None Include="assets\graphics\originals\PrehistoricWoman1.fla" />
     <None Include="assets\graphics\originals\PrehistoricWoman2.fla" />
     <None Include="assets\graphics\originals\PrehistoricWoman3.fla" />
+    <None Include="assets\graphics\originals\Seed.fla" />
+    <None Include="assets\graphics\originals\SmallTree.fla" />
     <None Include="assets\graphics\originals\Soil.fla" />
     <None Include="assets\graphics\originals\Stone1.fla" />
+    <None Include="assets\graphics\originals\Trunk.fla" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\graphics\png\plants\" />
