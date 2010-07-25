@@ -38,12 +38,12 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Planet width
         /// </summary>
-        private const int planetWidth = 64;
+        private const int planetWidth = 512;
 
         /// <summary>
         /// Planet height
         /// </summary>
-        private const int planetHeight = 64;
+        private const int planetHeight = 512;
 
         /// <summary>
         /// 1: normal, 2: double speed, 0.5: half the speed
