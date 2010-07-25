@@ -94,8 +94,8 @@ namespace AntiCulturePlanet
             userInput = new UserInput();
             mainSurface = Video.SetVideoMode(screenWidth, screenHeight, false, false, isFullScreen, true);
             random = new Random();
-            planetGenerator = new PlanetGenerator();
-            planet = planetGenerator.Build(random);
+            planetGenerator = new PlanetGenerator(random);
+            planet = planetGenerator.Build();
             planetViewer = new PlanetViewerLowRes(mainSurface, screenWidth, screenHeight, planet);
         }
         #endregion

@@ -40,6 +40,11 @@ namespace AntiCulturePlanet
         /// Whether tile must be redrawn
         /// </summary>
         private bool isNeedRefresh = true;
+
+        /// <summary>
+        /// Percentage (-1.0 = not evaluated yet)
+        /// </summary>
+        private double waterPercentage = -1.0;
         #endregion
 
         #region Constructor
@@ -81,8 +86,18 @@ namespace AntiCulturePlanet
                         this.altitude = Math.Max(planet.GetTopRightTile(this).altitude, planet.GetBottomLeftTile(this).altitude);
             }
 
-            this.altitude = (int)Math.Round((float)(this.altitude + planet.GetLeftTile(this).altitude + planet.GetRightTile(this).altitude + planet.GetTopTile(this).altitude + planet.GetBottomTile(this).altitude) / 5.0);
+            altitude = (int)Math.Round((float)(this.altitude + planet.GetLeftTile(this).altitude + planet.GetRightTile(this).altitude + planet.GetTopTile(this).altitude + planet.GetBottomTile(this).altitude) / 5.0);
+            
             isWater = altitude < planet.WaterThresholdAltitude;
+        }
+
+        /// <summary>
+        /// Soften water percentage
+        /// </summary>
+        /// <param name="planet">planet</param>
+        internal void SoftenWaterPercentage(Planet planet)
+        {
+            waterPercentage = (this.waterPercentage + planet.GetLeftTile(this).waterPercentage + planet.GetRightTile(this).waterPercentage + planet.GetTopTile(this).waterPercentage + planet.GetBottomTile(this).waterPercentage) / 5.0;
         }
 
         /// <summary>
@@ -180,6 +195,15 @@ namespace AntiCulturePlanet
         {
             get { return isNeedRefresh; }
             set { isNeedRefresh = value; }
+        }
+
+        /// <summary>
+        /// Percentage of water (-1.0 = not evaluated yet)
+        /// </summary>
+        public double WaterPercentage
+        {
+            get { return waterPercentage; }
+            set { waterPercentage = value; }
         }
         #endregion
     }
