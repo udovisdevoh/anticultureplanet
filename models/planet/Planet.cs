@@ -23,11 +23,6 @@ namespace AntiCulturePlanet
         private EntityCollection entityCollection;
 
         /// <summary>
-        /// Regulates quantity of natural things
-        /// </summary>
-        private MotherNature motherNature;
-
-        /// <summary>
         /// Random number generator
         /// </summary>
         private Random random;
@@ -111,7 +106,6 @@ namespace AntiCulturePlanet
         internal Planet(int width, int height, int minTemperature, int maxTemperature, int dayLength, int yearLength, int minAltitude, int maxAltitude, int softnessPassCount, float waterPercentage, Random random)
         {
             this.random = random;
-            motherNature = new MotherNature();
             entityCollection = new EntityCollection();
 
             this.width = width;
@@ -135,17 +129,6 @@ namespace AntiCulturePlanet
         #endregion
 
         #region Internal Methods
-        /// <summary>
-        /// Update the planet
-        /// <param name="currentTime">current time</param>
-        /// </summary>
-        internal void Update(DateTime currentTime)
-        {
-            motherNature.Update(entityCollection, this, currentTime);
-            motherNature.UpdateForTransformations(entityCollection, this, currentTime);
-            motherNature.UpdatePlantsForReproduction(entityCollection, this, currentTime);
-        }
-
         /// <summary>
         /// Tile at left
         /// </summary>

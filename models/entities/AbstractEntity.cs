@@ -110,11 +110,10 @@ namespace AntiCulturePlanet
         /// Occurs when an entity decays
         /// </summary>
         /// <param name="planet">planet</param>
-        /// <param name="entityCollection">entity collection</param>
-        internal void Decay(Planet planet, EntityCollection entityCollection)
+        internal void Decay(Planet planet)
         {
-            entityCollection.Remove(this);
-            IEnumerable<AbstractEntity> decayEntityList = GetDecayEntities(planet, entityCollection);
+            planet.EntityCollection.Remove(this);
+            IEnumerable<AbstractEntity> decayEntityList = GetDecayEntities(planet);
             if (decayEntityList != null)
             {
                 foreach (AbstractEntity decayEntity in decayEntityList)
@@ -130,7 +129,7 @@ namespace AntiCulturePlanet
                             tryCount++;
                             if (tryCount > Program.MaxTryFindRandomTilePosition)
                                 throw new NoAvailableSpaceException();
-                        } while (entityCollection.IsDetectCollision(decayEntity, planet));
+                        } while (planet.EntityCollection.IsDetectCollision(decayEntity, planet));
 
                         if (decayEntity.IsKeepMassOfPreviousEntity)
                             decayEntity.Mass = this.Mass;
@@ -141,7 +140,7 @@ namespace AntiCulturePlanet
                         if (decayEntity.IsKeepSpriteOfPreviousEntity)
                             decayEntity.EntitySprite = this.EntitySprite;
 
-                        entityCollection.Add(decayEntity);
+                        planet.EntityCollection.Add(decayEntity);
                     }
                     catch (NoAvailableSpaceException)
                     {
@@ -182,9 +181,8 @@ namespace AntiCulturePlanet
         /// can be null if decays into nothing
         /// </summary>
         /// <param name="planet">planet</param>
-        /// <param name="entityCollection">entity collection</param>
         /// <returns>when entity decays, returns new entities, or null if entity decays into nothing</returns>
-        protected abstract IEnumerable<AbstractEntity> GetDecayEntities(Planet planet, EntityCollection entityCollection);
+        protected abstract IEnumerable<AbstractEntity> GetDecayEntities(Planet planet);
 
         /// <summary>
         /// Build position criteria (whether it's water, ground or both)

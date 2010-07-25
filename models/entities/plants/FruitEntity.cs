@@ -48,7 +48,7 @@ namespace AntiCulturePlanet
         /// <param name="planet">planet</param>
         /// <param name="entityCollection">entity collection</param>
         /// <returns>decay entities (when this entity decays)</returns>
-        protected override IEnumerable<AbstractEntity> GetDecayEntities(Planet planet, EntityCollection entityCollection)
+        protected override IEnumerable<AbstractEntity> GetDecayEntities(Planet planet)
         {
             return new AbstractEntity[] { new SeedFruitTreeEntity() };
         }

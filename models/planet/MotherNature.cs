@@ -52,29 +52,27 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Update natural stuff
         /// </summary>
-        /// <param name="entityCollection">entity collection</param>
         /// <param name="planet">planet</param>
         /// <param name="currentTime">current time</param>
-        internal void Update(EntityCollection entityCollection, Planet planet, DateTime currentTime)
+        internal void Update(Planet planet, DateTime currentTime)
         {
             foreach (EntityRegulator entityRegulator in entityRegulatorList)
             {
-                entityRegulator.Update(entityCollection, planet, currentTime);
+                entityRegulator.Update(planet, currentTime);
             }
         }
 
         /// <summary>
         /// Update entities for decay and phase transformation
         /// </summary>
-        /// <param name="entityCollection">entity collection</param>
         /// <param name="planet">planet</param>
         /// <param name="currentTime">current time</param>
-        internal void UpdateForTransformations(EntityCollection entityCollection, Planet planet, DateTime currentTime)
+        internal void UpdateForTransformations(Planet planet, DateTime currentTime)
         {
             TimeSpan timeSpanSinceLastDecayUpdate = (TimeSpan)(currentTime - lastDecayUpdateTime);
             if (timeSpanSinceLastDecayUpdate.Seconds * Program.SpeedMultiplier > Program.EntityTransformationRefreshTime)
             {
-                foreach (AbstractEntity entity in new List<AbstractEntity>(entityCollection))
+                foreach (AbstractEntity entity in new List<AbstractEntity>(planet.EntityCollection))
                 {
                     if (entity.DecayTime < 0)//Some entites never decay
                         continue;
@@ -84,11 +82,11 @@ namespace AntiCulturePlanet
                     {
                         if (entity is AbstractPlantEntity)
                         {
-                            ((AbstractPlantEntity)(entity)).GoToNextPhaseOrDecay(planet, entityCollection);
+                            ((AbstractPlantEntity)(entity)).GoToNextPhaseOrDecay(planet);
                         }
                         else
                         {
-                            entity.Decay(planet, entityCollection);
+                            entity.Decay(planet);
                         }
                     }
                 }
@@ -100,20 +98,19 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Update plants for reproduction
         /// </summary>
-        /// <param name="entityCollection">entity collection</param>
         /// <param name="planet">planet</param>
         /// <param name="currentTime">current time</param>
-        internal void UpdatePlantsForReproduction(EntityCollection entityCollection, Planet planet, DateTime currentTime)
+        internal void UpdatePlantsForReproduction(Planet planet, DateTime currentTime)
         {
             TimeSpan timeSpanSinceLastReproductionUpdate = (TimeSpan)(currentTime - lastReproductionUpdateTime);
             if (timeSpanSinceLastReproductionUpdate.Seconds * Program.SpeedMultiplier > Program.EntityTransformationRefreshTime)
             {
-                foreach (AbstractEntity entity in new List<AbstractEntity>(entityCollection))
+                foreach (AbstractEntity entity in new List<AbstractEntity>(planet.EntityCollection))
                 {
                     if (entity is AbstractPlantEntity)
                     {
                         AbstractPlantEntity plant = (AbstractPlantEntity)entity;
-                        plant.TryReproduce(planet, entityCollection, currentTime);
+                        plant.TryReproduce(planet, currentTime);
                     }
                 }
                 lastReproductionUpdateTime = DateTime.Now;

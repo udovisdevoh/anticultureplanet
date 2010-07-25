@@ -80,10 +80,9 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Regulates the amount of stones
         /// </summary>
-        /// <param name="entityCollection">entity collection</param>
         /// <param name="planet">planet</param>
         /// <param name="currentTime">current time</param>
-        internal void Update(EntityCollection entityCollection, Planet planet, DateTime currentTime)
+        internal void Update(Planet planet, DateTime currentTime)
         {
             int howManySecondSpan = ((TimeSpan)(currentTime - latestRefreshTime)).Seconds;
             if (howManySecondSpan * Program.SpeedMultiplier >= timeInterval)
@@ -93,10 +92,10 @@ namespace AntiCulturePlanet
                 {
                     int minimumEntityCount = (int)Math.Round(minimumPercentage * (double)planet.Width * (double)planet.Height);
 
-                    int actualCount = entityCollection.CountType(entityType);
+                    int actualCount = planet.EntityCollection.CountType(entityType);
                     if (listConsiderOtherEntitiesInRegulationCategory != null)
                         foreach (AbstractEntity otherEntityKind in listConsiderOtherEntitiesInRegulationCategory)
-                            actualCount += entityCollection.CountType(otherEntityKind.GetType());
+                            actualCount += planet.EntityCollection.CountType(otherEntityKind.GetType());
 
                     if (actualCount < minimumEntityCount)
                     {
@@ -122,9 +121,9 @@ namespace AntiCulturePlanet
 
                             tryCount++;
 
-                        } while (entityCollection.IsDetectCollision(entity, planet));
+                        } while (planet.EntityCollection.IsDetectCollision(entity, planet));
 
-                        entityCollection.Add(entity);
+                        planet.EntityCollection.Add(entity);
 
                         latestRefreshTime = DateTime.Now;
                     }
