@@ -145,6 +145,7 @@ namespace AntiCulturePlanet
             double timeDelta = ((TimeSpan)(DateTime.Now - previousDateTime)).TotalMilliseconds / 16.0;
             previousDateTime = currentTime;
 
+            //We parse user input
             if (userInput.IsPressLeft)
                 planetViewer.MoveView(-1, 0, planet.Width, planet.Height);
             if (userInput.IsPressRight)
@@ -154,17 +155,37 @@ namespace AntiCulturePlanet
             if (userInput.IsPressDown)
                 planetViewer.MoveView(0, 1, planet.Width, planet.Height);
 
-            motherNature.Update(planet, currentTime);
-            motherNature.UpdateForTransformations(planet, currentTime);
-            motherNature.UpdatePlantsForReproduction(planet, currentTime);
+            motherNature.UpdatePopulationRegualtor(planet, currentTime);
+
+            //We update a random entities
+            AbstractEntity entity = planet.EntityCollection.GetRandomEntity(random);
+
+            //Plant reproduction
+            if (entity is AbstractPlantEntity)
+            {
+                AbstractPlantEntity plant = (AbstractPlantEntity)entity;
+                plant.TryReproduce(planet, currentTime);
+            }
+
+            //Decay
+            if (entity.DecayTime > 0)
+            {
+                TimeSpan timeSpanSinceCreation = (TimeSpan)(currentTime - entity.CreationTime);
+                if (timeSpanSinceCreation.TotalSeconds * Program.SpeedMultiplier > entity.DecayTime)
+                {
+                    if (entity is AbstractPlantEntity)
+                    {
+                        ((AbstractPlantEntity)(entity)).GoToNextPhaseOrDecay(planet);
+                    }
+                    else
+                    {
+                        entity.Decay(planet);
+                    }
+                }
+            }
+
 
             planetViewer.Update(planet);
-
-            /*Tile tileToChange = planet[random.Next(planet.Width), random.Next(planet.Height)];
-            tileToChange.Randomize(planet, random);
-            for (int i = 0; i < planet.SoftnessPassCount; i++)
-                tileToChange.Soften(planet);
-            planetViewer.Update(tileToChange, planet);*/
 
             mainSurface.Update();
         }

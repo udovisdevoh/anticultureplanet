@@ -14,7 +14,7 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Internal collection of entities
         /// </summary>
-        private HashSet<AbstractEntity> internalCollection;
+        private List<AbstractEntity> internalCollection;
 
         /// <summary>
         /// To store relation between entity types and their respective amounts
@@ -29,7 +29,7 @@ namespace AntiCulturePlanet
         public EntityCollection()
         {
             typeCount = new Dictionary<Type, int>();
-            internalCollection = new HashSet<AbstractEntity>();
+            internalCollection = new List<AbstractEntity>();
 
             Type type = internalCollection.GetType();
         }
@@ -110,6 +110,16 @@ namespace AntiCulturePlanet
                 if (IsDetectCollision(entity, otherEntity, planet))
                     return true;
             return false;
+        }
+
+        /// <summary>
+        /// Get random entity
+        /// </summary>
+        /// <param name="random">random number generator</param>
+        /// <returns>random entity</returns>
+        internal AbstractEntity GetRandomEntity(Random random)
+        {
+            return internalCollection[random.Next(internalCollection.Count)];
         }
         #endregion
 
