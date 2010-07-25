@@ -58,7 +58,7 @@ namespace AntiCulturePlanet
         /// <summary>
         /// How many seconds before mother nature refreshes global decay
         /// </summary>
-        public const double DecayRefreshTime = 1.0;
+        public const double EntityTransformationRefreshTime = 1.0;
         #endregion
 
         #region Fields and parts

@@ -51,13 +51,26 @@ namespace AntiCulturePlanet
         /// <returns>minimum water percentage (from 0 to 1) for next growing phase</returns>
         protected override double BuildMinimumWaterPercentageOnTileForNextGrowingPhase()
         {
-            #warning Adjust
-            return 0.000015625;
+            return 0.005;
         }
 
         protected override int BuildMinimumTemperatureForNextGrowingPhase()
         {
             return 4;
+        }
+
+        protected override AbstractEntity GetReproductionSporeEntity()
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// Build reproduction cycle time (seconds)
+        /// </summary>
+        /// <returns>reproduction cycle time (seconds) (0 = never)</returns>
+        protected override double BuildReproductionCycleTime()
+        {
+            return 0;
         }
     }
 }
