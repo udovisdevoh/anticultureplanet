@@ -60,6 +60,8 @@
     <Compile Include="models\entities\minerals\LargeStoneEntity.cs" />
     <Compile Include="models\entities\minerals\MediumStoneEntity.cs" />
     <Compile Include="models\entities\minerals\SmallStoneEntity.cs" />
+    <Compile Include="models\entities\plants\SmallTreeEntity.cs" />
+    <Compile Include="models\entities\plants\TrunkEntity.cs" />
     <Compile Include="models\entityCollection\EntityCollection.cs" />
     <Compile Include="models\motherNature\MotherNature.cs" />
     <Compile Include="models\motherNature\EntityRegulator.cs" />
@@ -98,7 +100,13 @@
     <Content Include="assets\graphics\entities\SmallStoneEntity0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\graphics\entities\SmallTreeEntity0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\graphics\entities\SoilEntity0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\graphics\entities\TrunkEntity0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\graphics\entities\WomanEntity0.png">

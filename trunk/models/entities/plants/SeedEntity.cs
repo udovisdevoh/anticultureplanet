@@ -14,7 +14,7 @@ namespace AntiCulturePlanet
         /// <returns>Decay time</returns>
         protected override double BuildDecayTime()
         {
-            return 50;
+            return 30;
         }
 
         /// <summary>
