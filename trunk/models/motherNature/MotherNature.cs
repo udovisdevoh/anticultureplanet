@@ -37,7 +37,7 @@ namespace AntiCulturePlanet
             entityRegulatorList.Add(new EntityRegulator(new SmallStoneEntity(), 0.004, 1));
 
             //Plants
-            entityRegulatorList.Add(new EntityRegulator(new SeedEntity(), 0.004, 1));
+            entityRegulatorList.Add(new EntityRegulator(new SeedFruitTreeEntity(), 0.004, 1));
             //entityRegulatorList.Add(new EntityRegulator(new SmallTreeEntity(), 0.004, 1));
         }
         #endregion
