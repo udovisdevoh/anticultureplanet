@@ -61,7 +61,7 @@ namespace AntiCulturePlanet
 
         protected override AbstractEntity GetReproductionSporeEntity()
         {
-            return new FruitEntity();
+            return null;
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace AntiCulturePlanet
         /// <returns>reproduction cycle time (seconds) (0 = never)</returns>
         protected override double BuildReproductionCycleTime()
         {
-            return 15;
+            return 0;
         }
     }
 }
