@@ -58,12 +58,12 @@ namespace AntiCulturePlanet
         }
 
         /// <summary>
-        /// Update entities for decay
+        /// Update entities for decay and phase transformation
         /// </summary>
         /// <param name="entityCollection">entity collection</param>
         /// <param name="planet">planet</param>
         /// <param name="currentTime">current time</param>
-        internal void UpdateForDecay(EntityCollection entityCollection, Planet planet, DateTime currentTime)
+        internal void UpdateForTransformations(EntityCollection entityCollection, Planet planet, DateTime currentTime)
         {
             TimeSpan timeSpanSinceLastDecayUpdate = (TimeSpan)(currentTime - lastDecayUpdateTime);
             if (timeSpanSinceLastDecayUpdate.Seconds * Program.SpeedMultiplier > Program.DecayRefreshTime)
@@ -76,7 +76,14 @@ namespace AntiCulturePlanet
                     TimeSpan timeSpanSinceCreation = (TimeSpan)(currentTime - entity.CreationTime);
                     if (timeSpanSinceCreation.TotalSeconds * Program.SpeedMultiplier > entity.DecayTime)
                     {
-                        entity.Decay(planet, entityCollection);
+                        if (entity is AbstractPlantEntity)
+                        {
+                            ((AbstractPlantEntity)(entity)).GoToNextPhaseOrDecay(planet, entityCollection);
+                        }
+                        else
+                        {
+                            entity.Decay(planet, entityCollection);
+                        }
                     }
                 }
 

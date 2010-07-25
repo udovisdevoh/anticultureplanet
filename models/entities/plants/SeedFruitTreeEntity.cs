@@ -53,6 +53,26 @@ namespace AntiCulturePlanet
         {
             return null;
         }
+
+        /// <summary>
+        /// Get next phase entity for plant
+        /// (null if there is no next phase)
+        /// </summary>
+        /// <returns>next phase entity for plant (or null if there is no next phase)</returns>
+        protected override AbstractEntity GetNextGrowingPhaseEntity()
+        {
+            return new SmallFruitTreeEntity();
+        }
+
+        /// <summary>
+        /// Build minimum water percentage (from 0 to 1) for next growing phase
+        /// </summary>
+        /// <returns>minimum water percentage (from 0 to 1) for next growing phase</returns>
+        protected override double BuildMinimumWaterPercentageOnTileForNextGrowingPhase()
+        {
+            #warning Adjust
+            return 0.001;
+        }
         #endregion
     }
 }
