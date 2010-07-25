@@ -30,7 +30,7 @@ namespace AntiCulturePlanet
             return SpriteManager.GetSprite(this.GetType());
         }
 
-        protected override IEnumerable<AbstractEntity> GetDecayEntities(Planet planet, EntityCollection entityCollection)
+        protected override IEnumerable<AbstractEntity> GetDecayEntities(Planet planet)
         {
             return new AbstractEntity[] { new TrunkEntity() };
         }
@@ -51,7 +51,7 @@ namespace AntiCulturePlanet
         /// <returns>minimum water percentage (from 0 to 1) for next growing phase</returns>
         protected override double BuildMinimumWaterPercentageOnTileForNextGrowingPhase()
         {
-            return 0.005;
+            return 0.0275;
         }
 
         protected override int BuildMinimumTemperatureForNextGrowingPhase()

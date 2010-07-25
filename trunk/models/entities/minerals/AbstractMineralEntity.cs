@@ -25,7 +25,7 @@ namespace AntiCulturePlanet
             return ZIndexLayer.OnFloor;
         }
 
-        protected override IEnumerable<AbstractEntity> GetDecayEntities(Planet planet, EntityCollection entityCollection)
+        protected override IEnumerable<AbstractEntity> GetDecayEntities(Planet planet)
         {
             return null;
         }

@@ -118,22 +118,21 @@ namespace AntiCulturePlanet
         /// Go to next phase or decay
         /// </summary>
         /// <param name="planet">Planet</param>
-        /// <param name="entityCollection">Entity Collection</param>
-        internal void GoToNextPhaseOrDecay(Planet planet, EntityCollection entityCollection)
+        internal void GoToNextPhaseOrDecay(Planet planet)
         {
             Tile tile = planet.GetTile(this);
             
             if (tile.WaterPercentage < minimumWaterPercentageOnTileForNextGrowingPhase
                 || tile.Temperature < minimumTemperatureForNextGrowingPhase)
             {
-                Decay(planet, entityCollection);
+                Decay(planet);
                 return;
             }
 
             AbstractEntity nextPhaseEntity = GetNextGrowingPhaseEntity();
             if (nextPhaseEntity == null)
             {
-                Decay(planet, entityCollection);
+                Decay(planet);
                 return;
             }
 
@@ -141,7 +140,7 @@ namespace AntiCulturePlanet
             if (nextPhaseEntity.PositionCriteria == PositionCriteria.Ground && tile.IsWater
                 || nextPhaseEntity.PositionCriteria == PositionCriteria.Water && !tile.IsWater)
             {
-                Decay(planet, entityCollection);
+                Decay(planet);
                 return;
             }
 
@@ -157,17 +156,16 @@ namespace AntiCulturePlanet
             if (nextPhaseEntity.IsKeepSpriteOfPreviousEntity)
                 nextPhaseEntity.EntitySprite = this.EntitySprite;
 
-            entityCollection.Remove(this);
-            entityCollection.Add(nextPhaseEntity);
+            planet.EntityCollection.Remove(this);
+            planet.EntityCollection.Add(nextPhaseEntity);
         }
 
         /// <summary>
         /// Engage reproduction for plant if possible
         /// </summary>
         /// <param name="planet">planet</param>
-        /// <param name="entityCollection">entity collection</param>
         /// <param name="currentTime">current time</param>
-        internal void TryReproduce(Planet planet, EntityCollection entityCollection, DateTime currentTime)
+        internal void TryReproduce(Planet planet, DateTime currentTime)
         {
             if (reproductionCycleTime <= 0)
                 return;
@@ -194,10 +192,10 @@ namespace AntiCulturePlanet
                             tryCount++;
                             if (tryCount > Program.MaxTryFindRandomTilePosition)
                                 throw new NoAvailableSpaceException();
-                        } while (entityCollection.IsDetectCollision(reproductionSpore, planet));
+                        } while (planet.EntityCollection.IsDetectCollision(reproductionSpore, planet));
 
                         reproductionSpore.Size = sporeSize;
-                        entityCollection.Add(reproductionSpore);
+                        planet.EntityCollection.Add(reproductionSpore);
                     }
                     catch (NoAvailableSpaceException)
                     {

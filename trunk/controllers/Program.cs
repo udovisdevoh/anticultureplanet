@@ -38,12 +38,12 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Planet width
         /// </summary>
-        private const int planetWidth = 64;
+        private const int planetWidth = 512;
 
         /// <summary>
         /// Planet height
         /// </summary>
-        private const int planetHeight = 64;
+        private const int planetHeight = 512;
 
         /// <summary>
         /// 1: normal, 2: double speed, 0.5: half the speed
@@ -53,7 +53,7 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Max time we try to find a random place on map with some criteria
         /// </summary>
-        public const int MaxTryFindRandomTilePosition = 100;
+        public const int MaxTryFindRandomTilePosition = 10;
 
         /// <summary>
         /// How many seconds before mother nature refreshes global decay
@@ -71,6 +71,11 @@ namespace AntiCulturePlanet
         /// Planet
         /// </summary>
         private Planet planet;
+
+        /// <summary>
+        /// Mother nature
+        /// </summary>
+        private MotherNature motherNature;
 
         /// <summary>
         /// Planet's view
@@ -104,6 +109,7 @@ namespace AntiCulturePlanet
             userInput = new UserInput();
             mainSurface = Video.SetVideoMode(screenWidth, screenHeight, false, false, isFullScreen, true);
             random = new Random();
+            motherNature = new MotherNature();
             planetGenerator = new PlanetGenerator(random);
             planetGenerator.Width = planetWidth;
             planetGenerator.Height = planetHeight;
@@ -148,7 +154,9 @@ namespace AntiCulturePlanet
             if (userInput.IsPressDown)
                 planetViewer.MoveView(0, 1, planet.Width, planet.Height);
 
-            planet.Update(currentTime);
+            motherNature.Update(planet, currentTime);
+            motherNature.UpdateForTransformations(planet, currentTime);
+            motherNature.UpdatePlantsForReproduction(planet, currentTime);
 
             planetViewer.Update(planet);
 
