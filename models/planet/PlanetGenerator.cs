@@ -10,6 +10,13 @@ namespace AntiCulturePlanet
     /// </summary>
     internal class PlanetGenerator
     {
+        #region Parts
+        /// <summary>
+        /// Random number generator
+        /// </summary>
+        private Random random;
+        #endregion
+
         #region Fields
         /// <summary>
         /// Width (tiles)
@@ -70,6 +77,17 @@ namespace AntiCulturePlanet
         /// Altitude of water (from 0 to 1)
         /// </summary>
         private float waterAltitude = 0.3f;
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        /// Build planet generator
+        /// </summary>
+        /// <param name="random">random number generator</param>
+        public PlanetGenerator(Random random)
+        {
+            this.random = random;
+        }
         #endregion
 
         #region Properties
@@ -183,7 +201,7 @@ namespace AntiCulturePlanet
         /// Build a planet
         /// </summary>
         /// <returns>planet</returns>
-        internal Planet Build(Random random)
+        internal Planet Build()
         {
             Planet planet = new Planet(width, height, minTemperature, maxTemperature, dayLength, yearLength, minAltitude, maxAltitude, softnessPassCount, waterAltitude, random);
             
@@ -223,6 +241,45 @@ namespace AntiCulturePlanet
                     for (int x = 1; x < width; x += 2)
                         planet[x, y].Soften(planet);
             }
+
+            //We set water percentage
+            for (int y = 0; y < width; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    if (planet[x, y].IsWater)
+                    {
+                        planet[x, y].WaterPercentage = 1.0;
+                    }
+                    else
+                    {
+                        planet[x, y].WaterPercentage = 0;
+                    }
+                }
+            }
+
+            //We soften water percentage
+            for (int currentSoftnessPassCount = 0; currentSoftnessPassCount < softnessPassCount; currentSoftnessPassCount++)
+            {
+                for (int y = 0; y < width; y += 2)
+                    for (int x = 0; x < width; x += 2)
+                        planet[x, y].SoftenWaterPercentage(planet);
+                for (int y = 1; y < width; y += 2)
+                    for (int x = 0; x < width; x += 2)
+                        planet[x, y].SoftenWaterPercentage(planet);
+                for (int y = 0; y < width; y += 2)
+                    for (int x = 1; x < width; x += 2)
+                        planet[x, y].SoftenWaterPercentage(planet);
+                for (int y = 1; y < width; y += 2)
+                    for (int x = 1; x < width; x += 2)
+                        planet[x, y].SoftenWaterPercentage(planet);
+            }
+
+            //We set water percentage back to 1.0 when it's water
+            for (int y = 0; y < width; y++)
+                for (int x = 0; x < width; x++)
+                    if (planet[x, y].IsWater)
+                        planet[x, y].WaterPercentage = 1.0;
 
             return planet;
         }
