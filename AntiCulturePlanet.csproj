@@ -56,6 +56,8 @@
     <Compile Include="models\entities\animals\humans\AbstractHumanEntity.cs" />
     <Compile Include="models\entities\animals\humans\ManEntity.cs" />
     <Compile Include="models\entities\animals\humans\WomanEntity.cs" />
+    <Compile Include="models\entities\minerals\AbstractMineralEntity.cs" />
+    <Compile Include="models\entities\plants\AbstractPlantEntity.cs" />
     <Compile Include="models\entities\plants\SeedFruitTreeEntity.cs" />
     <Compile Include="models\entities\minerals\LargeStoneEntity.cs" />
     <Compile Include="models\entities\minerals\MediumStoneEntity.cs" />

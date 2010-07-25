@@ -8,7 +8,7 @@ namespace AntiCulturePlanet
     /// <summary>
     /// Represents a small tree
     /// </summary>
-    class SmallFruitTreeEntity : AbstractEntity
+    class SmallFruitTreeEntity : AbstractPlantEntity
     {
         protected override double BuildDecayTime()
         {
@@ -33,36 +33,6 @@ namespace AntiCulturePlanet
         protected override IEnumerable<AbstractEntity> GetDecayEntities(Planet planet, EntityCollection entityCollection)
         {
             return new AbstractEntity[] { new TrunkEntity() };
-        }
-
-        protected override PositionCriteria BuildPositionCriteria()
-        {
-            return PositionCriteria.Ground;
-        }
-
-        protected override ZIndexLayer BuildZIndexLayer()
-        {
-            return ZIndexLayer.OnFloor;
-        }
-
-        protected override bool BuildIsKeepSpriteOfPreviousEntity()
-        {
-            return false;
-        }
-
-        protected override bool BuildIsKeepMassOfPreviousEntity()
-        {
-            return false;
-        }
-
-        protected override bool BuildIsKeepSizeOfPreviousEntity()
-        {
-            return false;
-        }
-
-        protected override bool BuildIsAffectedByCollision()
-        {
-            return true;
         }
     }
 }
