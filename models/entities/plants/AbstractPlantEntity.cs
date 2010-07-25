@@ -137,6 +137,14 @@ namespace AntiCulturePlanet
                 return;
             }
 
+            //Sometimes the next phase is incompatible with environment (water or ground)
+            if (nextPhaseEntity.PositionCriteria == PositionCriteria.Ground && tile.IsWater
+                || nextPhaseEntity.PositionCriteria == PositionCriteria.Water && !tile.IsWater)
+            {
+                Decay(planet, entityCollection);
+                return;
+            }
+
             nextPhaseEntity.X = this.X;
             nextPhaseEntity.Y = this.Y;
 
@@ -161,13 +169,20 @@ namespace AntiCulturePlanet
         /// <param name="currentTime">current time</param>
         internal void TryReproduce(Planet planet, EntityCollection entityCollection, DateTime currentTime)
         {
+            if (reproductionCycleTime <= 0)
+                return;
+
             TimeSpan timeSpanSinceLastReproduction = (TimeSpan)(currentTime - latestReproductionTime);
 
-            if (timeSpanSinceLastReproduction.Seconds >= this.reproductionCycleTime)
+            if (timeSpanSinceLastReproduction.Seconds >= reproductionCycleTime)
             {
                 AbstractEntity reproductionSpore = GetReproductionSporeEntity();
+
                 if (reproductionSpore != null)
                 {
+                    double sporeSize = reproductionSpore.Size;
+                    reproductionSpore.Size = this.Size;
+
                     try
                     {
                         int tryCount = 0;
@@ -181,6 +196,7 @@ namespace AntiCulturePlanet
                                 throw new NoAvailableSpaceException();
                         } while (entityCollection.IsDetectCollision(reproductionSpore, planet));
 
+                        reproductionSpore.Size = sporeSize;
                         entityCollection.Add(reproductionSpore);
                     }
                     catch (NoAvailableSpaceException)
