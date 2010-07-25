@@ -143,6 +143,7 @@ namespace AntiCulturePlanet
         {
             motherNature.Update(entityCollection, this, currentTime);
             motherNature.UpdateForTransformations(entityCollection, this, currentTime);
+            motherNature.UpdatePlantsForReproduction(entityCollection, this, currentTime);
         }
 
         /// <summary>
@@ -288,6 +289,32 @@ namespace AntiCulturePlanet
 
             double xPosition = oldEntity.X - xOffset;
             double yPosition = oldEntity.Y - yOffset;
+
+            while (xPosition < 0)
+                xPosition += width;
+            while (yPosition < 0)
+                yPosition += height;
+
+            while (xPosition >= width)
+                xPosition -= width;
+            while (yPosition >= height)
+                yPosition -= height;
+
+            return new PointF((float)xPosition, (float)yPosition);
+        }
+
+        /// <summary>
+        /// Get random surrounding position for entity
+        /// </summary>
+        /// <param name="entity">entity</param>
+        /// <returns>random surrounding position for entity</returns>
+        internal PointF GetRandomSurroundingPosition(AbstractPlantEntity entity)
+        {
+            double xOffset = random.NextDouble() * (entity.Size * 3.0) - (entity.Size * 1.5);
+            double yOffset = random.NextDouble() * (entity.Size * 3.0) - (entity.Size * 1.5);
+
+            double xPosition = entity.X - xOffset;
+            double yPosition = entity.Y - yOffset;
 
             while (xPosition < 0)
                 xPosition += width;

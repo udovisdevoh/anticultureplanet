@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 
 namespace AntiCulturePlanet
 {
@@ -20,6 +21,17 @@ namespace AntiCulturePlanet
         /// Minimum temperature needed for next growing stage
         /// </summary>
         private int minimumTemperatureForNextGrowingPhase;
+
+        /// <summary>
+        /// Reproduction cycle time (seconds)
+        /// 0 = never
+        /// </summary>
+        private double reproductionCycleTime = 0;
+
+        /// <summary>
+        /// Last time entity reproduced
+        /// </summary>
+        private DateTime latestReproductionTime;
         #endregion
 
         #region Constructor
@@ -28,8 +40,10 @@ namespace AntiCulturePlanet
         /// </summary>
         public AbstractPlantEntity() : base()
         {
+            latestReproductionTime = DateTime.Now;
             minimumWaterPercentageOnTileForNextGrowingPhase = BuildMinimumWaterPercentageOnTileForNextGrowingPhase();
             minimumTemperatureForNextGrowingPhase = BuildMinimumTemperatureForNextGrowingPhase();
+            reproductionCycleTime = BuildReproductionCycleTime();
         }
         #endregion
 
@@ -74,6 +88,13 @@ namespace AntiCulturePlanet
         protected abstract AbstractEntity GetNextGrowingPhaseEntity();
 
         /// <summary>
+        /// Get reproduction spore for entity
+        /// (null if there is no reproduction spore)
+        /// </summary>
+        /// <returns>reproduction spore for entity (null if there is no reproduction spore)</returns>
+        protected abstract AbstractEntity GetReproductionSporeEntity();
+
+        /// <summary>
         /// Build minimum water percentage (from 0 to 1) for next growing phase
         /// </summary>
         /// <returns>minimum water percentage (from 0 to 1) for next growing phase</returns>
@@ -84,6 +105,12 @@ namespace AntiCulturePlanet
         /// </summary>
         /// <returns>minimum temperature needed for next growing stage</returns>
         protected abstract int BuildMinimumTemperatureForNextGrowingPhase();
+
+        /// <summary>
+        /// Build reproduction cycle time (seconds)
+        /// </summary>
+        /// <returns>reproduction cycle time (seconds) (0 = never)</returns>
+        protected abstract double BuildReproductionCycleTime();
         #endregion
 
         #region Internal Methods
@@ -124,6 +151,45 @@ namespace AntiCulturePlanet
 
             entityCollection.Remove(this);
             entityCollection.Add(nextPhaseEntity);
+        }
+
+        /// <summary>
+        /// Engage reproduction for plant if possible
+        /// </summary>
+        /// <param name="planet">planet</param>
+        /// <param name="entityCollection">entity collection</param>
+        /// <param name="currentTime">current time</param>
+        internal void TryReproduce(Planet planet, EntityCollection entityCollection, DateTime currentTime)
+        {
+            TimeSpan timeSpanSinceLastReproduction = (TimeSpan)(currentTime - latestReproductionTime);
+
+            if (timeSpanSinceLastReproduction.Seconds >= this.reproductionCycleTime)
+            {
+                AbstractEntity reproductionSpore = GetReproductionSporeEntity();
+                if (reproductionSpore != null)
+                {
+                    try
+                    {
+                        int tryCount = 0;
+                        do
+                        {
+                            PointF position = planet.GetRandomSurroundingPosition(this);
+                            reproductionSpore.X = position.X;
+                            reproductionSpore.Y = position.Y;
+                            tryCount++;
+                            if (tryCount > Program.MaxTryFindRandomTilePosition)
+                                throw new NoAvailableSpaceException();
+                        } while (entityCollection.IsDetectCollision(reproductionSpore, planet));
+
+                        entityCollection.Add(reproductionSpore);
+                    }
+                    catch (NoAvailableSpaceException)
+                    {
+                        //There was no available space for new decay entity
+                    }
+                }
+                latestReproductionTime = currentTime;
+            }
         }
         #endregion
     }

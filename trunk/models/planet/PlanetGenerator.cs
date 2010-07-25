@@ -253,7 +253,7 @@ namespace AntiCulturePlanet
                     }
                     else
                     {
-                        planet[x, y].WaterPercentage = 0;
+                        planet[x, y].WaterPercentage = 0.001;
                     }
                 }
             }
@@ -275,11 +275,22 @@ namespace AntiCulturePlanet
                         planet[x, y].SoftenWaterPercentage(planet);
             }
 
-            //We set water percentage back to 1.0 when it's water
+            //We set water percentage back to 1.0 when it's water, and we normalize it when it's not
             for (int y = 0; y < width; y++)
+            {
                 for (int x = 0; x < width; x++)
+                {
                     if (planet[x, y].IsWater)
+                    {
                         planet[x, y].WaterPercentage = 1.0;
+                    }
+                    else
+                    {
+                        planet[x, y].WaterPercentage = Math.Pow(planet[x, y].WaterPercentage, 0.5);
+                    }
+                }
+            }
+
 
             return planet;
         }

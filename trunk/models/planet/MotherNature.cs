@@ -20,6 +20,11 @@ namespace AntiCulturePlanet
         /// Last time decay was updated (globally)
         /// </summary>
         private DateTime lastDecayUpdateTime;
+
+        /// <summary>
+        /// Last time reproduction was updated (globally)
+        /// </summary>
+        private DateTime lastReproductionUpdateTime;
         #endregion
 
         #region Constructor
@@ -29,6 +34,7 @@ namespace AntiCulturePlanet
         public MotherNature()
         {
             lastDecayUpdateTime = DateTime.Now;
+            lastReproductionUpdateTime = DateTime.Now;
             entityRegulatorList = new List<EntityRegulator>();
 
             //Minerals
@@ -66,7 +72,7 @@ namespace AntiCulturePlanet
         internal void UpdateForTransformations(EntityCollection entityCollection, Planet planet, DateTime currentTime)
         {
             TimeSpan timeSpanSinceLastDecayUpdate = (TimeSpan)(currentTime - lastDecayUpdateTime);
-            if (timeSpanSinceLastDecayUpdate.Seconds * Program.SpeedMultiplier > Program.DecayRefreshTime)
+            if (timeSpanSinceLastDecayUpdate.Seconds * Program.SpeedMultiplier > Program.EntityTransformationRefreshTime)
             {
                 foreach (AbstractEntity entity in new List<AbstractEntity>(entityCollection))
                 {
@@ -88,6 +94,29 @@ namespace AntiCulturePlanet
                 }
 
                 lastDecayUpdateTime = DateTime.Now;
+            }
+        }
+
+        /// <summary>
+        /// Update plants for reproduction
+        /// </summary>
+        /// <param name="entityCollection">entity collection</param>
+        /// <param name="planet">planet</param>
+        /// <param name="currentTime">current time</param>
+        internal void UpdatePlantsForReproduction(EntityCollection entityCollection, Planet planet, DateTime currentTime)
+        {
+            TimeSpan timeSpanSinceLastReproductionUpdate = (TimeSpan)(currentTime - lastReproductionUpdateTime);
+            if (timeSpanSinceLastReproductionUpdate.Seconds * Program.SpeedMultiplier > Program.EntityTransformationRefreshTime)
+            {
+                foreach (AbstractEntity entity in new List<AbstractEntity>(entityCollection))
+                {
+                    if (entity is AbstractPlantEntity)
+                    {
+                        AbstractPlantEntity plant = (AbstractPlantEntity)entity;
+                        plant.TryReproduce(planet, entityCollection, currentTime);
+                    }
+                }
+                lastReproductionUpdateTime = DateTime.Now;
             }
         }
         #endregion
