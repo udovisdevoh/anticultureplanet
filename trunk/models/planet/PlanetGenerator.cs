@@ -259,7 +259,7 @@ namespace AntiCulturePlanet
             }
 
             //We soften water percentage
-            for (int currentSoftnessPassCount = 0; currentSoftnessPassCount < softnessPassCount * 2; currentSoftnessPassCount++)
+            for (int currentSoftnessPassCount = 0; currentSoftnessPassCount < softnessPassCount * 8; currentSoftnessPassCount++)
             {
                 for (int y = 0; y < width; y += 2)
                     for (int x = 0; x < width; x += 2)
