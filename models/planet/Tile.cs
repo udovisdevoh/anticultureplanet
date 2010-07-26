@@ -97,7 +97,8 @@ namespace AntiCulturePlanet
         /// <param name="planet">planet</param>
         internal void SoftenWaterPercentage(Planet planet)
         {
-            waterPercentage = (this.waterPercentage + planet.GetLeftTile(this).waterPercentage + planet.GetRightTile(this).waterPercentage + planet.GetTopTile(this).waterPercentage + planet.GetBottomTile(this).waterPercentage) / 5.0;
+            if (!isWater)
+                waterPercentage = (this.waterPercentage + planet.GetLeftTile(this).waterPercentage + planet.GetRightTile(this).waterPercentage + planet.GetTopTile(this).waterPercentage + planet.GetBottomTile(this).waterPercentage) / 5.0;
         }
 
         /// <summary>
