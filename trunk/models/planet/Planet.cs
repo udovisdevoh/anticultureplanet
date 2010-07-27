@@ -106,7 +106,7 @@ namespace AntiCulturePlanet
         internal Planet(int width, int height, int minTemperature, int maxTemperature, int dayLength, int yearLength, int minAltitude, int maxAltitude, int softnessPassCount, float waterPercentage, Random random)
         {
             this.random = random;
-            entityCollection = new EntityCollection();
+            entityCollection = new EntityCollection(width,height);
 
             this.width = width;
             this.height = height;

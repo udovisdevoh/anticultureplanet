@@ -68,6 +68,7 @@
     <Compile Include="models\entities\plants\SmallFruitTreeEntity.cs" />
     <Compile Include="models\entities\plants\TrunkEntity.cs" />
     <Compile Include="models\entityCollection\EntityCollection.cs" />
+    <Compile Include="models\entityCollection\SpatialHashTable.cs" />
     <Compile Include="models\planet\MotherNature.cs" />
     <Compile Include="models\planet\EntityRegulator.cs" />
     <Compile Include="models\NoAvailableSpaceException.cs" />
