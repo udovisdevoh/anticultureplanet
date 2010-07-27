@@ -51,18 +51,11 @@ namespace AntiCulturePlanet
 
                 screenRelativePositionX = (int)(absolutePositionX - viewedTileX * (double)(tilePixelWidth));
                 screenRelativePositionY = (int)(absolutePositionY - viewedTileY * (double)(tilePixelHeight));
-                
-                Update(entity, surfaceToDrawOn, screenWidth, screenHeight, screenRelativePositionX, screenRelativePositionY, spriteWidth, spriteHeight, totalMapSurfaceWidth, totalMapSurfaceHeight, -1, -1, totalMapSurfaceWidth, totalMapSurfaceHeight);
-                Update(entity, surfaceToDrawOn, screenWidth, screenHeight, screenRelativePositionX, screenRelativePositionY, spriteWidth, spriteHeight, totalMapSurfaceWidth, totalMapSurfaceHeight, -1, 0, totalMapSurfaceWidth, totalMapSurfaceHeight);
-                Update(entity, surfaceToDrawOn, screenWidth, screenHeight, screenRelativePositionX, screenRelativePositionY, spriteWidth, spriteHeight, totalMapSurfaceWidth, totalMapSurfaceHeight, -1, 1, totalMapSurfaceWidth, totalMapSurfaceHeight);
 
-                Update(entity, surfaceToDrawOn, screenWidth, screenHeight, screenRelativePositionX, screenRelativePositionY, spriteWidth, spriteHeight, totalMapSurfaceWidth, totalMapSurfaceHeight, 0, -1, totalMapSurfaceWidth, totalMapSurfaceHeight);
                 Update(entity, surfaceToDrawOn, screenWidth, screenHeight, screenRelativePositionX, screenRelativePositionY, spriteWidth, spriteHeight, totalMapSurfaceWidth, totalMapSurfaceHeight, 0, 0, totalMapSurfaceWidth, totalMapSurfaceHeight);
-                Update(entity, surfaceToDrawOn, screenWidth, screenHeight, screenRelativePositionX, screenRelativePositionY, spriteWidth, spriteHeight, totalMapSurfaceWidth, totalMapSurfaceHeight, 0, 1, totalMapSurfaceWidth, totalMapSurfaceHeight);
-
-                Update(entity, surfaceToDrawOn, screenWidth, screenHeight, screenRelativePositionX, screenRelativePositionY, spriteWidth, spriteHeight, totalMapSurfaceWidth, totalMapSurfaceHeight, 1, -1, totalMapSurfaceWidth, totalMapSurfaceHeight);
-                Update(entity, surfaceToDrawOn, screenWidth, screenHeight, screenRelativePositionX, screenRelativePositionY, spriteWidth, spriteHeight, totalMapSurfaceWidth, totalMapSurfaceHeight, 1, 0, totalMapSurfaceWidth, totalMapSurfaceHeight);
                 Update(entity, surfaceToDrawOn, screenWidth, screenHeight, screenRelativePositionX, screenRelativePositionY, spriteWidth, spriteHeight, totalMapSurfaceWidth, totalMapSurfaceHeight, 1, 1, totalMapSurfaceWidth, totalMapSurfaceHeight);
+                Update(entity, surfaceToDrawOn, screenWidth, screenHeight, screenRelativePositionX, screenRelativePositionY, spriteWidth, spriteHeight, totalMapSurfaceWidth, totalMapSurfaceHeight, 0, 1, totalMapSurfaceWidth, totalMapSurfaceHeight);
+                Update(entity, surfaceToDrawOn, screenWidth, screenHeight, screenRelativePositionX, screenRelativePositionY, spriteWidth, spriteHeight, totalMapSurfaceWidth, totalMapSurfaceHeight, 1, 0, totalMapSurfaceWidth, totalMapSurfaceHeight);
             }
         }
 

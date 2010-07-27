@@ -116,15 +116,9 @@ namespace AntiCulturePlanet
             int pixelOffsetY = (int)(0 - (viewedTileY * (double)tilePixelHeight));
 
             mainSurface.Blit(groundSurcace, new Point(pixelOffsetX, pixelOffsetY));
-            mainSurface.Blit(groundSurcace, new Point(pixelOffsetX - planet.Width * tilePixelWidth, pixelOffsetY));
             mainSurface.Blit(groundSurcace, new Point(pixelOffsetX + planet.Width * tilePixelWidth, pixelOffsetY));
-            mainSurface.Blit(groundSurcace, new Point(pixelOffsetX - planet.Width * tilePixelWidth, pixelOffsetY));
             mainSurface.Blit(groundSurcace, new Point(pixelOffsetX, pixelOffsetY + planet.Height * tilePixelHeight));
-            mainSurface.Blit(groundSurcace, new Point(pixelOffsetX, pixelOffsetY - planet.Height * tilePixelHeight));
-            mainSurface.Blit(groundSurcace, new Point(pixelOffsetX - planet.Width * tilePixelWidth, pixelOffsetY - planet.Height * tilePixelHeight));
-            mainSurface.Blit(groundSurcace, new Point(pixelOffsetX + planet.Width * tilePixelWidth, pixelOffsetY - planet.Height * tilePixelHeight));
-            mainSurface.Blit(groundSurcace, new Point(pixelOffsetX - planet.Width * tilePixelWidth, pixelOffsetY + planet.Height * tilePixelHeight));
-            mainSurface.Blit(groundSurcace, new Point(pixelOffsetX + planet.Width * tilePixelWidth, pixelOffsetY + planet.Height * tilePixelHeight));
+            mainSurface.Blit(groundSurcace, new Point(pixelOffsetX + planet.Width * tilePixelWidth, pixelOffsetY + planet.Height * tilePixelHeight));            
 
             entityViewerLowRes.Update(mainSurface, planet.EntityCollection, screenWidth, screenHeight, viewedTileX, viewedTileY, tilePixelWidth, tilePixelHeight, planet.Width, planet.Height);
         }
