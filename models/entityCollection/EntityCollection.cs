@@ -20,14 +20,22 @@ namespace AntiCulturePlanet
         /// To store relation between entity types and their respective amounts
         /// </summary>
         private Dictionary<Type, int> typeCount;
+
+        /// <summary>
+        /// Spatial hash table
+        /// </summary>
+        private SpatialHashTable spatialHashTable;
         #endregion
 
         #region Constructor
         /// <summary>
         /// Create entity collection
         /// </summary>
-        public EntityCollection()
+        /// <param name="width">planet's width</param>
+        /// <param name="height">planet's height</param>
+        public EntityCollection(int width, int height)
         {
+            spatialHashTable = new SpatialHashTable(width, height, 5);
             typeCount = new Dictionary<Type, int>();
             internalCollection = new List<AbstractEntity>();
 
@@ -74,6 +82,7 @@ namespace AntiCulturePlanet
         internal void Add(AbstractEntity entity)
         {
             internalCollection.Add(entity);
+            spatialHashTable.Add(entity);
             int typeCountValue = 0;
             Type type = entity.GetType();
             if (typeCount.TryGetValue(type, out typeCountValue))
