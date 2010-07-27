@@ -113,15 +113,14 @@ namespace AntiCulturePlanet
                             else
                                 pointF = planet.GetRandomPosition();
 
-                            entity.X = pointF.X;
-                            entity.Y = pointF.Y;
+                            entity.Move(pointF.X, pointF.Y);
 
                             if (tryCount > Program.MaxTryFindRandomTilePosition)
                                 throw new NoAvailableSpaceException();
 
                             tryCount++;
 
-                        } while (planet.EntityCollection.IsDetectCollision(entity, planet));
+                        } while (planet.EntityCollection.IsDetectCollision(entity));
 
                         planet.EntityCollection.Add(entity);
 

@@ -144,8 +144,7 @@ namespace AntiCulturePlanet
                 return;
             }
 
-            nextPhaseEntity.X = this.X;
-            nextPhaseEntity.Y = this.Y;
+            nextPhaseEntity.Move(this.X, this.Y);
 
             if (nextPhaseEntity.IsKeepMassOfPreviousEntity)
                 nextPhaseEntity.Mass = this.Mass;
@@ -187,12 +186,11 @@ namespace AntiCulturePlanet
                         do
                         {
                             PointF position = planet.GetRandomSurroundingPosition(this);
-                            reproductionSpore.X = position.X;
-                            reproductionSpore.Y = position.Y;
+                            reproductionSpore.Move(position.X, position.Y);
                             tryCount++;
                             if (tryCount > Program.MaxTryFindRandomTilePosition)
                                 throw new NoAvailableSpaceException();
-                        } while (planet.EntityCollection.IsDetectCollision(reproductionSpore, planet));
+                        } while (planet.EntityCollection.IsDetectCollision(reproductionSpore));
 
                         reproductionSpore.Size = sporeSize;
                         planet.EntityCollection.Add(reproductionSpore);

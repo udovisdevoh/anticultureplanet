@@ -83,6 +83,11 @@ namespace AntiCulturePlanet
         /// Whether entity is affected by collisions
         /// </summary>
         private bool isAffectedByCollision;
+
+        /// <summary>
+        /// This object is warned when entity's position changes
+        /// </summary>
+        private SpatialHashTable spatialHashMovementListener = null;
         #endregion
 
         #region Constructor
@@ -129,7 +134,7 @@ namespace AntiCulturePlanet
                             tryCount++;
                             if (tryCount > Program.MaxTryFindRandomTilePosition)
                                 throw new NoAvailableSpaceException();
-                        } while (planet.EntityCollection.IsDetectCollision(decayEntity, planet));
+                        } while (planet.EntityCollection.IsDetectCollision(decayEntity));
 
                         if (decayEntity.IsKeepMassOfPreviousEntity)
                             decayEntity.Mass = this.Mass;
@@ -148,6 +153,38 @@ namespace AntiCulturePlanet
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Add spatial hash movement listener so spatial hash table is warned when entity moves
+        /// </summary>
+        /// <param name="spatialHashTable">spatial hash table</param>
+        internal void AddSpatialHashMovementListener(SpatialHashTable spatialHashTable)
+        {
+            spatialHashMovementListener = spatialHashTable;
+        }
+
+        /// <summary>
+        /// Remove spatial hash movement listener so spatial hash table stops being warned when entity moves
+        /// </summary>
+        internal void ClearSpatialHashMovementListener()
+        {
+            spatialHashMovementListener = null;
+        }
+
+        /// <summary>
+        /// Move entity to specified position and warn spatial hash movement listener if entity is in spatial hash
+        /// </summary>
+        /// <param name="newX">new X position</param>
+        /// /// <param name="newY">new Y position</param>
+        internal void Move(double newX, double newY)
+        {
+            if (spatialHashMovementListener != null)
+                spatialHashMovementListener.Remove(this);
+            this.x = newX;
+            this.y = newY;
+            if (spatialHashMovementListener != null)
+                spatialHashMovementListener.Add(this);
         }
         #endregion
 
@@ -228,7 +265,6 @@ namespace AntiCulturePlanet
         internal double X
         {
             get { return x; }
-            set { x = value; }
         }
 
         /// <summary>
@@ -237,7 +273,6 @@ namespace AntiCulturePlanet
         internal double Y
         {
             get { return y; }
-            set { y = value; }
         }
 
         /// <summary>
@@ -349,6 +384,5 @@ namespace AntiCulturePlanet
             get { return creationTime; }
         }
         #endregion
-
     }
 }

@@ -11,6 +11,7 @@ namespace AntiCulturePlanet
     internal class EntityCollection : IEnumerable<AbstractEntity>
     {
         #region Fields and Parts
+        #warning Eventually remove internalCollection
         /// <summary>
         /// Internal collection of entities
         /// </summary>
@@ -44,25 +45,6 @@ namespace AntiCulturePlanet
         #endregion
 
         #region Internal methods
-        /// <summary>
-        /// Gets the distance between 2 entities (1 = 1 tile height or width)
-        /// </summary>
-        /// <param name="entity1">entity 1</param>
-        /// <param name="entity2">entity 2</param>
-        /// <returns>distance between 2 entities (1 = 1 tile height or width)</returns>
-        internal double GetDistance(AbstractEntity entity1, AbstractEntity entity2, Planet planet)
-        {
-            double distanceX = Math.Abs(entity1.X - entity2.X);
-            if (distanceX > planet.Width / 2)
-                distanceX = planet.Width - distanceX;
-
-            double distanceY = Math.Abs(entity1.Y - entity2.Y);
-            if (distanceY > planet.Height / 2)
-                distanceY = planet.Height - distanceY;
-
-            return Math.Sqrt(Math.Pow(distanceX, 2) + Math.Pow(distanceY, 2));
-        }
-
         /// <summary>
         /// Count the amount of entity of specified type
         /// </summary>
@@ -100,6 +82,7 @@ namespace AntiCulturePlanet
             if (!internalCollection.Contains(entity))
                 return false;
             internalCollection.Remove(entity);
+            spatialHashTable.Remove(entity);
             Type type = entity.GetType();
             typeCount[type]--;
             return true;
@@ -109,16 +92,12 @@ namespace AntiCulturePlanet
         /// Whether entity is in collision with other entity
         /// </summary>
         /// <param name="entity">entity</param>
-        /// <param name="planet">planet</param>
         /// <returns>Whether entity is in collision with other entity</returns>
-        internal bool IsDetectCollision(AbstractEntity entity, Planet planet)
+        internal bool IsDetectCollision(AbstractEntity entity)
         {
             if (!entity.IsAffectedByCollision)
                 return false;
-            foreach (AbstractEntity otherEntity in internalCollection)
-                if (IsDetectCollision(entity, otherEntity, planet))
-                    return true;
-            return false;
+            return spatialHashTable.IsDetectCollision(entity);
         }
 
         /// <summary>
@@ -129,24 +108,6 @@ namespace AntiCulturePlanet
         internal AbstractEntity GetRandomEntity(Random random)
         {
             return internalCollection[random.Next(internalCollection.Count)];
-        }
-        #endregion
-
-        #region Private Methods
-        /// <summary>
-        /// Whether entity is in collision with other entity
-        /// </summary>
-        /// <param name="entity1">entity 1</param>
-        /// <param name="entity2">entity 2</param>
-        /// <param name="planet">planet</param>
-        /// <returns>Whether entity is in collision with other entity</returns>
-        private bool IsDetectCollision(AbstractEntity entity1, AbstractEntity entity2, Planet planet)
-        {
-            if (!entity1.IsAffectedByCollision || !entity2.IsAffectedByCollision)
-                return false;
-
-            double distanceFromCenter = GetDistance(entity1, entity2, planet);
-            return distanceFromCenter - entity1.Radius - entity2.Radius <= 0;
         }
         #endregion
 
