@@ -73,26 +73,144 @@ namespace AntiCulturePlanet
         /// <param name="entity">entity to add</param>
         internal void Add(AbstractEntity entity)
         {
-            int leftBound = (int)(entity.X / bucketSize);
-            int topBound = (int)(entity.Y / bucketSize);
-            int rightBound = (int)((entity.X + entity.Size) / (double)bucketSize);
-            int bottomBound = (int)((entity.Y + entity.Size) / (double)bucketSize);
+            entity.AddSpatialHashMovementListener(this);
 
-            while (leftBound < 0)
-                leftBound += columnCount;
-
-            while (rightBound >= columnCount)
-                rightBound -= columnCount;
-
-            while (topBound < 0)
-                topBound += rowCount;
-
-            while (bottomBound >= rowCount)
-                bottomBound -= rowCount;
+            int leftBound = GetLeftBoundColumn(entity);
+            int rightBound = GetRightBoundColumn(entity);
+            int topBound = GetTopBoundRow(entity);
+            int bottomBound = GetBottomBoundRow(entity);
 
             for (int x = leftBound; x <= rightBound; x++)
                 for (int y = topBound; y <= bottomBound; y++)
                     bucketGrid[x, y].Add(entity);
+        }
+
+        /// <summary>
+        /// Remove entity from spatial hash table
+        /// </summary>
+        /// <param name="entity">entity to remove</param>
+        internal void Remove(AbstractEntity entity)
+        {
+            entity.ClearSpatialHashMovementListener();
+
+            int leftBound = GetLeftBoundColumn(entity);
+            int rightBound = GetRightBoundColumn(entity);
+            int topBound = GetTopBoundRow(entity);
+            int bottomBound = GetBottomBoundRow(entity);
+
+            for (int x = leftBound; x <= rightBound; x++)
+                for (int y = topBound; y <= bottomBound; y++)
+                    if (bucketGrid[x,y].Contains(entity))
+                        bucketGrid[x, y].Remove(entity);
+        }
+
+        /// <summary>
+        /// Whether entity is in collision with another
+        /// </summary>
+        /// <param name="entity">entity</param>
+        /// <returns>Whether entity is in collision with another</returns>
+        internal bool IsDetectCollision(AbstractEntity entity)
+        {
+            int leftBound = GetLeftBoundColumn(entity);
+            int rightBound = GetRightBoundColumn(entity);
+            int topBound = GetTopBoundRow(entity);
+            int bottomBound = GetBottomBoundRow(entity);
+
+            for (int x = leftBound; x <= rightBound; x++)
+                for (int y = topBound; y <= bottomBound; y++)
+                    foreach (AbstractEntity otherEntity in bucketGrid[x, y])
+                        if (IsDetectCollision(entity, otherEntity))
+                            return true;
+
+            return false;
+        }
+        #endregion
+
+        #region Private Methods
+        /// <summary>
+        /// Get bottom bound row for entity
+        /// </summary>
+        /// <param name="entity">entity</param>
+        /// <returns>bottom bound row for entity</returns>
+        private int GetBottomBoundRow(AbstractEntity entity)
+        {
+            int bottomBound = (int)((entity.Y + entity.Size / 2.0) / (double)bucketSize);
+            while (bottomBound < 0) bottomBound += rowCount;
+            while (bottomBound >= rowCount) bottomBound -= rowCount;
+            return bottomBound;
+        }
+
+        /// <summary>
+        /// Get top bound row for entity
+        /// </summary>
+        /// <param name="entity">entity</param>
+        /// <returns>top bound row for entity</returns>
+        private int GetTopBoundRow(AbstractEntity entity)
+        {
+            int topBound = (int)((entity.Y - entity.Size / 2.0) / (double)bucketSize);
+            while (topBound < 0) topBound += rowCount;
+            while (topBound >= rowCount) topBound -= rowCount;
+            return topBound;
+        }
+
+        /// <summary>
+        /// Get right bound row for entity
+        /// </summary>
+        /// <param name="entity">entity</param>
+        /// <returns>right bound row for entity</returns>
+        private int GetRightBoundColumn(AbstractEntity entity)
+        {
+            int rightBound = (int)((entity.X + entity.Size / 2.0) / (double)bucketSize);
+            while (rightBound < 0) rightBound += columnCount;
+            while (rightBound >= columnCount) rightBound -= columnCount;
+            return rightBound;
+        }
+
+        /// <summary>
+        /// Get left bound row for entity
+        /// </summary>
+        /// <param name="entity">entity</param>
+        /// <returns>left bound row for entity</returns>
+        private int GetLeftBoundColumn(AbstractEntity entity)
+        {
+            int leftBound = (int)((entity.X - entity.Size / 2.0) / (double)bucketSize);
+            while (leftBound < 0) leftBound += columnCount;
+            while (leftBound >= columnCount) leftBound -= columnCount;
+            return leftBound;
+        }
+
+        /// <summary>
+        /// Whether these entities are in collision
+        /// </summary>
+        /// <param name="entity1">entity 1</param>
+        /// <param name="entity2">entity 2</param>
+        /// <returns>Whether these entities are in collision</returns>
+        private bool IsDetectCollision(AbstractEntity entity1, AbstractEntity entity2)
+        {
+            if (!entity1.IsAffectedByCollision || !entity2.IsAffectedByCollision)
+                return false;
+
+            double distanceFromCenter = GetDistance(entity1, entity2);
+            return distanceFromCenter - entity1.Radius - entity2.Radius <= 0;
+        }
+
+        /// <summary>
+        /// Gets the distance between 2 entities (1 = 1 tile height or width)
+        /// </summary>
+        /// <param name="entity1">entity 1</param>
+        /// <param name="entity2">entity 2</param>
+        /// <returns>distance between 2 entities (1 = 1 tile height or width)</returns>
+        internal double GetDistance(AbstractEntity entity1, AbstractEntity entity2)
+        {
+            double distanceX = Math.Abs(entity1.X - entity2.X);
+            if (distanceX > totalWidth / 2)
+                distanceX = totalWidth - distanceX;
+
+            double distanceY = Math.Abs(entity1.Y - entity2.Y);
+            if (distanceY > totalHeight / 2)
+                distanceY = totalHeight - distanceY;
+
+            return Math.Sqrt(Math.Pow(distanceX, 2) + Math.Pow(distanceY, 2));
         }
         #endregion
     }
