@@ -127,5 +127,15 @@ namespace AntiCulturePlanet
             internalCollection.CopyTo(array, arrayIndex);
         }
         #endregion
+
+        #region Properties
+        /// <summary>
+        /// Spatial hash table
+        /// </summary>
+        public SpatialHashTable SpatialHashTable
+        {
+            get { return spatialHashTable; }
+        }
+        #endregion
     }
 }

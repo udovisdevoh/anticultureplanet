@@ -55,6 +55,11 @@ namespace AntiCulturePlanet
         /// Ground surface
         /// </summary>
         private Surface groundSurcace;
+
+        /// <summary>
+        /// Surface for joined ground and sprite layers
+        /// </summary>
+        private Surface groundAndSpriteSurface;
         /// <summary>
         /// Horizontal tile offset
         /// </summary>
@@ -81,6 +86,7 @@ namespace AntiCulturePlanet
 
             tileViewer = new TileViewerLowRes();
             groundSurcace = new Surface(planet.Width * tilePixelWidth, planet.Height * tilePixelHeight, 32);
+            groundAndSpriteSurface = new Surface(planet.Width * tilePixelWidth, planet.Height * tilePixelHeight, 32);
             this.mainSurface = mainSurface;
             this.screenWidth = screenWidth;
             this.screenHeight = screenHeight;
@@ -112,15 +118,16 @@ namespace AntiCulturePlanet
             }
 
             planet.IsNeedRefresh = false;
+
             int pixelOffsetX = (int)(0 - (viewedTileX * (double)tilePixelWidth));
             int pixelOffsetY = (int)(0 - (viewedTileY * (double)tilePixelHeight));
 
-            mainSurface.Blit(groundSurcace, new Point(pixelOffsetX, pixelOffsetY));
-            mainSurface.Blit(groundSurcace, new Point(pixelOffsetX + planet.Width * tilePixelWidth, pixelOffsetY));
-            mainSurface.Blit(groundSurcace, new Point(pixelOffsetX, pixelOffsetY + planet.Height * tilePixelHeight));
-            mainSurface.Blit(groundSurcace, new Point(pixelOffsetX + planet.Width * tilePixelWidth, pixelOffsetY + planet.Height * tilePixelHeight));            
+            groundAndSpriteSurface = entityViewerLowRes.UpdateGroundAndSpriteSurface(groundSurcace, groundAndSpriteSurface, planet.EntityCollection.SpatialHashTable, screenWidth, screenHeight, viewedTileX, viewedTileY, tilePixelWidth, tilePixelHeight);
 
-            entityViewerLowRes.Update(mainSurface, planet.EntityCollection, screenWidth, screenHeight, viewedTileX, viewedTileY, tilePixelWidth, tilePixelHeight, planet.Width, planet.Height);
+            mainSurface.Blit(groundAndSpriteSurface, new Point(pixelOffsetX, pixelOffsetY));
+            mainSurface.Blit(groundAndSpriteSurface, new Point(pixelOffsetX + planet.Width * tilePixelWidth, pixelOffsetY));
+            mainSurface.Blit(groundAndSpriteSurface, new Point(pixelOffsetX, pixelOffsetY + planet.Height * tilePixelHeight));
+            mainSurface.Blit(groundAndSpriteSurface, new Point(pixelOffsetX + planet.Width * tilePixelWidth, pixelOffsetY + planet.Height * tilePixelHeight));
         }
 
         /// <summary>

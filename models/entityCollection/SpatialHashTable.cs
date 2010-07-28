@@ -200,7 +200,7 @@ namespace AntiCulturePlanet
         /// <param name="entity1">entity 1</param>
         /// <param name="entity2">entity 2</param>
         /// <returns>distance between 2 entities (1 = 1 tile height or width)</returns>
-        internal double GetDistance(AbstractEntity entity1, AbstractEntity entity2)
+        private double GetDistance(AbstractEntity entity1, AbstractEntity entity2)
         {
             double distanceX = Math.Abs(entity1.X - entity2.X);
             if (distanceX > totalWidth / 2)
@@ -211,6 +211,43 @@ namespace AntiCulturePlanet
                 distanceY = totalHeight - distanceY;
 
             return Math.Sqrt(Math.Pow(distanceX, 2) + Math.Pow(distanceY, 2));
+        }
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// Get bucket at x,y
+        /// </summary>
+        /// <param name="x">x</param>
+        /// <param name="y">y</param>
+        /// <returns>bucket at x,y</returns>
+        internal Bucket this[int x, int y]
+        {
+            get { return bucketGrid[x, y]; }
+        }
+
+        /// <summary>
+        /// How many rows of buckets
+        /// </summary>
+        internal int RowCount
+        {
+            get { return rowCount; }
+        }
+
+        /// <summary>
+        /// How many columns of buckets
+        /// </summary>
+        internal int ColumnCount
+        {
+            get { return columnCount; }
+        }
+
+        /// <summary>
+        /// Bucket size
+        /// </summary>
+        public int BucketSize
+        {
+            get { return bucketSize; }
         }
         #endregion
     }
