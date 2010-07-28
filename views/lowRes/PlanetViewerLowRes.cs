@@ -122,7 +122,7 @@ namespace AntiCulturePlanet
             int pixelOffsetX = (int)(0 - (viewedTileX * (double)tilePixelWidth));
             int pixelOffsetY = (int)(0 - (viewedTileY * (double)tilePixelHeight));
 
-            groundAndSpriteSurface = entityViewerLowRes.UpdateGroundAndSpriteSurface(groundSurcace, groundAndSpriteSurface, planet.EntityCollection.SpatialHashTable, screenWidth, screenHeight, viewedTileX, viewedTileY, tilePixelWidth, tilePixelHeight);
+            groundAndSpriteSurface = entityViewerLowRes.UpdateGroundAndSpriteSurface(groundSurcace, groundAndSpriteSurface, planet.EntityCollection.SpatialHashTable, screenWidth, screenHeight, viewedTileX, viewedTileY, tilePixelWidth, tilePixelHeight, planet.Width * tilePixelWidth, planet.Height * tilePixelHeight);
 
             mainSurface.Blit(groundAndSpriteSurface, new Point(pixelOffsetX, pixelOffsetY));
             mainSurface.Blit(groundAndSpriteSurface, new Point(pixelOffsetX + planet.Width * tilePixelWidth, pixelOffsetY));
