@@ -15,63 +15,50 @@ namespace AntiCulturePlanet
     internal class EntityViewerLowRes
     {
         /// <summary>
-        /// To view entities
+        /// Update the surface for joined ground and sprite
         /// </summary>
-        /// <param name="surfaceToDrawOn">surface to draw on</param>
-        /// <param name="entityCollection">entities to view</param>
-        /// <param name="screenHeight">screen height</param>
+        /// <param name="groundSurcace">ground surface</param>
+        /// <param name="groundAndSpriteSurface">joined ground surface (to update)</param>
+        /// <param name="spatialHashTable">spatial hash table</param>
         /// <param name="screenWidth">screen width</param>
-        /// <param name="viewedTileX">viewed tile x (view position)</param>
-        /// <param name="viewedTileY">viewed tile y (view position)</param>
-        /// <param name="tilePixelWidth">tile width</param>
-        /// <param name="tilePixelHeight">tile height</param>
-        /// <param name="mapSurfaceWidth">map surface width (tiles)</param>
-        /// <param name="mapSurfaceHeight">map surface height (tiles)</param>
-        internal void Update(Surface surfaceToDrawOn, EntityCollection entityCollection, int screenWidth, int screenHeight, double viewedTileX, double viewedTileY, int tilePixelWidth, int tilePixelHeight, int mapWidth, int mapHeight)
+        /// <param name="screenHeight">screen height</param>
+        /// <param name="viewedTileX">viewed tile X</param>
+        /// <param name="viewedTileY">viewed tile Y</param>
+        /// <param name="tilePixelWidth">tile pixel width</param>
+        /// <param name="tilePixelHeight">tile pixel height</param>
+        /// <returns>joined ground surface (updated)</returns>
+        internal Surface UpdateGroundAndSpriteSurface(Surface groundSurcace, Surface groundAndSpriteSurface, SpatialHashTable spatialHashTable, int screenWidth, int screenHeight, double viewedTileX, double viewedTileY, int tilePixelWidth, int tilePixelHeight)
         {
-            int totalMapSurfaceWidth = mapWidth * tilePixelWidth;
-            int totalMapSurfaceHeight = mapHeight * tilePixelHeight;
-            
-            int spriteWidth;
-            int spriteHeight;
-
-            int absolutePositionX;
-            int absolutePositionY;
-
-            int screenRelativePositionX;
-            int screenRelativePositionY;
-
-            foreach (AbstractEntity entity in entityCollection)
+            for (int x = 0; x < spatialHashTable.ColumnCount; x++)
             {
-                spriteWidth = (int)Math.Round(entity.Size * tilePixelWidth);
-                spriteHeight = (int)Math.Round(entity.Size * tilePixelHeight);
+                for (int y = 0; y < spatialHashTable.ColumnCount; y++)
+                {
+                    Bucket bucket = spatialHashTable[x, y];
+                    if (bucket.IsNeedRedraw)
+                    {
+                        int rectangleX = spatialHashTable.BucketSize * tilePixelWidth * x;
+                        int rectangleY = spatialHashTable.BucketSize * tilePixelHeight * y;
+                        int rectangleWidth = spatialHashTable.BucketSize * tilePixelWidth;
+                        int rectangleHeight = spatialHashTable.BucketSize * tilePixelHeight;
 
-                absolutePositionX = (int)Math.Round(entity.X * tilePixelWidth) - spriteWidth / 2 + tilePixelWidth / 2;
-                absolutePositionY = (int)Math.Round(entity.Y * tilePixelHeight) - spriteHeight / 2 + tilePixelHeight / 2;
+                        Rectangle bucketPosition = new Rectangle(rectangleX, rectangleY, rectangleWidth, rectangleHeight);
+                        groundAndSpriteSurface.Blit(groundSurcace, bucketPosition, bucketPosition);
 
-                screenRelativePositionX = (int)(absolutePositionX - viewedTileX * (double)(tilePixelWidth));
-                screenRelativePositionY = (int)(absolutePositionY - viewedTileY * (double)(tilePixelHeight));
+                        foreach (AbstractEntity entity in bucket)
+                        {
+                            int spriteWidth = (int)Math.Round(entity.Size * tilePixelWidth);
+                            int spriteHeight = (int)Math.Round(entity.Size * tilePixelHeight);
+                            Surface spriteSurface = entity.EntitySprite.GetSurface(spriteWidth, spriteHeight);
+                            int absolutePositionX = (int)Math.Round(entity.X * tilePixelWidth) - spriteWidth / 2 + tilePixelWidth / 2;
+                            int absolutePositionY = (int)Math.Round(entity.Y * tilePixelHeight) - spriteHeight / 2 + tilePixelHeight / 2;
 
-                Update(entity, surfaceToDrawOn, screenWidth, screenHeight, screenRelativePositionX, screenRelativePositionY, spriteWidth, spriteHeight, totalMapSurfaceWidth, totalMapSurfaceHeight, 0, 0, totalMapSurfaceWidth, totalMapSurfaceHeight);
-                Update(entity, surfaceToDrawOn, screenWidth, screenHeight, screenRelativePositionX, screenRelativePositionY, spriteWidth, spriteHeight, totalMapSurfaceWidth, totalMapSurfaceHeight, 1, 1, totalMapSurfaceWidth, totalMapSurfaceHeight);
-                Update(entity, surfaceToDrawOn, screenWidth, screenHeight, screenRelativePositionX, screenRelativePositionY, spriteWidth, spriteHeight, totalMapSurfaceWidth, totalMapSurfaceHeight, 0, 1, totalMapSurfaceWidth, totalMapSurfaceHeight);
-                Update(entity, surfaceToDrawOn, screenWidth, screenHeight, screenRelativePositionX, screenRelativePositionY, spriteWidth, spriteHeight, totalMapSurfaceWidth, totalMapSurfaceHeight, 1, 0, totalMapSurfaceWidth, totalMapSurfaceHeight);
+                            groundAndSpriteSurface.Blit(spriteSurface, new Point(absolutePositionX, absolutePositionY));
+                        }
+                        bucket.IsNeedRedraw = false;
+                    }
+                }
             }
-        }
-
-        private void Update(AbstractEntity entity, Surface surfaceToDrawOn, int screenWidth, int screenHeight, int screenRelativePositionX, int screenRelativePositionY, int spriteWidth, int spriteHeight, int mapSurfaceWidth, int mapSurfaceHeight, int totalMapWidthOffset, int totalMapHeightOffset, int totalMapSurfaceWidth, int totalMapSurfaceHeight)
-        {
-            screenRelativePositionX += (totalMapWidthOffset * totalMapSurfaceWidth);
-            screenRelativePositionY += (totalMapHeightOffset * totalMapSurfaceHeight);
-
-            bool isSpriteOnViewableXAxis = (screenRelativePositionX <= screenWidth) && (screenRelativePositionX + spriteWidth >= 0);
-            bool isSpriteOnViewableYAxis = (screenRelativePositionY <= screenHeight) && (screenRelativePositionY + spriteHeight >= 0);
-
-            if (isSpriteOnViewableXAxis && isSpriteOnViewableYAxis)
-            {
-                Surface spriteSurface = entity.EntitySprite.GetSurface(spriteWidth, spriteHeight);
-                surfaceToDrawOn.Blit(spriteSurface, new Point(screenRelativePositionX, screenRelativePositionY));
-            }
+            return groundAndSpriteSurface;
         }
     }
 }
