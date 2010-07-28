@@ -36,25 +36,40 @@ namespace AntiCulturePlanet
                     Bucket bucket = spatialHashTable[x, y];
                     if (bucket.IsNeedRedraw)
                     {
-                        int rectangleX = spatialHashTable.BucketSize * tilePixelWidth * x;
-                        int rectangleY = spatialHashTable.BucketSize * tilePixelHeight * y;
+                        int rectangleLeft = spatialHashTable.BucketSize * tilePixelWidth * x;
+                        int rectangleTop = spatialHashTable.BucketSize * tilePixelHeight * y;
                         int rectangleWidth = spatialHashTable.BucketSize * tilePixelWidth;
                         int rectangleHeight = spatialHashTable.BucketSize * tilePixelHeight;
+                        int rectangleBottom = rectangleTop + rectangleHeight;
+                        int rectangleRight = rectangleLeft + rectangleWidth;
 
-                        Rectangle bucketPosition = new Rectangle(rectangleX, rectangleY, rectangleWidth, rectangleHeight);
-                        groundAndSpriteSurface.Blit(groundSurcace, bucketPosition, bucketPosition);
+                        int viewedPixelLeft = (int)(viewedTileX * tilePixelWidth);
+                        int viewedPixelTop = (int)(viewedTileY * tilePixelHeight);
+                        int viewedPixelRight = viewedPixelLeft + screenWidth;
+                        int viewedPixelBottom = viewedPixelTop + screenHeight;
 
-                        foreach (AbstractEntity entity in bucket)
+                        #warning Fix this condition
+                        if (viewedPixelLeft <= rectangleRight
+                            && viewedPixelTop <= rectangleBottom
+                            && viewedPixelRight >= rectangleLeft
+                            && viewedPixelBottom >= rectangleTop)
                         {
-                            int spriteWidth = (int)Math.Round(entity.Size * tilePixelWidth);
-                            int spriteHeight = (int)Math.Round(entity.Size * tilePixelHeight);
-                            Surface spriteSurface = entity.EntitySprite.GetSurface(spriteWidth, spriteHeight);
-                            int absolutePositionX = (int)Math.Round(entity.X * tilePixelWidth) - spriteWidth / 2 + tilePixelWidth / 2;
-                            int absolutePositionY = (int)Math.Round(entity.Y * tilePixelHeight) - spriteHeight / 2 + tilePixelHeight / 2;
 
-                            groundAndSpriteSurface.Blit(spriteSurface, new Point(absolutePositionX, absolutePositionY));
+                            Rectangle bucketPosition = new Rectangle(rectangleLeft, rectangleTop, rectangleWidth, rectangleHeight);
+                            groundAndSpriteSurface.Blit(groundSurcace, bucketPosition, bucketPosition);
+
+                            foreach (AbstractEntity entity in bucket)
+                            {
+                                int spriteWidth = (int)Math.Round(entity.Size * tilePixelWidth);
+                                int spriteHeight = (int)Math.Round(entity.Size * tilePixelHeight);
+                                Surface spriteSurface = entity.EntitySprite.GetSurface(spriteWidth, spriteHeight);
+                                int absolutePositionX = (int)Math.Round(entity.X * tilePixelWidth) - spriteWidth / 2 + tilePixelWidth / 2;
+                                int absolutePositionY = (int)Math.Round(entity.Y * tilePixelHeight) - spriteHeight / 2 + tilePixelHeight / 2;
+
+                                groundAndSpriteSurface.Blit(spriteSurface, new Point(absolutePositionX, absolutePositionY));
+                            }
+                            bucket.IsNeedRedraw = false;
                         }
-                        bucket.IsNeedRedraw = false;
                     }
                 }
             }
