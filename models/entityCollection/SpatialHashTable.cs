@@ -15,7 +15,7 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Bucket grid
         /// </summary>
-        private HashSet<AbstractEntity>[,] bucketGrid;
+        private Bucket[,] bucketGrid;
 
         /// <summary>
         /// Total width
@@ -59,10 +59,10 @@ namespace AntiCulturePlanet
             columnCount = (int)Math.Floor(((double)totalWidth) / ((double)bucketSize));
             rowCount = (int)Math.Floor(((double)totalHeight) / ((double)bucketSize));
 
-            bucketGrid = new HashSet<AbstractEntity>[columnCount, rowCount];
+            bucketGrid = new Bucket[columnCount, rowCount];
             for (int x = 0; x < columnCount; x++)
                 for (int y = 0; y < rowCount; y++)
-                    bucketGrid[x, y] = new HashSet<AbstractEntity>();
+                    bucketGrid[x, y] = new Bucket();
         }
         #endregion
 
