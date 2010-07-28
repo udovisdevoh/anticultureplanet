@@ -26,8 +26,10 @@ namespace AntiCulturePlanet
         /// <param name="viewedTileY">viewed tile Y</param>
         /// <param name="tilePixelWidth">tile pixel width</param>
         /// <param name="tilePixelHeight">tile pixel height</param>
+        /// <param name="totalMapWidth">total map width</param>
+        /// <param name="totalMapHeight">total map height</param>
         /// <returns>joined ground surface (updated)</returns>
-        internal Surface UpdateGroundAndSpriteSurface(Surface groundSurcace, Surface groundAndSpriteSurface, SpatialHashTable spatialHashTable, int screenWidth, int screenHeight, double viewedTileX, double viewedTileY, int tilePixelWidth, int tilePixelHeight)
+        internal Surface UpdateGroundAndSpriteSurface(Surface groundSurcace, Surface groundAndSpriteSurface, SpatialHashTable spatialHashTable, int screenWidth, int screenHeight, double viewedTileX, double viewedTileY, int tilePixelWidth, int tilePixelHeight, int totalMapWidth, int totalMapHeight)
         {
             for (int x = 0; x < spatialHashTable.ColumnCount; x++)
             {
@@ -48,11 +50,25 @@ namespace AntiCulturePlanet
                         int viewedPixelRight = viewedPixelLeft + screenWidth;
                         int viewedPixelBottom = viewedPixelTop + screenHeight;
 
-                        #warning Fix this condition
-                        if (viewedPixelLeft <= rectangleRight
+                        if ((viewedPixelLeft <= rectangleRight
                             && viewedPixelTop <= rectangleBottom
                             && viewedPixelRight >= rectangleLeft
                             && viewedPixelBottom >= rectangleTop)
+                            ||
+                            (viewedPixelLeft <= rectangleRight + totalMapWidth
+                            && viewedPixelTop <= rectangleBottom + totalMapHeight
+                            && viewedPixelRight >= rectangleLeft + totalMapWidth
+                            && viewedPixelBottom >= rectangleTop + totalMapHeight)
+                            ||
+                            (viewedPixelLeft <= rectangleRight + totalMapWidth
+                            && viewedPixelTop <= rectangleBottom
+                            && viewedPixelRight >= rectangleLeft + totalMapWidth
+                            && viewedPixelBottom >= rectangleTop)
+                            ||
+                            (viewedPixelLeft <= rectangleRight
+                            && viewedPixelTop <= rectangleBottom + totalMapHeight
+                            && viewedPixelRight >= rectangleLeft
+                            && viewedPixelBottom >= rectangleTop + totalMapHeight))
                         {
 
                             Rectangle bucketPosition = new Rectangle(rectangleLeft, rectangleTop, rectangleWidth, rectangleHeight);
