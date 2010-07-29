@@ -134,7 +134,7 @@ namespace AntiCulturePlanet
         /// <returns>bottom bound row for entity</returns>
         private int GetBottomBoundRow(AbstractEntity entity)
         {
-            int bottomBound = (int)((entity.Y + entity.Size / 2.0) / (double)bucketSize);
+            int bottomBound = (int)Math.Ceiling((entity.Y + entity.Size / 2.0) / (double)bucketSize);
             while (bottomBound < 0) bottomBound += rowCount;
             while (bottomBound >= rowCount) bottomBound -= rowCount;
             return bottomBound;
@@ -160,7 +160,7 @@ namespace AntiCulturePlanet
         /// <returns>right bound row for entity</returns>
         private int GetRightBoundColumn(AbstractEntity entity)
         {
-            int rightBound = (int)((entity.X + entity.Size / 2.0) / (double)bucketSize);
+            int rightBound = (int)Math.Ceiling((entity.X + entity.Size / 2.0) / (double)bucketSize);
             while (rightBound < 0) rightBound += columnCount;
             while (rightBound >= columnCount) rightBound -= columnCount;
             return rightBound;

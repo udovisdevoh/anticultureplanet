@@ -107,7 +107,9 @@ namespace AntiCulturePlanet
         public Program()
         {
             userInput = new UserInput();
-            mainSurface = Video.SetVideoMode(screenWidth, screenHeight, false, false, isFullScreen, true);
+            //mainSurface = Video.SetVideoMode(screenWidth, screenHeight, false, false, isFullScreen, true);
+            mainSurface = Video.SetVideoMode(screenWidth, screenHeight, 16, false, false, isFullScreen, true, true);
+
             random = new Random();
             motherNature = new MotherNature();
             planetGenerator = new PlanetGenerator(random);
