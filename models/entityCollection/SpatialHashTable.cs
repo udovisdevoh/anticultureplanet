@@ -124,6 +124,16 @@ namespace AntiCulturePlanet
 
             return false;
         }
+
+        /// <summary>
+        /// Get random bucket
+        /// </summary>
+        /// <param name="random">random number generator</param>
+        /// <returns>random bucket</returns>
+        internal Bucket GetRandomBucket(Random random)
+        {
+            return bucketGrid[random.Next(columnCount), random.Next(rowCount)];
+        }
         #endregion
 
         #region Private Methods
