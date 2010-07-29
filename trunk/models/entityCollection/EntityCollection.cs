@@ -8,15 +8,9 @@ namespace AntiCulturePlanet
     /// <summary>
     /// Contains all the entities on a planet
     /// </summary>
-    internal class EntityCollection : IEnumerable<AbstractEntity>
+    internal class EntityCollection
     {
         #region Fields and Parts
-        #warning Eventually remove internalCollection
-        /// <summary>
-        /// Internal collection of entities
-        /// </summary>
-        private List<AbstractEntity> internalCollection;
-
         /// <summary>
         /// To store relation between entity types and their respective amounts
         /// </summary>
@@ -38,9 +32,6 @@ namespace AntiCulturePlanet
         {
             spatialHashTable = new SpatialHashTable(width, height, 5);
             typeCount = new Dictionary<Type, int>();
-            internalCollection = new List<AbstractEntity>();
-
-            Type type = internalCollection.GetType();
         }
         #endregion
 
@@ -63,7 +54,6 @@ namespace AntiCulturePlanet
         /// <param name="entity">entity to add</param>
         internal void Add(AbstractEntity entity)
         {
-            internalCollection.Add(entity);
             spatialHashTable.Add(entity);
             int typeCountValue = 0;
             Type type = entity.GetType();
@@ -79,9 +69,6 @@ namespace AntiCulturePlanet
         /// <param name="entity">entity to remove</param>
         internal bool Remove(AbstractEntity entity)
         {
-            if (!internalCollection.Contains(entity))
-                return false;
-            internalCollection.Remove(entity);
             spatialHashTable.Remove(entity);
             Type type = entity.GetType();
             typeCount[type]--;
@@ -101,30 +88,13 @@ namespace AntiCulturePlanet
         }
 
         /// <summary>
-        /// Get random entity
+        /// Get random bucket
         /// </summary>
         /// <param name="random">random number generator</param>
-        /// <returns>random entity</returns>
-        internal AbstractEntity GetRandomEntity(Random random)
+        /// <returns>random bucket</returns>
+        internal Bucket GetRandomBucket(Random random)
         {
-            return internalCollection[random.Next(internalCollection.Count)];
-        }
-        #endregion
-
-        #region IEnumerable<AbstractEntity> Members
-        public IEnumerator<AbstractEntity> GetEnumerator()
-        {
-            return internalCollection.GetEnumerator();
-        }
-
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return internalCollection.GetEnumerator();
-        }
-
-        public void CopyTo(AbstractEntity[] array, int arrayIndex)
-        {
-            internalCollection.CopyTo(array, arrayIndex);
+            return spatialHashTable.GetRandomBucket(random);
         }
         #endregion
 

@@ -33,6 +33,18 @@ namespace AntiCulturePlanet
         }
         #endregion
 
+        #region Internal Methods
+        /// <summary>
+        /// Refresh the list of entities to update from this bucket
+        /// </summary>
+        /// <param name="listEntityToUpdate">list of entities to update</param>
+        internal void RefreshListEntityToUpdate(List<AbstractEntity> listEntityToUpdate)
+        {
+            listEntityToUpdate.Clear();
+            listEntityToUpdate.AddRange(internalList);
+        }
+        #endregion
+
         #region ICollection<AbstractEntity> Members
         /// <summary>
         /// Add entity

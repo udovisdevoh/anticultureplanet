@@ -33,7 +33,7 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Full screen or not
         /// </summary>
-        private const bool isFullScreen = true;
+        private const bool isFullScreen = false;
 
         /// <summary>
         /// Planet width
@@ -106,11 +106,17 @@ namespace AntiCulturePlanet
         /// User input;
         /// </summary>
         private UserInput userInput;
+
+        /// <summary>
+        /// List of entities to update
+        /// </summary>
+        private List<AbstractEntity> listEntityToUpdate;
         #endregion
 
         #region Constructor
         public Program()
         {
+            listEntityToUpdate = new List<AbstractEntity>();
             userInput = new UserInput();
             mainSurface = Video.SetVideoMode(screenWidth, screenHeight, BitsPerPixel, false, false, isFullScreen, true, true);
 
@@ -163,29 +169,32 @@ namespace AntiCulturePlanet
 
             motherNature.UpdatePopulationRegualtor(planet, currentTime);
 
-            //We update a random entities
-            AbstractEntity entity = planet.EntityCollection.GetRandomEntity(random);
+            //We get a list of random entities to update
+            planet.EntityCollection.GetRandomBucket(random).RefreshListEntityToUpdate(listEntityToUpdate);
 
-            //Plant reproduction
-            if (entity is AbstractPlantEntity)
+            foreach (AbstractEntity entity in listEntityToUpdate)
             {
-                AbstractPlantEntity plant = (AbstractPlantEntity)entity;
-                plant.TryReproduce(planet, currentTime);
-            }
-
-            //Decay
-            if (entity.DecayTime > 0)
-            {
-                TimeSpan timeSpanSinceCreation = (TimeSpan)(currentTime - entity.CreationTime);
-                if (timeSpanSinceCreation.TotalSeconds * Program.SpeedMultiplier > entity.DecayTime)
+                //Plant reproduction
+                if (entity is AbstractPlantEntity)
                 {
-                    if (entity is AbstractPlantEntity)
+                    AbstractPlantEntity plant = (AbstractPlantEntity)entity;
+                    plant.TryReproduce(planet, currentTime);
+                }
+
+                //Decay
+                if (entity.DecayTime > 0)
+                {
+                    TimeSpan timeSpanSinceCreation = (TimeSpan)(currentTime - entity.CreationTime);
+                    if (timeSpanSinceCreation.TotalSeconds * Program.SpeedMultiplier > entity.DecayTime)
                     {
-                        ((AbstractPlantEntity)(entity)).GoToNextPhaseOrDecay(planet);
-                    }
-                    else
-                    {
-                        entity.Decay(planet);
+                        if (entity is AbstractPlantEntity)
+                        {
+                            ((AbstractPlantEntity)(entity)).GoToNextPhaseOrDecay(planet);
+                        }
+                        else
+                        {
+                            entity.Decay(planet);
+                        }
                     }
                 }
             }
