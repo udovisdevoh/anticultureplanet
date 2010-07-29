@@ -85,8 +85,8 @@ namespace AntiCulturePlanet
             viewedTileY = planet.Height / 2;
 
             tileViewer = new TileViewerLowRes();
-            groundSurcace = new Surface(planet.Width * tilePixelWidth, planet.Height * tilePixelHeight, 16);
-            groundAndSpriteSurface = new Surface(planet.Width * tilePixelWidth, planet.Height * tilePixelHeight, 16);
+            groundSurcace = new Surface(planet.Width * tilePixelWidth, planet.Height * tilePixelHeight, Program.BitsPerPixel);
+            groundAndSpriteSurface = new Surface(planet.Width * tilePixelWidth, planet.Height * tilePixelHeight, Program.BitsPerPixel);
             this.mainSurface = mainSurface;
             this.screenWidth = screenWidth;
             this.screenHeight = screenHeight;

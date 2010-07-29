@@ -33,7 +33,7 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Full screen or not
         /// </summary>
-        private const bool isFullScreen = false;
+        private const bool isFullScreen = true;
 
         /// <summary>
         /// Planet width
@@ -59,6 +59,11 @@ namespace AntiCulturePlanet
         /// How many seconds before mother nature refreshes global decay
         /// </summary>
         public const double EntityTransformationRefreshTime = 1.0;
+
+        /// <summary>
+        /// Bits per pixel
+        /// </summary>
+        public const int BitsPerPixel = 16;
         #endregion
 
         #region Fields and parts
@@ -107,8 +112,7 @@ namespace AntiCulturePlanet
         public Program()
         {
             userInput = new UserInput();
-            //mainSurface = Video.SetVideoMode(screenWidth, screenHeight, false, false, isFullScreen, true);
-            mainSurface = Video.SetVideoMode(screenWidth, screenHeight, 16, false, false, isFullScreen, true, true);
+            mainSurface = Video.SetVideoMode(screenWidth, screenHeight, BitsPerPixel, false, false, isFullScreen, true, true);
 
             random = new Random();
             motherNature = new MotherNature();
