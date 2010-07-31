@@ -42,6 +42,9 @@ namespace AntiCulturePlanet
 
             AbstractEntity[] otherKindPlant = { new PlantEntity() };
             entityRegulatorList.Add(new EntityRegulator(new SeedPlantEntity(), otherKindPlant, 0.0005, 1));
+
+            //Animals
+            entityRegulatorList.Add(new EntityRegulator(new SmallCritterEntity(), 0.0005, 1));
         }
         #endregion
 

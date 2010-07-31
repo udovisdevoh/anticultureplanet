@@ -38,14 +38,6 @@ namespace AntiCulturePlanet
         }
 
         /// <summary>
-        /// Build entity sprite
-        /// </summary>
-        protected override EntitySprite BuildEntitySprite()
-        {
-            return SpriteManager.GetSprite(this.GetType());
-        }
-
-        /// <summary>
         /// Get decay entities when this entity decays
         /// </summary>
         /// <param name="planet">planet</param>
