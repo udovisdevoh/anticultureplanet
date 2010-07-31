@@ -5,52 +5,34 @@ using System.Text;
 
 namespace AntiCulturePlanet
 {
-    class FruitEntity : AbstractPlantEntity
+    /// <summary>
+    /// Large palm tree
+    /// </summary>
+    class LargeCocoTreeEntity : AbstractPlantEntity
     {
-        /// <summary>
-        /// Build decay time
-        /// </summary>
-        /// <returns>Decay time</returns>
         protected override double BuildDecayTime()
         {
-            return 30;
+            return 800;
         }
 
-        /// <summary>
-        /// Build size
-        /// </summary>
-        /// <returns>size</returns>
         protected override double BuildSize()
         {
-            return 0.9;
+            return 3;
         }
 
-        /// <summary>
-        /// Build mass
-        /// </summary>
-        /// <returns>mass</returns>
         protected override double BuildMass()
         {
-            return 0.125;
+            return 5;
         }
 
-        /// <summary>
-        /// Build entity sprite
-        /// </summary>
         protected override EntitySprite BuildEntitySprite()
         {
             return SpriteManager.GetSprite(this.GetType());
         }
 
-        /// <summary>
-        /// Get decay entities when this entity decays
-        /// </summary>
-        /// <param name="planet">planet</param>
-        /// <param name="entityCollection">entity collection</param>
-        /// <returns>decay entities (when this entity decays)</returns>
         protected override IEnumerable<AbstractEntity> GetDecayEntities(Planet planet)
         {
-            return new AbstractEntity[] { new SeedFruitTreeEntity() };
+            return new AbstractEntity[] { new TrunkEntity() };
         }
 
         /// <summary>
@@ -74,12 +56,17 @@ namespace AntiCulturePlanet
 
         protected override int BuildMinimumTemperatureForNextGrowingPhase()
         {
-            return 4;
+            return 14;
         }
 
+        /// <summary>
+        /// Get reproduction spore for entity
+        /// (null if there is no reproduction spore)
+        /// </summary>
+        /// <returns>reproduction spore for entity (null if there is no reproduction spore)</returns>
         protected override AbstractEntity GetReproductionSporeEntity()
         {
-            return null;
+            return new SeedCocoTreeEntity();
         }
 
         /// <summary>
@@ -88,7 +75,7 @@ namespace AntiCulturePlanet
         /// <returns>reproduction cycle time (seconds) (0 = never)</returns>
         protected override double BuildReproductionCycleTime()
         {
-            return 0;
+            return 2.6;
         }
     }
 }
