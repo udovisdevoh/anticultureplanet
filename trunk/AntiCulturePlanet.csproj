@@ -92,7 +92,7 @@
     <Content Include="assets\graphics\entities\LargeFruitTreeEntity0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\graphics\entities\LargePineTreeEntity.png">
+    <Content Include="assets\graphics\entities\LargePineTreeEntity0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\graphics\entities\LargeStoneEntity0.png">
@@ -110,7 +110,7 @@
     <Content Include="assets\graphics\entities\MediumFruitTreeEntity0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\graphics\entities\MediumPineTreeEntity.png">
+    <Content Include="assets\graphics\entities\MediumPineTreeEntity0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\graphics\entities\MediumStoneEntity0.png">
@@ -119,7 +119,10 @@
     <Content Include="assets\graphics\entities\SeedFruitTreeEntity0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\graphics\entities\SmallPineTreeEntity.png">
+    <Content Include="assets\graphics\entities\SeedPineTreeEntity0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\graphics\entities\SmallPineTreeEntity0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\graphics\entities\SmallStoneEntity0.png">
