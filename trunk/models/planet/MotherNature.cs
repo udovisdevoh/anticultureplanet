@@ -33,6 +33,9 @@ namespace AntiCulturePlanet
             //Plants
             AbstractEntity[] otherKindFruitTree = { new SmallFruitTreeEntity(), new MediumFruitTreeEntity(), new LargeFruitTreeEntity() };
             entityRegulatorList.Add(new EntityRegulator(new SeedFruitTreeEntity(), otherKindFruitTree, 0.004, 1));
+
+            AbstractEntity[] otherKindPineTree = { new SmallPineTreeEntity(), new MediumPineTreeEntity(), new LargePineTreeEntity() };
+            entityRegulatorList.Add(new EntityRegulator(new SeedPineTreeEntity(), otherKindPineTree, 0.001, 1));
         }
         #endregion
 

@@ -57,7 +57,10 @@ namespace AntiCulturePlanet
             {
                 double scaleX = (double)(width) / (double)(originalSurface.Width);
                 double scaleY = (double)(height) / (double)(originalSurface.Height);
-                surface = originalSurface.CreateScaledSurface(scaleX, scaleY, true);
+                if (width == originalSurface.Width && height == originalSurface.Height)
+                    surface = originalSurface;
+                else
+                    surface = originalSurface.CreateScaledSurface(scaleX, scaleY, true);
                 scallingCache.Add(width * 128 + height, surface);
             }
 
