@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SdlDotNet.Graphics;
 
 namespace AntiCulturePlanet
 {
@@ -45,6 +46,11 @@ namespace AntiCulturePlanet
         /// Percentage (-1.0 = not evaluated yet)
         /// </summary>
         private double waterPercentage = -1.0;
+
+        /// <summary>
+        /// Tile's surface
+        /// </summary>
+        private Surface surface = null;
         #endregion
 
         #region Constructor
@@ -205,6 +211,15 @@ namespace AntiCulturePlanet
         {
             get { return waterPercentage; }
             set { waterPercentage = value; }
+        }
+
+        /// <summary>
+        /// Tile's surface
+        /// </summary>
+        public Surface Surface
+        {
+            get { return surface; }
+            set { surface = value; }
         }
         #endregion
     }

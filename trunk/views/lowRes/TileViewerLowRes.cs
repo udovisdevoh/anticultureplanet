@@ -16,53 +16,98 @@ namespace AntiCulturePlanet
     /// </summary>
     internal class TileViewerLowRes
     {
-        #region Fields
+        #region Fields and parts
         /// <summary>
         /// Random number generator
         /// </summary>
         private Random random = new Random();
+
+        /// <summary>
+        /// Remembers water surfaces that were previously created
+        /// </summary>
+        private Dictionary<int, Surface> liquidWaterSurfaceCache;
+
+        /// <summary>
+        /// Remembers ice surfaces that were previously created
+        /// </summary>
+        private Dictionary<int, Surface> iceSurfaceCache;
+
+        /// <summary>
+        /// Remembers soil surfaces that were previously created
+        /// </summary>
+        private Dictionary<uint, Surface> soilSurfaceCache;
+
+        /// <summary>
+        /// Remembers snow surfaces that were previously created
+        /// </summary>
+        private Dictionary<uint, Surface> snowSurfaceCache;
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        /// Tile viewer low res
+        /// </summary>
+        public TileViewerLowRes()
+        {
+            liquidWaterSurfaceCache = new Dictionary<int, Surface>();
+            iceSurfaceCache = new Dictionary<int, Surface>();
+            soilSurfaceCache = new Dictionary<uint, Surface>();
+            snowSurfaceCache = new Dictionary<uint, Surface>();
+        }
         #endregion
 
         #region Internal Methods
         /// <summary>
-        /// Redraw tile and mark as IsNeedRefresh = false
+        /// Build or load tile's surface
         /// </summary>
         /// <param name="tile">tile</param>
         /// <param name="planet">planet</param>
-        /// <param name="surface">surface to draw to</param>
-        /// <param name="tilePixelWidth">tile's width (pixels)</param>
-        /// <param name="tilePixelHeight">tile's height (pixels)</param>
-        internal void Update(Tile tile, Planet planet, Surface surface, int tilePixelWidth, int tilePixelHeight)
-        {            
+        /// <param name="tilePixelWidth">tile width (pixels)</param>
+        /// <param name="tilePixelHeight">tile height (pixels)</param>
+        /// <returns>tile's surface</returns>
+        internal Surface BuildOrLoadSurface(Tile tile, Planet planet, int tilePixelWidth, int tilePixelHeight)
+        {
             if (tile.IsWater)
-            {
-                DrawWaterTile(tile, planet, surface, tilePixelWidth, tilePixelHeight);
-            }
+                return BuildOrLoadLiquidWaterOrIceSurface(tile, planet, tilePixelWidth, tilePixelHeight);
             else
-            {
-                DrawSoilTile(tile, planet, surface, tilePixelWidth, tilePixelHeight);
-            }
-
-            tile.IsNeedRefresh = false;
+                return BuildOrLoadSoilOrSnowSurface(tile, planet, tilePixelWidth, tilePixelHeight);
         }
         #endregion
 
         #region Private Methods
         /// <summary>
-        /// Draw soil tile
+        /// Build or load soil or snow surface
         /// </summary>
         /// <param name="tile">tile</param>
         /// <param name="planet">planet</param>
-        /// <param name="surface">surface to draw on</param>
         /// <param name="tilePixelWidth">tile width (pixels)</param>
         /// <param name="tilePixelHeight">tile height (pixels)</param>
-        private void DrawSoilTile(Tile tile, Planet planet, Surface surface, int tilePixelWidth, int tilePixelHeight)
+        /// <returns>soil or snow surface</returns>
+        private Surface BuildOrLoadSoilOrSnowSurface(Tile tile, Planet planet, int tilePixelWidth, int tilePixelHeight)
         {
+            if (tile.Temperature >= 0)
+                return BuildOrLoadSoilSurface(tile, planet, tilePixelWidth, tilePixelHeight);
+            else
+                return BuildOrLoadSnowSurface(tile, planet, tilePixelWidth, tilePixelHeight);
+        }
+
+        /// <summary>
+        /// Build or load soil surface
+        /// </summary>
+        /// <param name="tile">tile</param>
+        /// <param name="planet">planet</param>
+        /// <param name="tilePixelWidth">tile width (pixels)</param>
+        /// <param name="tilePixelHeight">tile height (pixels)</param>
+        /// <returns>soil surface</returns>
+        private Surface BuildOrLoadSnowSurface(Tile tile, Planet planet, int tilePixelWidth, int tilePixelHeight)
+        {
+            Surface surface;
+
             int green = 128;
             int blue = 0;
             int red = (tile.Altitude - planet.WaterThresholdAltitude) * 255 / (planet.MaxAltitude - planet.WaterThresholdAltitude);
             red += tile.Temperature - planet.MinTemperature;
-           
+
 
             if (tile.Temperature < 0)
             {
@@ -81,14 +126,67 @@ namespace AntiCulturePlanet
             if (green > 255)
                 green = 255;
 
-            Color color = Color.FromArgb(255, red, green, blue);
+            uint hash = (uint)(red + green * 256 + blue * 65536);
 
-            Rectangle rectangle = new Rectangle(tile.X * tilePixelWidth, tile.Y * tilePixelHeight, tilePixelWidth, tilePixelHeight);
-            surface.Fill(rectangle, color);
-
-
-            if (tile.Temperature >= 0)
+            if (!snowSurfaceCache.TryGetValue(hash, out surface))
             {
+                surface = new Surface(tilePixelWidth, tilePixelHeight, Program.BitsPerPixel);
+                
+                Color color = Color.FromArgb(255, red, green, blue);
+                Rectangle rectangle = new Rectangle(0, 0, tilePixelWidth, tilePixelHeight);
+                surface.Fill(rectangle, color);
+
+                snowSurfaceCache.Add(hash, surface);
+            }
+            return surface;
+        }
+
+        /// <summary>
+        /// Build or load soil surface
+        /// </summary>
+        /// <param name="tile">tile</param>
+        /// <param name="planet">planet</param>
+        /// <param name="tilePixelWidth">tile width (pixels)</param>
+        /// <param name="tilePixelHeight">tile height (pixels)</param>
+        /// <returns>soil surface</returns>
+        private Surface BuildOrLoadSoilSurface(Tile tile, Planet planet, int tilePixelWidth, int tilePixelHeight)
+        {
+            Surface surface;
+
+            int green = 128;
+            int blue = 0;
+            int red = (tile.Altitude - planet.WaterThresholdAltitude) * 255 / (planet.MaxAltitude - planet.WaterThresholdAltitude);
+            red += tile.Temperature - planet.MinTemperature;
+
+
+            if (tile.Temperature < 0)
+            {
+                blue = 255;
+                red += 64;
+                green += 64;
+            }
+
+            if (red < 0)
+                red = 0;
+            if (red > 255)
+                red = 255;
+
+            if (green < 0)
+                green = 0;
+            if (green > 255)
+                green = 255;
+
+            uint hash = (uint)(red + green * 256 + blue * 65536);
+
+            if (!snowSurfaceCache.TryGetValue(hash, out surface))
+            {
+                surface = new Surface(tilePixelWidth, tilePixelHeight, Program.BitsPerPixel);
+
+                Color color = Color.FromArgb(255, red, green, blue);
+                Rectangle rectangle = new Rectangle(0, 0, tilePixelWidth, tilePixelHeight);
+                surface.Fill(rectangle, color);
+
+
                 int randomPixelCount = (tilePixelWidth * tilePixelHeight) / 8;
                 for (int i = 0; i < randomPixelCount; i++)
                 {
@@ -103,7 +201,7 @@ namespace AntiCulturePlanet
                     color = Color.FromArgb(255, redLine, greenLine, blue);
                     int x = random.Next(0, tilePixelWidth);
                     int y = random.Next(0, tilePixelHeight);
-                    Point point = new Point(tile.X * tilePixelWidth + x, tile.Y * tilePixelHeight + y);
+                    Point point = new Point(x, y);
 
                     int lineDistanceX = random.Next(tilePixelWidth / (-4), tilePixelWidth / 4);
                     int lineDistanceY = random.Next(tilePixelWidth / (-4), tilePixelWidth / 4);
@@ -114,35 +212,57 @@ namespace AntiCulturePlanet
 
                     surface.Draw(line, color);
                 }
+
+                snowSurfaceCache.Add(hash, surface);
             }
+            return surface;
         }
 
         /// <summary>
-        /// Draw water tile
+        /// Build or load liquid water or ice surface
         /// </summary>
         /// <param name="tile">tile</param>
         /// <param name="planet">planet</param>
-        /// <param name="surface">surface to draw on</param>
         /// <param name="tilePixelWidth">tile width (pixels)</param>
         /// <param name="tilePixelHeight">tile height (pixels)</param>
-        private void DrawWaterTile(Tile tile, Planet planet, Surface surface, int tilePixelWidth, int tilePixelHeight)
+        /// <returns>liquid water or ice surface</returns>
+        private Surface BuildOrLoadLiquidWaterOrIceSurface(Tile tile, Planet planet, int tilePixelWidth, int tilePixelHeight)
         {
-            int blue = (tile.Altitude - planet.MinAltitude) * 512 / (planet.WaterThresholdAltitude - planet.MinAltitude) - 300;
+            if (tile.Temperature >= 0)
+                return BuildOrLoadLiquidWaterSurface(tile, planet, tilePixelWidth, tilePixelHeight);
+            else
+                return BuildOrLoadIceSurface(tile, planet, tilePixelWidth, tilePixelHeight);
+        }
 
+        /// <summary>
+        /// Build or load liquid water surface
+        /// </summary>
+        /// <param name="tile">tile</param>
+        /// <param name="planet">planet</param>
+        /// <param name="tilePixelWidth">tile width (pixels)</param>
+        /// <param name="tilePixelHeight">tile height (pixels)</param>
+        /// <returns>liquid water surface</returns>
+        private Surface BuildOrLoadLiquidWaterSurface(Tile tile, Planet planet, int tilePixelWidth, int tilePixelHeight)
+        {
+            Surface surface;
+
+            int blue = (tile.Altitude - planet.MinAltitude) * 512 / (planet.WaterThresholdAltitude - planet.MinAltitude) - 300;
             blue = Math.Max(0, blue);
             blue = Math.Min(255, blue);
 
-            Color color;
+            int hashValue = blue * 10 + random.Next(0, 10);
 
-            int red, green;
-            red = green = 0;
-
-            color = Color.FromArgb(255, red, green, blue);
-            Rectangle rectangle = new Rectangle(tile.X * tilePixelWidth, tile.Y * tilePixelHeight, tilePixelWidth, tilePixelHeight);
-            surface.Fill(rectangle, color);
-
-            if (tile.Temperature >= 0)
+            if (!liquidWaterSurfaceCache.TryGetValue(hashValue, out surface))
             {
+                surface = new Surface(tilePixelWidth, tilePixelHeight, Program.BitsPerPixel);
+                Color color;
+                int red, green;
+                red = green = 0;
+                color = Color.FromArgb(255, red, green, blue);
+                Rectangle rectangle = new Rectangle(0, 0, tilePixelWidth, tilePixelHeight);
+                surface.Fill(rectangle, color);
+
+
                 int randomPixelCount = (tilePixelWidth * tilePixelHeight) / 16;
                 for (int i = 0; i < randomPixelCount; i++)
                 {
@@ -150,7 +270,7 @@ namespace AntiCulturePlanet
                     color = Color.FromArgb(255, brightness, brightness, 255);
                     int x = random.Next(0, tilePixelWidth);
                     int y = random.Next(0, tilePixelHeight);
-                    Point point = new Point(tile.X * tilePixelWidth + x, tile.Y * tilePixelHeight + y);
+                    Point point = new Point(x, y);
 
                     int lineDistance = random.Next(tilePixelWidth / (-2), tilePixelWidth / 2);
 
@@ -160,7 +280,40 @@ namespace AntiCulturePlanet
 
                     surface.Draw(line, color);
                 }
+
+                liquidWaterSurfaceCache.Add(hashValue, surface);
             }
+            return surface;
+        }
+
+        /// <summary>
+        /// Build or load ice surface
+        /// </summary>
+        /// <param name="tile">tile</param>
+        /// <param name="planet">planet</param>
+        /// <param name="tilePixelWidth">tile width (pixels)</param>
+        /// <param name="tilePixelHeight">tile height (pixels)</param>
+        /// <returns>ice surface</returns>
+        private Surface BuildOrLoadIceSurface(Tile tile, Planet planet, int tilePixelWidth, int tilePixelHeight)
+        {
+            Surface surface;
+
+            int blue = (tile.Altitude - planet.MinAltitude) * 512 / (planet.WaterThresholdAltitude - planet.MinAltitude) - 300;
+            blue = Math.Max(0, blue);
+            blue = Math.Min(255, blue);
+
+            if (!iceSurfaceCache.TryGetValue(blue, out surface))
+            {
+                surface = new Surface(tilePixelWidth, tilePixelHeight, Program.BitsPerPixel);
+                Color color;
+                int red, green;
+                red = green = 0;
+                color = Color.FromArgb(255, red, green, blue);
+                Rectangle rectangle = new Rectangle(0, 0, tilePixelWidth, tilePixelHeight);
+                surface.Fill(rectangle, color);
+                iceSurfaceCache.Add(blue, surface);
+            }
+            return surface;
         }
         #endregion
     }
