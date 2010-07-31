@@ -214,7 +214,7 @@ namespace AntiCulturePlanet
                         } while (planet.EntityCollection.IsDetectCollision(offspring));
 
                         offspring.Size = offspringSize;
-                        offspring.foodReserve = this.foodReserve;
+                        offspring.foodReserve *= .2;
                         planet.EntityCollection.Add(offspring);
                     }
                     catch (NoAvailableSpaceException)
@@ -360,6 +360,25 @@ namespace AntiCulturePlanet
         /// </summary>
         /// <returns>walking speed</returns>
         protected abstract double BuildSpeed();
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// Speed
+        /// </summary>
+        public double Speed
+        {
+            get { return speed; }
+        }
+
+        /// <summary>
+        /// Food reserve
+        /// </summary>
+        public double FoodReserve
+        {
+            get{return foodReserve;}
+            set { foodReserve = value; }
+        }
         #endregion
     }
 }

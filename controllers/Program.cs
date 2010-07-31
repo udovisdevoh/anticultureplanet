@@ -64,6 +64,11 @@ namespace AntiCulturePlanet
         /// Bits per pixel
         /// </summary>
         public const int BitsPerPixel = 16;
+
+        /// <summary>
+        /// Spatial hash's bucket size
+        /// </summary>
+        public const int BucketSize = 5;
         #endregion
 
         #region Fields and parts
@@ -212,6 +217,11 @@ namespace AntiCulturePlanet
                 animal.TryReproduce(planet, currentTime);
                 animal.TryGrow(planet);
                 animal.TryMakeWalkFightOrFlight(planet, random, timeDelta);
+                animal.FoodReserve -= animal.Size / 1000.0;
+                if (animal.FoodReserve <= 0 ||
+                    animal.Integrity <= 0 ||
+                    planet.EntityCollection.IsDetectCollision(animal, planet))
+                    animal.Decay(planet);
             }
 
             planetViewer.Update(planet);
