@@ -25,7 +25,7 @@ namespace AntiCulturePlanet
         /// <returns>size</returns>
         protected override double BuildSize()
         {
-            return 0.5;
+            return 0.75;
         }
 
         /// <summary>
