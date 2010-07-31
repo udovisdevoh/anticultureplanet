@@ -72,6 +72,7 @@
     <Compile Include="models\entities\minerals\MediumStoneEntity.cs" />
     <Compile Include="models\entities\minerals\SmallStoneEntity.cs" />
     <Compile Include="models\entities\plants\SeedPineTreeEntity.cs" />
+    <Compile Include="models\entities\plants\SeedPlantEntity.cs" />
     <Compile Include="models\entities\plants\SmallCocoTreeEntity.cs" />
     <Compile Include="models\entities\plants\SmallFruitTreeEntity.cs" />
     <Compile Include="models\entities\plants\SmallPineTreeEntity.cs" />
@@ -132,6 +133,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\graphics\entities\PlantEntity0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\graphics\entities\SeedPlantEntity0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\graphics\entities\SeedCocoTreeEntity0.png">
@@ -294,6 +298,7 @@
     <None Include="assets\graphics\originals\MediumTree.fla" />
     <None Include="assets\graphics\originals\PalmTree.fla" />
     <None Include="assets\graphics\originals\Pine.fla" />
+    <None Include="assets\graphics\originals\PlantSeed.fla" />
     <None Include="assets\graphics\originals\PrehistoricMan1.fla" />
     <None Include="assets\graphics\originals\PrehistoricMan2.fla" />
     <None Include="assets\graphics\originals\PrehistoricMan3.fla" />

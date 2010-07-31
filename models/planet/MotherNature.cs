@@ -40,7 +40,8 @@ namespace AntiCulturePlanet
             AbstractEntity[] otherKindCocoTree = { new SmallCocoTreeEntity(), new MediumCocoTreeEntity(), new LargeCocoTreeEntity() };
             entityRegulatorList.Add(new EntityRegulator(new SeedCocoTreeEntity(), otherKindCocoTree, 0.0005, 1));
 
-            entityRegulatorList.Add(new EntityRegulator(new PlantEntity(), 0.0002, 1));
+            AbstractEntity[] otherKindPlant = { new PlantEntity() };
+            entityRegulatorList.Add(new EntityRegulator(new SeedPlantEntity(), otherKindPlant, 0.0005, 1));
         }
         #endregion
 

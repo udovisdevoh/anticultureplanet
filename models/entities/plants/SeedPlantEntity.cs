@@ -6,33 +6,54 @@ using System.Text;
 namespace AntiCulturePlanet
 {
     /// <summary>
-    /// Regular plant
+    /// Small plant's seed
     /// </summary>
-    class PlantEntity : AbstractPlantEntity
+    class SeedPlantEntity : AbstractPlantEntity
     {
+        /// <summary>
+        /// Build decay time
+        /// </summary>
+        /// <returns>Decay time</returns>
         protected override double BuildDecayTime()
         {
-            return 33;
+            return 10;
         }
 
+        /// <summary>
+        /// Build size
+        /// </summary>
+        /// <returns>size</returns>
         protected override double BuildSize()
         {
-            return 1;
+            return 0.5;
         }
 
+        /// <summary>
+        /// Build mass
+        /// </summary>
+        /// <returns>mass</returns>
         protected override double BuildMass()
         {
-            return 0.25;
+            return 0.125;
         }
 
+        /// <summary>
+        /// Build entity sprite
+        /// </summary>
         protected override EntitySprite BuildEntitySprite()
         {
             return SpriteManager.GetSprite(this.GetType());
         }
 
+        /// <summary>
+        /// Get decay entities when this entity decays
+        /// </summary>
+        /// <param name="planet">planet</param>
+        /// <param name="entityCollection">entity collection</param>
+        /// <returns>decay entities (when this entity decays)</returns>
         protected override IEnumerable<AbstractEntity> GetDecayEntities(Planet planet)
         {
-            return new AbstractEntity[] { new TrunkEntity() };
+            return null;
         }
 
         /// <summary>
@@ -42,7 +63,7 @@ namespace AntiCulturePlanet
         /// <returns>next phase entity for plant (or null if there is no next phase)</returns>
         protected override AbstractEntity GetNextGrowingPhaseEntity()
         {
-            return null;
+            return new PlantEntity();
         }
 
         /// <summary>
@@ -56,12 +77,12 @@ namespace AntiCulturePlanet
 
         protected override int BuildMinimumTemperatureForNextGrowingPhase()
         {
-            return 4;
+            return -6;
         }
 
         protected override AbstractEntity GetReproductionSporeEntity()
         {
-            return new SeedPlantEntity();
+            return null;
         }
 
         /// <summary>
@@ -70,7 +91,7 @@ namespace AntiCulturePlanet
         /// <returns>reproduction cycle time (seconds) (0 = never)</returns>
         protected override double BuildReproductionCycleTime()
         {
-            return 1.75;
+            return 0;
         }
     }
 }
