@@ -30,6 +30,11 @@ namespace AntiCulturePlanet
         private double z;
 
         /// <summary>
+        /// Angle (radian)
+        /// </summary>
+        private double angleRadian;
+
+        /// <summary>
         /// Size
         /// </summary>
         private double size;
@@ -95,6 +100,7 @@ namespace AntiCulturePlanet
             isKeepSizeOfPreviousEntity = BuildIsKeepSizeOfPreviousEntity();
             isKeepSpriteOfPreviousEntity = BuildIsKeepSpriteOfPreviousEntity();
             isAffectedByCollision = BuildIsAffectedByCollision();
+            angleRadian = 0;
         }
         #endregion
 
@@ -164,12 +170,13 @@ namespace AntiCulturePlanet
         /// /// <param name="newY">new Y position</param>
         internal void Move(double newX, double newY)
         {
-            if (spatialHashMovementListener != null)
-                spatialHashMovementListener.Remove(this);
+            SpatialHashTable currentSpatialHashMovementListener = spatialHashMovementListener;
+            if (currentSpatialHashMovementListener != null)
+                currentSpatialHashMovementListener.Remove(this);
             this.x = newX;
             this.y = newY;
-            if (spatialHashMovementListener != null)
-                spatialHashMovementListener.Add(this);
+            if (currentSpatialHashMovementListener != null)
+                currentSpatialHashMovementListener.Add(this);
         }
         #endregion
 
@@ -344,6 +351,33 @@ namespace AntiCulturePlanet
         internal DateTime CreationTime
         {
             get { return creationTime; }
+        }
+
+        /// <summary>
+        /// Angle (radian)
+        /// </summary>
+        internal double AngleRadian
+        {
+            get { return angleRadian; }
+            set
+            {
+                while (value > Math.PI * 2)
+                    value -= Math.PI * 2;
+
+                while (value < 0)
+                    value += Math.PI * 2;
+
+                angleRadian = value;
+            }
+        }
+
+        /// <summary>
+        /// Angle (degree)
+        /// </summary>
+        internal double AngleDegree
+        {
+            get { return angleRadian / Math.PI * 180.0; }
+            set { angleRadian = value / 180.0 * Math.PI; }
         }
         #endregion
     }

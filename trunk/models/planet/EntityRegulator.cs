@@ -97,7 +97,7 @@ namespace AntiCulturePlanet
                         foreach (AbstractEntity otherEntityKind in listConsiderOtherEntitiesInRegulationCategory)
                             actualCount += planet.EntityCollection.CountType(otherEntityKind.GetType());
 
-                    if (actualCount < minimumEntityCount)
+                    if (actualCount == 0 || actualCount < minimumEntityCount)
                     {
                         PointF pointF;
 

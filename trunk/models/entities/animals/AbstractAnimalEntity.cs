@@ -71,6 +71,11 @@ namespace AntiCulturePlanet
         /// Growth rate
         /// </summary>
         private double growthRate;
+
+        /// <summary>
+        /// Speed
+        /// </summary>
+        private double speed;
         #endregion
 
         #region Constructor
@@ -91,6 +96,7 @@ namespace AntiCulturePlanet
             foodReserve = maximumFoodReserve;
             growthRate = BuildGrowthRate();
             minimumFoodReserveForGrowth = BuildMinimumFoodReserveForGrowth();
+            speed = BuildSpeed();
         }
         #endregion
 
@@ -247,6 +253,38 @@ namespace AntiCulturePlanet
                 }
             }
         }
+
+        /// <summary>
+        /// Try move entity
+        /// </summary>
+        /// <param name="planet">planet</param>
+        /// <param name="random">random number generator</param>
+        /// <param name="timeDelta">time delta</param>
+        internal void TryMakeWalkFightOrFlight(Planet planet, Random random, double timeDelta)
+        {
+            #warning Uncomment
+            /*AbstractEntity closestEntity = planet.EntityCollection.GetClosestEntity(this);
+
+            if (closestEntity != null)
+            {
+                if (preyTypeList.Contains(closestEntity.GetType()))
+                {
+                    this.AngleRadian = Optics.GetAngleRadianTo(this, closestEntity);
+                }
+                else if (predatorTypeList.Contains(closestEntity.GetType()))
+                {
+                    this.AngleRadian = Optics.GetAngleRadianTo(this, closestEntity) + Math.PI;
+                }
+            }*/
+
+            Physics.TryMakeWalk(this, speed, planet, timeDelta * 4.0);
+
+            if (planet.EntityCollection.IsDetectCollision(this, planet))
+            {
+                Physics.TryMakeWalk(this, speed, Math.PI, planet, timeDelta * 4.0);
+                this.AngleDegree = (random.NextDouble() * 360.0);
+            }
+        }
         #endregion
 
         #region Abstract
@@ -316,6 +354,12 @@ namespace AntiCulturePlanet
         /// </summary>
         /// <returns>reproduction spore for entity (null if there is no reproduction spore)</returns>
         protected abstract AbstractAnimalEntity GetOffspringEntity();
+
+        /// <summary>
+        /// Build walking speed
+        /// </summary>
+        /// <returns>walking speed</returns>
+        protected abstract double BuildSpeed();
         #endregion
     }
 }

@@ -119,8 +119,9 @@ namespace AntiCulturePlanet
             for (int x = leftBound; x <= rightBound; x++)
                 for (int y = topBound; y <= bottomBound; y++)
                     foreach (AbstractEntity otherEntity in bucketGrid[x, y])
-                        if (IsDetectCollision(entity, otherEntity))
-                            return true;
+                        if (otherEntity != entity)
+                            if (IsDetectCollision(entity, otherEntity))
+                                return true;
 
             return false;
         }

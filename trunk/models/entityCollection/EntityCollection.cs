@@ -20,6 +20,11 @@ namespace AntiCulturePlanet
         /// Spatial hash table
         /// </summary>
         private SpatialHashTable spatialHashTable;
+
+        /// <summary>
+        /// List of animals
+        /// </summary>
+        private HashSet<AbstractAnimalEntity> animalList;
         #endregion
 
         #region Constructor
@@ -32,6 +37,7 @@ namespace AntiCulturePlanet
         {
             spatialHashTable = new SpatialHashTable(width, height, 5);
             typeCount = new Dictionary<Type, int>();
+            animalList = new HashSet<AbstractAnimalEntity>();
         }
         #endregion
 
@@ -61,6 +67,9 @@ namespace AntiCulturePlanet
                 typeCount[type]++;
             else
                 typeCount.Add(type, 1);
+
+            if (entity is AbstractAnimalEntity)
+                animalList.Add((AbstractAnimalEntity)entity);
         }
 
         /// <summary>
@@ -69,6 +78,9 @@ namespace AntiCulturePlanet
         /// <param name="entity">entity to remove</param>
         internal bool Remove(AbstractEntity entity)
         {
+            if (entity is AbstractAnimalEntity)
+                animalList.Remove((AbstractAnimalEntity)entity);
+
             spatialHashTable.Remove(entity);
             Type type = entity.GetType();
             typeCount[type]--;
@@ -82,8 +94,27 @@ namespace AntiCulturePlanet
         /// <returns>Whether entity is in collision with other entity</returns>
         internal bool IsDetectCollision(AbstractEntity entity)
         {
+            return IsDetectCollision(entity, null);
+        }
+
+        /// <summary>
+        /// Whether entity is in collision with other entity
+        /// </summary>
+        /// <param name="entity">entity</param>
+        /// <param name="planet">planet</param>
+        /// <returns>Whether entity is in collision with other entity</returns>
+        internal bool IsDetectCollision(AbstractEntity entity, Planet planet)
+        {
             if (!entity.IsAffectedByCollision)
                 return false;
+
+            if (planet != null)//Sometimes we only detect collisions between entities
+            {
+                Tile tile = planet.GetTile(entity);
+                if (entity.PositionCriteria == PositionCriteria.Ground && tile.IsWater || entity.PositionCriteria == PositionCriteria.Water && !tile.IsWater)
+                    return true;
+            }
+
             return spatialHashTable.IsDetectCollision(entity);
         }
 
@@ -95,6 +126,14 @@ namespace AntiCulturePlanet
         internal Bucket GetRandomBucket(Random random)
         {
             return spatialHashTable.GetRandomBucket(random);
+        }
+
+        /// <summary>
+        /// List of all animals
+        /// </summary>
+        internal HashSet<AbstractAnimalEntity> AnimalList
+        {
+            get { return animalList; }
         }
         #endregion
 
