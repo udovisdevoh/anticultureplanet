@@ -63,11 +63,6 @@ namespace AntiCulturePlanet
             return false;
         }
 
-        protected override bool BuildIsKeepMassOfPreviousEntity()
-        {
-            return false;
-        }
-
         protected override bool BuildIsKeepSizeOfPreviousEntity()
         {
             return false;
@@ -154,9 +149,6 @@ namespace AntiCulturePlanet
             }
 
             nextPhaseEntity.Move(this.X, this.Y);
-
-            if (nextPhaseEntity.IsKeepMassOfPreviousEntity)
-                nextPhaseEntity.Mass = this.Mass;
 
             if (nextPhaseEntity.IsKeepSizeOfPreviousEntity)
                 nextPhaseEntity.Size = this.Size;

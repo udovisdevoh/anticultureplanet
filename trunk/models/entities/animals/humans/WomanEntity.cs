@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,16 +28,7 @@ namespace AntiCulturePlanet
         {
             return 1.8;
         }
-
-        /// <summary>
-        /// Build mass
-        /// </summary>
-        /// <returns>mass</returns>
-        protected override double BuildMass()
-        {
-            return 0.9;
-        }
-
+  
         /// <summary>
         /// Build entity sprite
         /// </summary>
@@ -48,4 +39,4 @@ namespace AntiCulturePlanet
         }
         #endregion
     }
-}
+}*/

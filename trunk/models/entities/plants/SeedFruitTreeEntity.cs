@@ -26,15 +26,6 @@ namespace AntiCulturePlanet
         }
 
         /// <summary>
-        /// Build mass
-        /// </summary>
-        /// <returns>mass</returns>
-        protected override double BuildMass()
-        {
-            return 0.125;
-        }
-
-        /// <summary>
         /// Get decay entities when this entity decays
         /// </summary>
         /// <param name="planet">planet</param>
@@ -81,6 +72,11 @@ namespace AntiCulturePlanet
         protected override double BuildReproductionCycleTime()
         {
             return 0;
+        }
+
+        protected override double BuildDefaultIntegrity()
+        {
+            return 1;
         }
     }
 }

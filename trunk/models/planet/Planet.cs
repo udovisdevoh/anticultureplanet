@@ -291,7 +291,7 @@ namespace AntiCulturePlanet
         /// </summary>
         /// <param name="entity">entity</param>
         /// <returns>random surrounding position for entity</returns>
-        internal PointF GetRandomSurroundingPosition(AbstractPlantEntity entity)
+        internal PointF GetRandomSurroundingPosition(AbstractEntity entity)
         {
             double xOffset = random.NextDouble() * (entity.Size * 3.0) - (entity.Size * 1.5);
             double yOffset = random.NextDouble() * (entity.Size * 3.0) - (entity.Size * 1.5);

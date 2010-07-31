@@ -17,11 +17,6 @@ namespace AntiCulturePlanet
             return 3;
         }
 
-        protected override double BuildMass()
-        {
-            return 5;
-        }
-
         protected override IEnumerable<AbstractEntity> GetDecayEntities(Planet planet)
         {
             return null;
@@ -47,11 +42,6 @@ namespace AntiCulturePlanet
             return false;
         }
 
-        protected override bool BuildIsKeepMassOfPreviousEntity()
-        {
-            return true;
-        }
-
         protected override bool BuildIsKeepSizeOfPreviousEntity()
         {
             return true;
@@ -60,6 +50,11 @@ namespace AntiCulturePlanet
         protected override bool BuildIsAffectedByCollision()
         {
             return true;
+        }
+
+        protected override double BuildDefaultIntegrity()
+        {
+            return 10;
         }
     }
 }

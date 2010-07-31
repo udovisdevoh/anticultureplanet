@@ -35,11 +35,6 @@ namespace AntiCulturePlanet
             return false;
         }
 
-        protected override bool BuildIsKeepMassOfPreviousEntity()
-        {
-            return false;
-        }
-
         protected override bool BuildIsKeepSizeOfPreviousEntity()
         {
             return false;
