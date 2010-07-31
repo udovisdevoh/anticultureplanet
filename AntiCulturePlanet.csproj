@@ -65,6 +65,7 @@
     <Compile Include="models\entities\plants\MediumCocoTreeEntity.cs" />
     <Compile Include="models\entities\plants\MediumFruitTreeEntity.cs" />
     <Compile Include="models\entities\plants\MediumPineTreeEntity.cs" />
+    <Compile Include="models\entities\plants\PlantEntity.cs" />
     <Compile Include="models\entities\plants\SeedCocoTreeEntity.cs" />
     <Compile Include="models\entities\plants\SeedFruitTreeEntity.cs" />
     <Compile Include="models\entities\minerals\LargeStoneEntity.cs" />
@@ -128,6 +129,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\graphics\entities\MediumStoneEntity0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\graphics\entities\PlantEntity0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\graphics\entities\SeedCocoTreeEntity0.png">
