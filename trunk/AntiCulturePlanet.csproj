@@ -92,6 +92,9 @@
     <Content Include="assets\graphics\entities\LargeFruitTreeEntity0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\graphics\entities\LargePineTreeEntity.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\graphics\entities\LargeStoneEntity0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -107,10 +110,16 @@
     <Content Include="assets\graphics\entities\MediumFruitTreeEntity0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\graphics\entities\MediumPineTreeEntity.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\graphics\entities\MediumStoneEntity0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\graphics\entities\SeedFruitTreeEntity0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\graphics\entities\SmallPineTreeEntity.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\graphics\entities\SmallStoneEntity0.png">
@@ -251,9 +260,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\graphics\originals\Cone.fla" />
     <None Include="assets\graphics\originals\Fruit.fla" />
     <None Include="assets\graphics\originals\LargeTree.fla" />
     <None Include="assets\graphics\originals\MediumTree.fla" />
+    <None Include="assets\graphics\originals\Pine.fla" />
     <None Include="assets\graphics\originals\PrehistoricMan1.fla" />
     <None Include="assets\graphics\originals\PrehistoricMan2.fla" />
     <None Include="assets\graphics\originals\PrehistoricMan3.fla" />

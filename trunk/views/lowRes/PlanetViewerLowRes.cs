@@ -59,12 +59,12 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Horizontal tile offset
         /// </summary>
-        private double viewedTileX;
+        private int viewedTileX;
 
         /// <summary>
         /// Vertical tile offset
         /// </summary>
-        private double viewedTileY;
+        private int viewedTileY;
         #endregion
 
         #region Constructor
@@ -133,7 +133,7 @@ namespace AntiCulturePlanet
         /// <param name="tileOffsetY">vertical tile offset</param>
         /// <param name="width">planet's width</param>
         /// <param name="height">planet's height</param>
-        internal override void MoveView(double tileOffsetX, double tileOffsetY, int width, int height)
+        internal override void MoveView(int tileOffsetX, int tileOffsetY, int width, int height)
         {
             this.viewedTileX += tileOffsetX;
             this.viewedTileY += tileOffsetY;
