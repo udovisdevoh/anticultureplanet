@@ -8,7 +8,7 @@ namespace AntiCulturePlanet
     /// <summary>
     /// Humans (men and women)
     /// </summary>
-    abstract class AbstractHumanEntity : AbstractAnimalEntity
+    abstract class AbstractHumanEntity : AbstractEntity
     {
         /// <summary>
         /// Get decay entities when this entity decays
@@ -18,8 +18,7 @@ namespace AntiCulturePlanet
         /// <returns>decay entities (when this entity decays)</returns>
         protected override IEnumerable<AbstractEntity> GetDecayEntities(Planet planet)
         {
-            #warning Implement
-            return null;
+            return new AbstractEntity[] { new CorpseEntity() };
         }
 
         /// <summary>

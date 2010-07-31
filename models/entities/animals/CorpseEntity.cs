@@ -5,7 +5,10 @@ using System.Text;
 
 namespace AntiCulturePlanet
 {
-    class TrunkEntity : AbstractEntity
+    /// <summary>
+    /// Represents a corpse
+    /// </summary>
+    class CorpseEntity : AbstractEntity
     {
         protected override double BuildDecayTime()
         {
@@ -14,22 +17,22 @@ namespace AntiCulturePlanet
 
         protected override double BuildSize()
         {
-            return 3;
+            return 2;
         }
 
         protected override double BuildMass()
         {
-            return 5;
-        }
-
-        protected override IEnumerable<AbstractEntity> GetDecayEntities(Planet planet)
-        {
-            return null;
+            return 1;
         }
 
         protected override EntitySprite BuildEntitySprite()
         {
             return SpriteManager.GetSprite(this.GetType());
+        }
+
+        protected override IEnumerable<AbstractEntity> GetDecayEntities(Planet planet)
+        {
+            return null;
         }
 
         protected override PositionCriteria BuildPositionCriteria()

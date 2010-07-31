@@ -25,11 +25,6 @@ namespace AntiCulturePlanet
             return 1;
         }
 
-        protected override EntitySprite BuildEntitySprite()
-        {
-            return SpriteManager.GetSprite(this.GetType());
-        }
-
         protected override IEnumerable<AbstractEntity> GetDecayEntities(Planet planet)
         {
             return new AbstractEntity[] { new TrunkEntity() };
