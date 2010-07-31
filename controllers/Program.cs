@@ -111,12 +111,18 @@ namespace AntiCulturePlanet
         /// List of entities to update
         /// </summary>
         private List<AbstractEntity> listEntityToUpdate;
+
+        /// <summary>
+        /// List of animals to update
+        /// </summary>
+        private HashSet<AbstractAnimalEntity> listAnimalToUpdate;
         #endregion
 
         #region Constructor
         public Program()
         {
             listEntityToUpdate = new List<AbstractEntity>();
+            listAnimalToUpdate = new HashSet<AbstractAnimalEntity>();
             userInput = new UserInput();
             mainSurface = Video.SetVideoMode(screenWidth, screenHeight, BitsPerPixel, false, false, isFullScreen, true, true);
 
@@ -171,25 +177,13 @@ namespace AntiCulturePlanet
 
             //We get a list of random entities to update
             planet.EntityCollection.GetRandomBucket(random).RefreshListEntityToUpdate(listEntityToUpdate);
-
             foreach (AbstractEntity entity in listEntityToUpdate)
             {
-                //Plant reproduction
+                //For plants
                 if (entity is AbstractPlantEntity)
                 {
                     AbstractPlantEntity plant = (AbstractPlantEntity)entity;
                     plant.TryReproduce(planet, currentTime);
-                }
-
-                if (entity is AbstractAnimalEntity)
-                {
-                    AbstractAnimalEntity animal = (AbstractAnimalEntity)entity;
-
-                    //Animal reproduction
-                    animal.TryReproduce(planet, currentTime);
-
-                    //Animal growth
-                    animal.TryGrow(planet);
                 }
 
                 //Decay
@@ -210,6 +204,15 @@ namespace AntiCulturePlanet
                 }
             }
 
+            //For animals
+            listAnimalToUpdate.Clear();
+            listAnimalToUpdate.UnionWith(planet.EntityCollection.AnimalList);
+            foreach (AbstractAnimalEntity animal in listAnimalToUpdate)
+            {
+                animal.TryReproduce(planet, currentTime);
+                animal.TryGrow(planet);
+                animal.TryMakeWalkFightOrFlight(planet, random, timeDelta);
+            }
 
             planetViewer.Update(planet);
 

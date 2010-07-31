@@ -21,6 +21,7 @@ namespace AntiCulturePlanet
             preyTypeList.Add(new SmallPineTreeEntity().GetType());
             preyTypeList.Add(new PlantEntity().GetType());
             preyTypeList.Add(new FruitEntity().GetType());
+            preyTypeList.Add(new SeedPlantEntity().GetType());
         }
         #endregion
 
@@ -87,7 +88,12 @@ namespace AntiCulturePlanet
 
         protected override double BuildGrowthRate()
         {
-            return 1.1;
+            return 1.01;
+        }
+
+        protected override double BuildSpeed()
+        {
+            return 0.2;
         }
     }
 }
