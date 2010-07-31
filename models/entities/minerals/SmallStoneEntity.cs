@@ -21,20 +21,16 @@ namespace AntiCulturePlanet
         }
 
         /// <summary>
-        /// Build mass
-        /// </summary>
-        /// <returns>mass</returns>
-        protected override double BuildMass()
-        {
-            return 0.25;
-        }
-
-        /// <summary>
         /// Build entity sprite
         /// </summary>
         protected override EntitySprite BuildEntitySprite()
         {
             return SpriteManager.GetSprite(this.GetType());
+        }
+
+        protected override double BuildDefaultIntegrity()
+        {
+            return 5;
         }
         #endregion
     }

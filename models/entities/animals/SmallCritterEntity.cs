@@ -11,11 +11,11 @@ namespace AntiCulturePlanet
     class SmallCritterEntity : AbstractAnimalEntity
     {
         #region Static
-        private static List<Type> preyTypeList;
+        private static HashSet<Type> preyTypeList;
 
         static SmallCritterEntity()
         {
-            preyTypeList = new List<Type>();
+            preyTypeList = new HashSet<Type>();
             preyTypeList.Add(new SmallCocoTreeEntity().GetType());
             preyTypeList.Add(new SmallFruitTreeEntity().GetType());
             preyTypeList.Add(new SmallPineTreeEntity().GetType());
@@ -29,25 +29,65 @@ namespace AntiCulturePlanet
             return 200;
         }
 
-        protected override double BuildSize()
-        {
-            return 1.5;
-        }
-
-        protected override double BuildMass()
-        {
-            return 0.46;
-        }
-
-        public override IEnumerable<Type> GetPreyTypeList()
+        public override HashSet<Type> BuildPreyTypeList()
         {
             return preyTypeList;
         }
 
-        public override IEnumerable<Type> GetPredatorTypeList()
+        public override HashSet<Type> BuildPredatorTypeList()
         {
             #warning Implement
-            throw new NotImplementedException();
+            return null;
+        }
+
+        protected override double BuildDefaultIntegrity()
+        {
+            return 3;
+        }
+
+        public override double BuildSizeAtBirth()
+        {
+            return 0.5;
+        }
+
+        public override double BuildMinimumSizeForReproduction()
+        {
+            return 1.3;
+        }
+
+        public override double BuildMinimumFoodReserveForReproduction()
+        {
+            return 1;
+        }
+
+        public override double BuildMinimumFoodReserveForGrowth()
+        {
+            return 0.5;
+        }
+
+        public override double BuildMaximumSize()
+        {
+            return 1.5;
+        }
+
+        protected override AbstractAnimalEntity GetOffspringEntity()
+        {
+            return new SmallCritterEntity();
+        }
+
+        protected override double BuildReproductionCycleTime()
+        {
+            return 7;
+        }
+
+        protected override double BuildMaximumFoodReserve()
+        {
+            return 3;
+        }
+
+        protected override double BuildGrowthRate()
+        {
+            return 1.1;
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 
 namespace AntiCulturePlanet
 {
@@ -10,7 +11,90 @@ namespace AntiCulturePlanet
     /// </summary>
     abstract class AbstractAnimalEntity : AbstractEntity
     {
-        #region Override
+        #region Fields
+        /// <summary>
+        /// Latest reproduction time
+        /// </summary>
+        private DateTime latestReproductionTime;
+
+        /// <summary>
+        /// Reproduction cycle time
+        /// </summary>
+        private double reproductionCycleTime;
+
+        /// <summary>
+        /// Size at birth
+        /// </summary>
+        private double sizeAtBirth;
+
+        /// <summary>
+        /// List of possible preys
+        /// </summary>
+        private HashSet<Type> preyTypeList;
+
+        /// <summary>
+        /// List of possible predators
+        /// </summary>
+        private HashSet<Type> predatorTypeList;
+
+        /// <summary>
+        /// Minimum size for reproduction
+        /// </summary>
+        private double minimumSizeForReproduction;
+
+        /// <summary>
+        /// Minimum food reserve for reproduction
+        /// </summary>
+        private double minimumFoodReserveForReproduction;
+
+        /// <summary>
+        /// Minimum food reserve for growth
+        /// </summary>
+        private double minimumFoodReserveForGrowth;
+
+        /// <summary>
+        /// Maximum size
+        /// </summary>
+        private double maximumSize;
+
+        /// <summary>
+        /// Maximum food reserve
+        /// </summary>
+        private double foodReserve;
+
+        /// <summary>
+        /// Maximum food reserve
+        /// </summary>
+        private double maximumFoodReserve;
+
+        /// <summary>
+        /// Growth rate
+        /// </summary>
+        private double growthRate;
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        /// Build abstract animal entity
+        /// </summary>
+        public AbstractAnimalEntity() : base()
+        {
+            latestReproductionTime = DateTime.Now;
+            reproductionCycleTime = BuildReproductionCycleTime();
+            preyTypeList = BuildPreyTypeList();
+            predatorTypeList = BuildPredatorTypeList();
+            sizeAtBirth = BuildSizeAtBirth();
+            minimumSizeForReproduction = BuildMinimumSizeForReproduction();
+            minimumFoodReserveForReproduction = BuildMinimumFoodReserveForReproduction();
+            maximumSize = BuildMaximumSize();
+            maximumFoodReserve = BuildMaximumFoodReserve();
+            foodReserve = maximumFoodReserve;
+            growthRate = BuildGrowthRate();
+            minimumFoodReserveForGrowth = BuildMinimumFoodReserveForGrowth();
+        }
+        #endregion
+
+        #region Implementation
         /// <summary>
         /// Return animal's corpse
         /// </summary>
@@ -49,15 +133,6 @@ namespace AntiCulturePlanet
         }
 
         /// <summary>
-        /// Build Is keep mass of previous entity
-        /// </summary>
-        /// <returns>Is keep mass of previous entity</returns>
-        protected override bool BuildIsKeepMassOfPreviousEntity()
-        {
-            return false;
-        }
-
-        /// <summary>
         /// Build Is keep size of previous entity
         /// </summary>
         /// <returns>Is keep size of previous entity</returns>
@@ -83,6 +158,95 @@ namespace AntiCulturePlanet
         {
             return SpriteManager.GetSprite(this.GetType());
         }
+
+        /// <summary>
+        /// Maximum size, or default size (full size)
+        /// </summary>
+        /// <returns>Maximum size, or default size (full size)</returns>
+        protected override double BuildSize()
+        {
+            return BuildMaximumSize();
+        }
+
+        /// <summary>
+        /// Try make animal reproduce
+        /// </summary>
+        /// <param name="planet">planet</param>
+        /// <param name="currentTime">current time</param>
+        internal void TryReproduce(Planet planet, DateTime currentTime)
+        {
+            if (reproductionCycleTime <= 0)
+                return;
+
+            if (Size < minimumSizeForReproduction)
+                return;
+
+            if (foodReserve < minimumFoodReserveForReproduction)
+                return;
+
+            TimeSpan timeSpanSinceLastReproduction = (TimeSpan)(currentTime - latestReproductionTime);
+
+            if (timeSpanSinceLastReproduction.TotalSeconds >= reproductionCycleTime)
+            {
+                AbstractAnimalEntity offspring = GetOffspringEntity();
+
+                if (offspring != null)
+                {
+                    double offspringSize = offspring.sizeAtBirth;
+                    offspring.Size = this.Size;
+
+                    try
+                    {
+                        int tryCount = 0;
+                        do
+                        {
+                            PointF position = planet.GetRandomSurroundingPosition(this);
+                            offspring.Move(position.X, position.Y);
+                            tryCount++;
+                            if (tryCount > Program.MaxTryFindRandomTilePosition)
+                                throw new NoAvailableSpaceException();
+                        } while (planet.EntityCollection.IsDetectCollision(offspring));
+
+                        offspring.Size = offspringSize;
+                        offspring.foodReserve = this.foodReserve;
+                        planet.EntityCollection.Add(offspring);
+                    }
+                    catch (NoAvailableSpaceException)
+                    {
+                        //There was no available space for new decay entity
+                    }
+                }
+                latestReproductionTime = currentTime;
+            }
+        }
+
+        /// <summary>
+        /// Try make entity grow if enough food reserves and not too big
+        /// </summary>
+        /// <param name="planet">planet</param>
+        internal void TryGrow(Planet planet)
+        {
+            if (Size < maximumSize)
+            {
+                if (foodReserve >= minimumFoodReserveForGrowth)
+                {
+                    double oldSize = this.Size;
+                    
+                    Size = (Math.Min(Size * growthRate, maximumSize));
+
+                    planet.EntityCollection.SpatialHashTable.Remove(this);
+                    if (planet.EntityCollection.IsDetectCollision(this))
+                    {
+                        Size = oldSize;
+                    }
+                    else
+                    {
+                        foodReserve /= growthRate;
+                    }
+                    planet.EntityCollection.SpatialHashTable.Add(this);
+                }
+            }
+        }
         #endregion
 
         #region Abstract
@@ -90,13 +254,68 @@ namespace AntiCulturePlanet
         /// Get list of entity type that can be eaten by this animal (null if none)
         /// </summary>
         /// <returns>list of entity type that can be eaten by this animal (null if none)</returns>
-        public abstract IEnumerable<Type> GetPreyTypeList();
+        public abstract HashSet<Type> BuildPreyTypeList();
 
         /// <summary>
         /// Get list of entity type that can eat this animal (null if none)
         /// </summary>
         /// <returns>list of entity type that can eat this animal (null if none)</returns>
-        public abstract IEnumerable<Type> GetPredatorTypeList();
+        public abstract HashSet<Type> BuildPredatorTypeList();
+
+        /// <summary>
+        /// Size at birth
+        /// </summary>
+        /// <returns>size at birth</returns>
+        public abstract double BuildSizeAtBirth();
+
+        /// <summary>
+        /// Minimum size for reproduction (must be smaller or equal to default size)
+        /// </summary>
+        /// <returns>Minimum size for reproduction (must be smaller or equal to default size)</returns>
+        public abstract double BuildMinimumSizeForReproduction();
+
+        /// <summary>
+        /// Minimum food reserve for reproduction (must be smaller or equal to default size)
+        /// </summary>
+        /// <returns>Minimum food reserve for reproduction (must be smaller or equal to default size)</returns>
+        public abstract double BuildMinimumFoodReserveForReproduction();
+
+        /// <summary>
+        /// Minimum food reserve for growth (must be smaller or equal to default size)
+        /// </summary>
+        /// <returns>Minimum food reserve for growth (must be smaller or equal to default size)</returns>
+        public abstract double BuildMinimumFoodReserveForGrowth();
+
+        /// <summary>
+        /// Maximum size
+        /// </summary>
+        /// <returns>Maximum size</returns>
+        public abstract double BuildMaximumSize();
+
+        /// <summary>
+        /// Build reproduction cycle time (seconds)
+        /// </summary>
+        /// <returns>reproduction cycle time (seconds) (0 = never)</returns>
+        protected abstract double BuildReproductionCycleTime();
+
+        /// <summary>
+        /// Build maximum food reserve value
+        /// </summary>
+        /// <returns>maximum food reserve value</returns>
+        protected abstract double BuildMaximumFoodReserve();
+
+        /// <summary>
+        /// Build growth rate
+        /// </summary>
+        /// <returns>growth rate</returns>
+        protected abstract double BuildGrowthRate();
+
+        /// <summary>
+        /// Get reproduction spore for entity
+        /// (null if there is no reproduction spore)
+        /// </summary>
+        /// <returns>reproduction spore for entity (null if there is no reproduction spore)</returns>
+        protected abstract AbstractAnimalEntity GetOffspringEntity();
         #endregion
     }
 }

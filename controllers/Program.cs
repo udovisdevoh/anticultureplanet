@@ -181,6 +181,17 @@ namespace AntiCulturePlanet
                     plant.TryReproduce(planet, currentTime);
                 }
 
+                if (entity is AbstractAnimalEntity)
+                {
+                    AbstractAnimalEntity animal = (AbstractAnimalEntity)entity;
+
+                    //Animal reproduction
+                    animal.TryReproduce(planet, currentTime);
+
+                    //Animal growth
+                    animal.TryGrow(planet);
+                }
+
                 //Decay
                 if (entity.DecayTime > 0)
                 {

@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -49,15 +49,6 @@ namespace AntiCulturePlanet
         }
 
         /// <summary>
-        /// Build Is keep mass of previous entity
-        /// </summary>
-        /// <returns>Is keep mass of previous entity</returns>
-        protected override bool BuildIsKeepMassOfPreviousEntity()
-        {
-            return false;
-        }
-
-        /// <summary>
         /// Build Is keep size of previous entity
         /// </summary>
         /// <returns>Is keep size of previous entity</returns>
@@ -75,4 +66,4 @@ namespace AntiCulturePlanet
             return true;
         }
     }
-}
+}*/

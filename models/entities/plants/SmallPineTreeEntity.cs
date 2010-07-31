@@ -20,11 +20,6 @@ namespace AntiCulturePlanet
             return 1;
         }
 
-        protected override double BuildMass()
-        {
-            return 0.25;
-        }
-
         protected override IEnumerable<AbstractEntity> GetDecayEntities(Planet planet)
         {
             return new AbstractEntity[] { new TrunkEntity() };
@@ -66,6 +61,11 @@ namespace AntiCulturePlanet
         protected override double BuildReproductionCycleTime()
         {
             return 0;
+        }
+
+        protected override double BuildDefaultIntegrity()
+        {
+            return 3;
         }
     }
 }

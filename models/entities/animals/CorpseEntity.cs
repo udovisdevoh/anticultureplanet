@@ -20,11 +20,6 @@ namespace AntiCulturePlanet
             return 2;
         }
 
-        protected override double BuildMass()
-        {
-            return 1;
-        }
-
         protected override EntitySprite BuildEntitySprite()
         {
             return SpriteManager.GetSprite(this.GetType());
@@ -50,11 +45,6 @@ namespace AntiCulturePlanet
             return false;
         }
 
-        protected override bool BuildIsKeepMassOfPreviousEntity()
-        {
-            return true;
-        }
-
         protected override bool BuildIsKeepSizeOfPreviousEntity()
         {
             return true;
@@ -63,6 +53,11 @@ namespace AntiCulturePlanet
         protected override bool BuildIsAffectedByCollision()
         {
             return true;
+        }
+
+        protected override double BuildDefaultIntegrity()
+        {
+            return 3;
         }
     }
 }

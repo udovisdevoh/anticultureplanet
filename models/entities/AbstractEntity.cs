@@ -30,11 +30,6 @@ namespace AntiCulturePlanet
         private double z;
 
         /// <summary>
-        /// Mass
-        /// </summary>
-        private double mass;
-
-        /// <summary>
         /// Size
         /// </summary>
         private double size;
@@ -70,11 +65,6 @@ namespace AntiCulturePlanet
         private bool isKeepSizeOfPreviousEntity;
 
         /// <summary>
-        /// Whether we keep mass of previous entity when this is the result of a decay
-        /// </summary>
-        private bool isKeepMassOfPreviousEntity;
-
-        /// <summary>
         /// Whether we keep sprite of previous entity when this is the result of a decay
         /// </summary>
         private bool isKeepSpriteOfPreviousEntity;
@@ -97,14 +87,12 @@ namespace AntiCulturePlanet
         public AbstractEntity()
         {
             creationTime = DateTime.Now;
-            mass = BuildMass();
             size = BuildSize();
             decayTime = BuildDecayTime();
             entitySprite = BuildEntitySprite();
             positionCriteria = BuildPositionCriteria();
             zIndexLayer = BuildZIndexLayer();
             isKeepSizeOfPreviousEntity = BuildIsKeepSizeOfPreviousEntity();
-            isKeepMassOfPreviousEntity = BuildIsKeepMassOfPreviousEntity();
             isKeepSpriteOfPreviousEntity = BuildIsKeepSpriteOfPreviousEntity();
             isAffectedByCollision = BuildIsAffectedByCollision();
         }
@@ -135,9 +123,6 @@ namespace AntiCulturePlanet
                             if (tryCount > Program.MaxTryFindRandomTilePosition)
                                 throw new NoAvailableSpaceException();
                         } while (planet.EntityCollection.IsDetectCollision(decayEntity));
-
-                        if (decayEntity.IsKeepMassOfPreviousEntity)
-                            decayEntity.Mass = this.Mass;
 
                         if (decayEntity.IsKeepSizeOfPreviousEntity)
                             decayEntity.Size = this.Size;
@@ -202,12 +187,6 @@ namespace AntiCulturePlanet
         protected abstract double BuildSize();
 
         /// <summary>
-        /// Build mass
-        /// </summary>
-        /// <returns>Build mass</returns>
-        protected abstract double BuildMass();
-
-        /// <summary>
         /// Build sprite for entity
         /// </summary>
         /// <returns>sprite for entity</returns>
@@ -240,12 +219,6 @@ namespace AntiCulturePlanet
         protected abstract bool BuildIsKeepSpriteOfPreviousEntity();
 
         /// <summary>
-        /// Build Is Keep mass of previous entity
-        /// </summary>
-        /// <returns>Is Keep mass of previous entity</returns>
-        protected abstract bool BuildIsKeepMassOfPreviousEntity();
-
-        /// <summary>
         /// Build Is Keep size of previous entity
         /// </summary>
         /// <returns>Is Keep size of previous entity</returns>
@@ -256,6 +229,12 @@ namespace AntiCulturePlanet
         /// </summary>
         /// <returns>whether entity is affected by collision</returns>
         protected abstract bool BuildIsAffectedByCollision();
+
+        /// <summary>
+        /// Build default integrity
+        /// </summary>
+        /// <returns>default integrity value</returns>
+        protected abstract double BuildDefaultIntegrity();
         #endregion
 
         #region Properties
@@ -282,15 +261,6 @@ namespace AntiCulturePlanet
         {
             get { return z; }
             set { z = value; }
-        }
-
-        /// <summary>
-        /// Mass
-        /// </summary>
-        internal double Mass
-        {
-            get { return mass; }
-            set { mass = value; }
         }
 
         /// <summary>
@@ -350,14 +320,6 @@ namespace AntiCulturePlanet
         internal bool IsKeepSizeOfPreviousEntity
         {
             get { return isKeepSizeOfPreviousEntity; }
-        }
-
-        /// <summary>
-        /// Whether we keep mass of previous entity when this is the result of a decay
-        /// </summary>
-        internal bool IsKeepMassOfPreviousEntity
-        {
-            get { return isKeepMassOfPreviousEntity; }
         }
 
         /// <summary>
