@@ -35,7 +35,7 @@ namespace AntiCulturePlanet
         /// <param name="height">planet's height</param>
         public EntityCollection(int width, int height)
         {
-            spatialHashTable = new SpatialHashTable(width, height, 5);
+            spatialHashTable = new SpatialHashTable(width, height, Program.BucketSize);
             typeCount = new Dictionary<Type, int>();
             animalList = new HashSet<AbstractAnimalEntity>();
         }

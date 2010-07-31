@@ -45,6 +45,11 @@ namespace AntiCulturePlanet
         private double decayTime;
 
         /// <summary>
+        /// Integrity
+        /// </summary>
+        private double integrity;
+
+        /// <summary>
         /// Entity's sprite
         /// </summary>
         private EntitySprite entitySprite;
@@ -100,6 +105,7 @@ namespace AntiCulturePlanet
             isKeepSizeOfPreviousEntity = BuildIsKeepSizeOfPreviousEntity();
             isKeepSpriteOfPreviousEntity = BuildIsKeepSpriteOfPreviousEntity();
             isAffectedByCollision = BuildIsAffectedByCollision();
+            integrity = BuildDefaultIntegrity();
             angleRadian = 0;
         }
         #endregion
@@ -378,6 +384,14 @@ namespace AntiCulturePlanet
         {
             get { return angleRadian / Math.PI * 180.0; }
             set { angleRadian = value / 180.0 * Math.PI; }
+        }
+
+        /// <summary>
+        /// Entity's integrity
+        /// </summary>
+        internal double Integrity
+        {
+            get { return integrity; }
         }
         #endregion
     }
