@@ -5,7 +5,10 @@ using System.Text;
 
 namespace AntiCulturePlanet
 {
-    class FruitEntity : AbstractPlantEntity
+    /// <summary>
+    /// Coco nutt
+    /// </summary>
+    class SeedCocoTreeEntity : AbstractPlantEntity
     {
         /// <summary>
         /// Build decay time
@@ -22,7 +25,7 @@ namespace AntiCulturePlanet
         /// <returns>size</returns>
         protected override double BuildSize()
         {
-            return 0.9;
+            return 1.1;
         }
 
         /// <summary>
@@ -31,7 +34,7 @@ namespace AntiCulturePlanet
         /// <returns>mass</returns>
         protected override double BuildMass()
         {
-            return 0.125;
+            return 0.35;
         }
 
         /// <summary>
@@ -50,7 +53,7 @@ namespace AntiCulturePlanet
         /// <returns>decay entities (when this entity decays)</returns>
         protected override IEnumerable<AbstractEntity> GetDecayEntities(Planet planet)
         {
-            return new AbstractEntity[] { new SeedFruitTreeEntity() };
+            return null;
         }
 
         /// <summary>
@@ -60,7 +63,7 @@ namespace AntiCulturePlanet
         /// <returns>next phase entity for plant (or null if there is no next phase)</returns>
         protected override AbstractEntity GetNextGrowingPhaseEntity()
         {
-            return null;
+            return new SmallCocoTreeEntity();
         }
 
         /// <summary>
@@ -74,7 +77,7 @@ namespace AntiCulturePlanet
 
         protected override int BuildMinimumTemperatureForNextGrowingPhase()
         {
-            return 4;
+            return 14;
         }
 
         protected override AbstractEntity GetReproductionSporeEntity()
