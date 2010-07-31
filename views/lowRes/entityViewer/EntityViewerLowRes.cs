@@ -17,7 +17,7 @@ namespace AntiCulturePlanet
         /// <summary>
         /// Update the surface for joined ground and sprite
         /// </summary>
-        /// <param name="groundSurcace">ground surface</param>
+        /// <param name="planet">planet</param>
         /// <param name="groundAndSpriteSurface">joined ground surface (to update)</param>
         /// <param name="spatialHashTable">spatial hash table</param>
         /// <param name="screenWidth">screen width</param>
@@ -29,17 +29,17 @@ namespace AntiCulturePlanet
         /// <param name="totalMapWidth">total map width</param>
         /// <param name="totalMapHeight">total map height</param>
         /// <returns>joined ground surface (updated)</returns>
-        internal Surface UpdateGroundAndSpriteSurface(Surface groundSurcace, Surface groundAndSpriteSurface, SpatialHashTable spatialHashTable, int screenWidth, int screenHeight, double viewedTileX, double viewedTileY, int tilePixelWidth, int tilePixelHeight, int totalMapWidth, int totalMapHeight)
+        internal Surface UpdateGroundAndSpriteSurface(Planet planet, Surface groundAndSpriteSurface, SpatialHashTable spatialHashTable, int screenWidth, int screenHeight, double viewedTileX, double viewedTileY, int tilePixelWidth, int tilePixelHeight, int totalMapWidth, int totalMapHeight)
         {
-            for (int x = 0; x < spatialHashTable.ColumnCount; x++)
+            for (int bucketX = 0; bucketX < spatialHashTable.ColumnCount; bucketX++)
             {
-                for (int y = 0; y < spatialHashTable.ColumnCount; y++)
+                for (int bucketY = 0; bucketY < spatialHashTable.RowCount; bucketY++)
                 {
-                    Bucket bucket = spatialHashTable[x, y];
+                    Bucket bucket = spatialHashTable[bucketX, bucketY];
                     if (bucket.IsNeedRedraw)
                     {
-                        int rectangleLeft = spatialHashTable.BucketSize * tilePixelWidth * x;
-                        int rectangleTop = spatialHashTable.BucketSize * tilePixelHeight * y;
+                        int rectangleLeft = spatialHashTable.BucketSize * tilePixelWidth * bucketX;
+                        int rectangleTop = spatialHashTable.BucketSize * tilePixelHeight * bucketY;
                         int rectangleWidth = spatialHashTable.BucketSize * tilePixelWidth;
                         int rectangleHeight = spatialHashTable.BucketSize * tilePixelHeight;
                         int rectangleBottom = rectangleTop + rectangleHeight;
@@ -71,9 +71,17 @@ namespace AntiCulturePlanet
                             && viewedPixelBottom >= rectangleTop + totalMapHeight))
                         {
 
-                            Rectangle bucketPosition = new Rectangle(rectangleLeft, rectangleTop, rectangleWidth, rectangleHeight);
-                            groundAndSpriteSurface.Blit(groundSurcace, bucketPosition, bucketPosition);
+                            //We draw the tiles
+                            for (int tileX = 0; tileX < spatialHashTable.BucketSize; tileX++)
+                            {
+                                for (int tileY = 0; tileY < spatialHashTable.BucketSize; tileY++)
+                                {
+                                    Tile tile = planet[bucketX * spatialHashTable.BucketSize + tileX, bucketY * spatialHashTable.BucketSize + tileY];
+                                    groundAndSpriteSurface.Blit(tile.Surface, new Point(bucketX * spatialHashTable.BucketSize * tilePixelWidth + tileX * tilePixelWidth, bucketY * spatialHashTable.BucketSize * tilePixelHeight + tileY * tilePixelHeight));
+                                }
+                            }
 
+                            //We draw the sprites
                             foreach (AbstractEntity entity in bucket)
                             {
                                 int spriteWidth = (int)Math.Round(entity.Size * tilePixelWidth);

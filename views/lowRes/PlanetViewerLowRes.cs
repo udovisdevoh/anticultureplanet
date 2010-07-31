@@ -52,14 +52,10 @@ namespace AntiCulturePlanet
         private Surface mainSurface;
 
         /// <summary>
-        /// Ground surface
-        /// </summary>
-        private Surface groundSurcace;
-
-        /// <summary>
         /// Surface for joined ground and sprite layers
         /// </summary>
         private Surface groundAndSpriteSurface;
+
         /// <summary>
         /// Horizontal tile offset
         /// </summary>
@@ -85,7 +81,6 @@ namespace AntiCulturePlanet
             viewedTileY = planet.Height / 2;
 
             tileViewer = new TileViewerLowRes();
-            groundSurcace = new Surface(planet.Width * tilePixelWidth, planet.Height * tilePixelHeight, Program.BitsPerPixel);
             groundAndSpriteSurface = new Surface(planet.Width * tilePixelWidth, planet.Height * tilePixelHeight, Program.BitsPerPixel);
             this.mainSurface = mainSurface;
             this.screenWidth = screenWidth;
@@ -105,39 +100,30 @@ namespace AntiCulturePlanet
             if (planet.IsNeedRefresh)
             {
                 for (int y = 0; y < planet.Height; y++)
+                {
                     for (int x = 0; x < planet.Width; x++)
+                    {
                         if (planet[x, y].IsNeedRefresh)
-                            if (!planet[x, y].IsWater)
-                                tileViewer.Update(planet[x, y], planet, groundSurcace, tilePixelWidth, tilePixelHeight);
-
-                for (int y = 0; y < planet.Height; y++)
-                    for (int x = 0; x < planet.Width; x++)
-                        if (planet[x, y].IsNeedRefresh)
-                            if (planet[x, y].IsWater)
-                                tileViewer.Update(planet[x, y], planet, groundSurcace, tilePixelWidth, tilePixelHeight);
+                        {
+                            planet[x, y].Surface = tileViewer.BuildOrLoadSurface(planet[x, y], planet, tilePixelWidth, tilePixelHeight);
+                            planet[x, y].IsNeedRefresh = false;
+                        }
+                    }
+                }
+                planet.IsNeedRefresh = false;
             }
 
-            planet.IsNeedRefresh = false;
+            
 
             int pixelOffsetX = (int)(0 - (viewedTileX * (double)tilePixelWidth));
             int pixelOffsetY = (int)(0 - (viewedTileY * (double)tilePixelHeight));
 
-            groundAndSpriteSurface = entityViewerLowRes.UpdateGroundAndSpriteSurface(groundSurcace, groundAndSpriteSurface, planet.EntityCollection.SpatialHashTable, screenWidth, screenHeight, viewedTileX, viewedTileY, tilePixelWidth, tilePixelHeight, planet.Width * tilePixelWidth, planet.Height * tilePixelHeight);
+            groundAndSpriteSurface = entityViewerLowRes.UpdateGroundAndSpriteSurface(planet, groundAndSpriteSurface, planet.EntityCollection.SpatialHashTable, screenWidth, screenHeight, viewedTileX, viewedTileY, tilePixelWidth, tilePixelHeight, planet.Width * tilePixelWidth, planet.Height * tilePixelHeight);
 
             mainSurface.Blit(groundAndSpriteSurface, new Point(pixelOffsetX, pixelOffsetY));
             mainSurface.Blit(groundAndSpriteSurface, new Point(pixelOffsetX + planet.Width * tilePixelWidth, pixelOffsetY));
             mainSurface.Blit(groundAndSpriteSurface, new Point(pixelOffsetX, pixelOffsetY + planet.Height * tilePixelHeight));
             mainSurface.Blit(groundAndSpriteSurface, new Point(pixelOffsetX + planet.Width * tilePixelWidth, pixelOffsetY + planet.Height * tilePixelHeight));
-        }
-
-        /// <summary>
-        /// Redraw a single tile
-        /// </summary>
-        /// <param name="tile">tile to redraw</param>
-        /// <param name="planet">planet</param>
-        internal override void Update(Tile tile, Planet planet)
-        {
-            tileViewer.Update(tile, planet, groundSurcace, tilePixelWidth, tilePixelHeight);
         }
 
         /// <summary>

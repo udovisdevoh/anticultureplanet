@@ -25,13 +25,6 @@ namespace AntiCulturePlanet
         /// <param name="width">planet's width</param>
         /// <param name="height">planet's height</param>
         internal abstract void MoveView(double tileOffsetX, double tileOffsetY, int width, int height);
-
-        /// <summary>
-        /// Redraw a single tile
-        /// </summary>
-        /// <param name="tile">tile to redraw</param>
-        /// <param name="planet">planet</param>
-        internal abstract void Update(Tile tile, Planet planet);
         #endregion
     }
 }
