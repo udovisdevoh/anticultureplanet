@@ -60,12 +60,16 @@
     <Compile Include="models\entities\plants\AbstractPlantEntity.cs" />
     <Compile Include="models\entities\plants\FruitEntity.cs" />
     <Compile Include="models\entities\plants\LargeFruitTreeEntity.cs" />
+    <Compile Include="models\entities\plants\LargePineTreeEntity.cs" />
     <Compile Include="models\entities\plants\MediumFruitTreeEntity.cs" />
+    <Compile Include="models\entities\plants\MediumPineTreeEntity.cs" />
     <Compile Include="models\entities\plants\SeedFruitTreeEntity.cs" />
     <Compile Include="models\entities\minerals\LargeStoneEntity.cs" />
     <Compile Include="models\entities\minerals\MediumStoneEntity.cs" />
     <Compile Include="models\entities\minerals\SmallStoneEntity.cs" />
+    <Compile Include="models\entities\plants\SeedPineTreeEntity.cs" />
     <Compile Include="models\entities\plants\SmallFruitTreeEntity.cs" />
+    <Compile Include="models\entities\plants\SmallPineTreeEntity.cs" />
     <Compile Include="models\entities\plants\TrunkEntity.cs" />
     <Compile Include="models\entityCollection\Bucket.cs" />
     <Compile Include="models\entityCollection\EntityCollection.cs" />
