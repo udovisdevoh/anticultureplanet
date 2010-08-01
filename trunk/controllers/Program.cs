@@ -195,7 +195,7 @@ namespace AntiCulturePlanet
                 if (entity.DecayTime > 0)
                 {
                     TimeSpan timeSpanSinceCreation = (TimeSpan)(currentTime - entity.CreationTime);
-                    if (timeSpanSinceCreation.TotalSeconds * Program.SpeedMultiplier > entity.DecayTime)
+                    if (timeSpanSinceCreation.TotalSeconds * Program.SpeedMultiplier > entity.DecayTime || entity.Integrity <= 0)
                     {
                         if (entity is AbstractPlantEntity)
                         {
@@ -216,9 +216,17 @@ namespace AntiCulturePlanet
             {
                 if (random.Next(0, 10) == 0)
                 {
-                    animal.TryReproduce(planet, currentTime);
-                    animal.TryGrow(planet);
-                    animal.TryMakeWalkFightOrFlight(planet, random, timeDelta);
+                    if (!animal.TryReproduce(planet, currentTime))
+                    {
+                        if (!animal.TryGrow(planet))
+                        {
+                            AbstractEntity nearestPrey;
+                            animal.TryMakeWalkFightOrFlight(planet, random, timeDelta, out nearestPrey);
+                            if (nearestPrey != null)
+                                animal.TryEat(nearestPrey, planet);
+                        }
+                    }
+                    
                     animal.FoodReserve -= animal.Size / 1000.0;
                     if (animal.FoodReserve <= 0 ||
                         animal.Integrity <= 0 ||

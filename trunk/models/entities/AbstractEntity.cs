@@ -105,7 +105,7 @@ namespace AntiCulturePlanet
             isKeepSizeOfPreviousEntity = BuildIsKeepSizeOfPreviousEntity();
             isKeepSpriteOfPreviousEntity = BuildIsKeepSpriteOfPreviousEntity();
             isAffectedByCollision = BuildIsAffectedByCollision();
-            integrity = BuildDefaultIntegrity();
+            integrity = size;
             angleRadian = 0;
         }
         #endregion
@@ -242,12 +242,6 @@ namespace AntiCulturePlanet
         /// </summary>
         /// <returns>whether entity is affected by collision</returns>
         protected abstract bool BuildIsAffectedByCollision();
-
-        /// <summary>
-        /// Build default integrity
-        /// </summary>
-        /// <returns>default integrity value</returns>
-        protected abstract double BuildDefaultIntegrity();
         #endregion
 
         #region Properties
@@ -392,6 +386,7 @@ namespace AntiCulturePlanet
         internal double Integrity
         {
             get { return integrity; }
+            set { integrity = value; }
         }
         #endregion
     }
