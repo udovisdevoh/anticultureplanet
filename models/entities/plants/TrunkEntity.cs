@@ -51,10 +51,5 @@ namespace AntiCulturePlanet
         {
             return true;
         }
-
-        protected override double BuildDefaultIntegrity()
-        {
-            return 10;
-        }
     }
 }

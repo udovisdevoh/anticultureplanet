@@ -188,6 +188,25 @@ namespace AntiCulturePlanet
 
             isNearestPreyCloserThanPredator = nearestPreyDistance < nearestPredatorDistance || nearestPredatorDistance < 0;
         }
+
+        /// <summary>
+        /// Gets the distance between 2 entities (1 = 1 tile height or width)
+        /// </summary>
+        /// <param name="entity1">entity 1</param>
+        /// <param name="entity2">entity 2</param>
+        /// <returns>distance between 2 entities (1 = 1 tile height or width)</returns>
+        internal double GetDistance(AbstractEntity entity1, AbstractEntity entity2)
+        {
+            double distanceX = Math.Abs(entity1.X - entity2.X);
+            if (distanceX > totalWidth / 2)
+                distanceX = totalWidth - distanceX;
+
+            double distanceY = Math.Abs(entity1.Y - entity2.Y);
+            if (distanceY > totalHeight / 2)
+                distanceY = totalHeight - distanceY;
+
+            return Math.Sqrt(Math.Pow(distanceX, 2) + Math.Pow(distanceY, 2));
+        }
         #endregion
 
         #region Private Methods
@@ -308,25 +327,6 @@ namespace AntiCulturePlanet
 
             double distanceFromCenter = GetDistance(entity1, entity2);
             return distanceFromCenter - entity1.Radius - entity2.Radius <= 0;
-        }
-
-        /// <summary>
-        /// Gets the distance between 2 entities (1 = 1 tile height or width)
-        /// </summary>
-        /// <param name="entity1">entity 1</param>
-        /// <param name="entity2">entity 2</param>
-        /// <returns>distance between 2 entities (1 = 1 tile height or width)</returns>
-        private double GetDistance(AbstractEntity entity1, AbstractEntity entity2)
-        {
-            double distanceX = Math.Abs(entity1.X - entity2.X);
-            if (distanceX > totalWidth / 2)
-                distanceX = totalWidth - distanceX;
-
-            double distanceY = Math.Abs(entity1.Y - entity2.Y);
-            if (distanceY > totalHeight / 2)
-                distanceY = totalHeight - distanceY;
-
-            return Math.Sqrt(Math.Pow(distanceX, 2) + Math.Pow(distanceY, 2));
         }
         #endregion
 

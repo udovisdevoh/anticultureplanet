@@ -81,6 +81,11 @@ namespace AntiCulturePlanet
         /// Entity's viewing range
         /// </summary>
         private double viewRangeRadius;
+
+        /// <summary>
+        /// How much decrement of prey integrity by eating shot
+        /// </summary>
+        private double eatingRate;
         #endregion
 
         #region Constructor
@@ -103,6 +108,7 @@ namespace AntiCulturePlanet
             minimumFoodReserveForGrowth = BuildMinimumFoodReserveForGrowth();
             speed = BuildSpeed();
             viewRangeRadius = BuildViewRangeRadius();
+            eatingRate = BuildEatingRate();
             AngleDegree = 90;
         }
         #endregion
@@ -113,16 +119,17 @@ namespace AntiCulturePlanet
         /// </summary>
         /// <param name="planet">planet</param>
         /// <param name="currentTime">current time</param>
-        internal void TryReproduce(Planet planet, DateTime currentTime)
+        internal bool TryReproduce(Planet planet, DateTime currentTime)
         {
+            bool isReproduce = false;
             if (reproductionCycleTime <= 0)
-                return;
+                return isReproduce;
 
             if (Size < minimumSizeForReproduction)
-                return;
+                return isReproduce;
 
             if (foodReserve < minimumFoodReserveForReproduction)
-                return;
+                return isReproduce;
 
             TimeSpan timeSpanSinceLastReproduction = (TimeSpan)(currentTime - latestReproductionTime);
 
@@ -150,6 +157,7 @@ namespace AntiCulturePlanet
                         offspring.Size = offspringSize;
                         offspring.foodReserve *= .2;
                         planet.EntityCollection.Add(offspring);
+                        isReproduce = true;
                     }
                     catch (NoAvailableSpaceException)
                     {
@@ -158,14 +166,16 @@ namespace AntiCulturePlanet
                 }
                 latestReproductionTime = currentTime;
             }
+            return isReproduce;
         }
 
         /// <summary>
         /// Try make entity grow if enough food reserves and not too big
         /// </summary>
         /// <param name="planet">planet</param>
-        internal void TryGrow(Planet planet)
+        internal bool TryGrow(Planet planet)
         {
+            bool isEat = false;
             if (Size < maximumSize)
             {
                 if (foodReserve >= minimumFoodReserveForGrowth)
@@ -182,10 +192,12 @@ namespace AntiCulturePlanet
                     else
                     {
                         foodReserve /= growthRate;
+                        isEat = true;
                     }
                     planet.EntityCollection.SpatialHashTable.Add(this);
                 }
             }
+            return isEat;
         }
 
         /// <summary>
@@ -194,11 +206,12 @@ namespace AntiCulturePlanet
         /// <param name="planet">planet</param>
         /// <param name="random">random number generator</param>
         /// <param name="timeDelta">time delta</param>
-        internal void TryMakeWalkFightOrFlight(Planet planet, Random random, double timeDelta)
+        internal void TryMakeWalkFightOrFlight(Planet planet, Random random, double timeDelta, out AbstractEntity nearestPrey)
         {
+            nearestPrey = null;
             if (random.Next(0, 5) == 0)
             {
-                AbstractEntity nearestPrey, nearestPredator;
+                AbstractEntity nearestPredator;
                 bool isNearestPreyCloserThanPredator;
                 planet.EntityCollection.SpatialHashTable.GetNearestViewablePreyAndPredator(this, out nearestPrey, out nearestPredator, out isNearestPreyCloserThanPredator);
 
@@ -215,6 +228,29 @@ namespace AntiCulturePlanet
                 Physics.TryMakeWalk(this, speed * 1.01, Math.PI, planet, timeDelta * 40.0);
                 this.AngleRadian = random.NextDouble() * Math.PI * 2.0;
             }
+        }
+
+        /// <summary>
+        /// Try make an animal eat an entity
+        /// </summary>
+        /// <param name="prey">entity to eat</param>
+        /// <param name="planet">planet</param>
+        internal bool TryEat(AbstractEntity prey, Planet planet)
+        {
+            if (prey.Integrity < 0)
+            {
+                prey.Decay(planet);
+                return false;
+            }
+
+            if (planet.EntityCollection.SpatialHashTable.GetDistance(this, prey) < Size + prey.Size)
+            {
+                prey.Integrity -= eatingRate;
+                foodReserve += eatingRate;
+                return true;
+            }
+
+            return false;
         }
         #endregion
 
@@ -372,6 +408,11 @@ namespace AntiCulturePlanet
         /// </summary>
         /// <returns>view range (radius)</returns>
         protected abstract double BuildViewRangeRadius();
+
+        /// <summary>
+        /// How much decrement of prey integrity by eating shot
+        /// </summary>
+        protected abstract double BuildEatingRate();
         #endregion
 
         #region Properties
@@ -414,6 +455,14 @@ namespace AntiCulturePlanet
         public double ViewRangeRadius
         {
             get { return viewRangeRadius; }
+        }
+
+        /// <summary>
+        /// How much decrement of prey integrity by eating shot
+        /// </summary>
+        public double EatingRate
+        {
+            get { return eatingRate; }
         }
         #endregion
     }

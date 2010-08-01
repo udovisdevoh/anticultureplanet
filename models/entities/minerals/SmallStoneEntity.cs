@@ -19,11 +19,6 @@ namespace AntiCulturePlanet
         {
             return 1;
         }
-
-        protected override double BuildDefaultIntegrity()
-        {
-            return 5;
-        }
         #endregion
     }
 }

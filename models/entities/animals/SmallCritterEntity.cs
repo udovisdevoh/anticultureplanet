@@ -28,7 +28,7 @@ namespace AntiCulturePlanet
 
         protected override double BuildDecayTime()
         {
-            return 200;
+            return 600;
         }
 
         protected override HashSet<Type> BuildPreyTypeList()
@@ -40,11 +40,6 @@ namespace AntiCulturePlanet
         {
             #warning Implement
             return null;
-        }
-
-        protected override double BuildDefaultIntegrity()
-        {
-            return 3;
         }
 
         protected override double BuildSizeAtBirth()
@@ -100,6 +95,11 @@ namespace AntiCulturePlanet
         protected override double BuildViewRangeRadius()
         {
             return 5;
+        }
+
+        protected override double BuildEatingRate()
+        {
+            return 0.2;
         }
     }
 }

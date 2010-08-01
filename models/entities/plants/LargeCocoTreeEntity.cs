@@ -67,10 +67,5 @@ namespace AntiCulturePlanet
         {
             return 2.6;
         }
-
-        protected override double BuildDefaultIntegrity()
-        {
-            return 15;
-        }
     }
 }
