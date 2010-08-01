@@ -226,7 +226,11 @@ namespace AntiCulturePlanet
             if (planet.EntityCollection.IsDetectCollision(this, planet))
             {
                 Physics.TryMakeWalk(this, speed * 1.01, Math.PI, planet, timeDelta * 40.0);
-                this.AngleRadian = random.NextDouble() * Math.PI * 2.0;
+                //this.AngleRadian = random.NextDouble() * Math.PI * 2.0;
+                if (random.Next(0, 2) == 0)
+                    this.AngleRadian += Math.PI / 2.0;
+                else
+                    this.AngleRadian -= Math.PI / 2.0;
             }
         }
 
