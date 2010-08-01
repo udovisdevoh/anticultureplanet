@@ -45,6 +45,7 @@ namespace AntiCulturePlanet
 
             //Animals
             entityRegulatorList.Add(new EntityRegulator(new RatEntity(), 0.0001, 1));
+            entityRegulatorList.Add(new EntityRegulator(new BeaverEntity(), 0.0001, 1));
         }
         #endregion
 

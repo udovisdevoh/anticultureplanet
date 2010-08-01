@@ -227,7 +227,7 @@ namespace AntiCulturePlanet
                         }
                     }
                     
-                    animal.FoodReserve -= animal.Size / 1000.0;
+                    animal.FoodReserve -= animal.Size / 500.0;
                     if (animal.FoodReserve <= 0 ||
                         animal.Integrity <= 0 ||
                         planet.EntityCollection.IsDetectCollision(animal, planet))
