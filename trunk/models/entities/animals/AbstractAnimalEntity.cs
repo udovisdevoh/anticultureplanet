@@ -175,7 +175,7 @@ namespace AntiCulturePlanet
         /// <param name="planet">planet</param>
         internal bool TryGrow(Planet planet)
         {
-            bool isEat = false;
+            bool isGrow = false;
             if (Size < maximumSize)
             {
                 if (foodReserve >= minimumFoodReserveForGrowth)
@@ -192,12 +192,12 @@ namespace AntiCulturePlanet
                     else
                     {
                         foodReserve /= growthRate;
-                        isEat = true;
+                        isGrow = true;
                     }
                     planet.EntityCollection.SpatialHashTable.Add(this);
                 }
             }
-            return isEat;
+            return isGrow;
         }
 
         /// <summary>
@@ -228,9 +228,9 @@ namespace AntiCulturePlanet
                 Physics.TryMakeWalk(this, speed * 1.01, Math.PI, planet, timeDelta * 40.0);
                 //this.AngleRadian = random.NextDouble() * Math.PI * 2.0;
                 if (random.Next(0, 2) == 0)
-                    this.AngleRadian += Math.PI / 2.0;
+                    this.AngleRadian += Math.PI / 4.0;
                 else
-                    this.AngleRadian -= Math.PI / 2.0;
+                    this.AngleRadian -= Math.PI / 4.0;
             }
         }
 
@@ -249,9 +249,13 @@ namespace AntiCulturePlanet
 
             if (planet.EntityCollection.SpatialHashTable.GetDistance(this, prey) < Size + prey.Size)
             {
-                prey.Integrity -= eatingRate;
-                foodReserve += eatingRate;
-                return true;
+                if (foodReserve < maximumFoodReserve)
+                {
+                    prey.Integrity -= eatingRate;
+                    foodReserve += eatingRate;
+                    AngleRadian = Optics.GetAngleRadianTo(this, prey);
+                    return true;
+                }
             }
 
             return false;
