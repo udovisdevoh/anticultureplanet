@@ -26,9 +26,9 @@ namespace AntiCulturePlanet
             entityRegulatorList = new List<EntityRegulator>();
 
             //Minerals
-            entityRegulatorList.Add(new EntityRegulator(new LargeStoneEntity(), 0.001, 1));
-            entityRegulatorList.Add(new EntityRegulator(new MediumStoneEntity(), 0.002, 1));
-            entityRegulatorList.Add(new EntityRegulator(new SmallStoneEntity(), 0.004, 1));
+            entityRegulatorList.Add(new EntityRegulator(new LargeStoneEntity(), 0.0005, 1));
+            entityRegulatorList.Add(new EntityRegulator(new MediumStoneEntity(), 0.001, 1));
+            entityRegulatorList.Add(new EntityRegulator(new SmallStoneEntity(), 0.002, 1));
 
             //Plants
             AbstractEntity[] otherKindFruitTree = { new SmallFruitTreeEntity(), new MediumFruitTreeEntity(), new LargeFruitTreeEntity() };
@@ -46,6 +46,7 @@ namespace AntiCulturePlanet
             //Animals
             entityRegulatorList.Add(new EntityRegulator(new RatEntity(), 0.0001, 1));
             entityRegulatorList.Add(new EntityRegulator(new BeaverEntity(), 0.0001, 1));
+            entityRegulatorList.Add(new EntityRegulator(new TigerEntity(), 0.0001, 1));
         }
         #endregion
 

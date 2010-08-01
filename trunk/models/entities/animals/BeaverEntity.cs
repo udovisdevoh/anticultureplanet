@@ -13,6 +13,8 @@ namespace AntiCulturePlanet
         #region Static
         private static HashSet<Type> preyTypeList;
 
+        private static HashSet<Type> predatorTypeList;
+
         static BeaverEntity()
         {
             preyTypeList = new HashSet<Type>();
@@ -25,12 +27,15 @@ namespace AntiCulturePlanet
             preyTypeList.Add(new SeedCocoTreeEntity().GetType());
             preyTypeList.Add(new SeedPineTreeEntity().GetType());
             preyTypeList.Add(new TrunkEntity().GetType());
+
+            predatorTypeList = new HashSet<Type>();
+            predatorTypeList.Add(new TigerEntity().GetType());
         }
         #endregion
 
         protected override double BuildDecayTime()
         {
-            return 600;
+            return 1200;
         }
 
         protected override HashSet<Type> BuildPreyTypeList()
@@ -40,8 +45,7 @@ namespace AntiCulturePlanet
 
         protected override HashSet<Type> BuildPredatorTypeList()
         {
-            #warning Implement
-            return null;
+            return predatorTypeList;
         }
 
         protected override double BuildSizeAtBirth()
@@ -61,12 +65,12 @@ namespace AntiCulturePlanet
 
         protected override double BuildMinimumFoodReserveForGrowth()
         {
-            return 0.5;
+            return 1;
         }
 
         protected override double BuildMaximumSize()
         {
-            return 2.5;
+            return 2;
         }
 
         protected override AbstractAnimalEntity GetOffspringEntity()
@@ -76,12 +80,12 @@ namespace AntiCulturePlanet
 
         protected override double BuildReproductionCycleTime()
         {
-            return 12;
+            return 3;
         }
 
         protected override double BuildMaximumFoodReserve()
         {
-            return 12;
+            return 120;
         }
 
         protected override double BuildGrowthRate()
@@ -96,12 +100,12 @@ namespace AntiCulturePlanet
 
         protected override double BuildViewRangeRadius()
         {
-            return 6;
+            return 20;
         }
 
         protected override double BuildEatingRate()
         {
-            return 0.6;
+            return 2.4;
         }
     }
 }
