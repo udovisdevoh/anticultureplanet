@@ -57,7 +57,7 @@
     <Compile Include="models\entities\animals\humans\AbstractHumanEntity.cs" />
     <Compile Include="models\entities\animals\humans\ManEntity.cs" />
     <Compile Include="models\entities\animals\humans\WomanEntity.cs" />
-    <Compile Include="models\entities\animals\SmallCritterEntity.cs" />
+    <Compile Include="models\entities\animals\RatEntity.cs" />
     <Compile Include="models\entities\minerals\AbstractMineralEntity.cs" />
     <Compile Include="models\entities\plants\AbstractPlantEntity.cs" />
     <Compile Include="models\entities\plants\FruitEntity.cs" />
@@ -157,7 +157,7 @@
     <Content Include="assets\graphics\entities\SmallCocoTreeEntity0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\graphics\entities\SmallCritterEntity0.png">
+    <Content Include="assets\graphics\entities\RatEntity0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\graphics\entities\SmallPineTreeEntity0.png">

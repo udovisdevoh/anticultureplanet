@@ -44,7 +44,7 @@ namespace AntiCulturePlanet
             entityRegulatorList.Add(new EntityRegulator(new SeedPlantEntity(), otherKindPlant, 0.0005, 1));
 
             //Animals
-            entityRegulatorList.Add(new EntityRegulator(new SmallCritterEntity(), 0.0001, 1));
+            entityRegulatorList.Add(new EntityRegulator(new RatEntity(), 0.0001, 1));
         }
         #endregion
 
