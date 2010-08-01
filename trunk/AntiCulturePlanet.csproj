@@ -317,6 +317,7 @@
     <None Include="assets\graphics\originals\PrehistoricWoman1.fla" />
     <None Include="assets\graphics\originals\PrehistoricWoman2.fla" />
     <None Include="assets\graphics\originals\PrehistoricWoman3.fla" />
+    <None Include="assets\graphics\originals\Rat.fla" />
     <None Include="assets\graphics\originals\Seed.fla" />
     <None Include="assets\graphics\originals\SmallTree.fla" />
     <None Include="assets\graphics\originals\Soil.fla" />

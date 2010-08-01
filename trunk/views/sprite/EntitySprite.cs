@@ -88,7 +88,7 @@ namespace AntiCulturePlanet
 
                 if (isRotate)
                 {
-                    surface = surface.CreateRotatedSurface(270 - angle);
+                    surface = surface.CreateRotatedSurface(rotation);
                 }
 
                 scallingCache.Add(width * 128 + height + angle * 46080, surface);
