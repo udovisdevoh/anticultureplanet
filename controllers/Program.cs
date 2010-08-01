@@ -214,14 +214,17 @@ namespace AntiCulturePlanet
             listAnimalToUpdate.UnionWith(planet.EntityCollection.AnimalList);
             foreach (AbstractAnimalEntity animal in listAnimalToUpdate)
             {
-                animal.TryReproduce(planet, currentTime);
-                animal.TryGrow(planet);
-                animal.TryMakeWalkFightOrFlight(planet, random, timeDelta);
-                animal.FoodReserve -= animal.Size / 1000.0;
-                if (animal.FoodReserve <= 0 ||
-                    animal.Integrity <= 0 ||
-                    planet.EntityCollection.IsDetectCollision(animal, planet))
-                    animal.Decay(planet);
+                if (random.Next(0, 10) == 0)
+                {
+                    animal.TryReproduce(planet, currentTime);
+                    animal.TryGrow(planet);
+                    animal.TryMakeWalkFightOrFlight(planet, random, timeDelta);
+                    animal.FoodReserve -= animal.Size / 1000.0;
+                    if (animal.FoodReserve <= 0 ||
+                        animal.Integrity <= 0 ||
+                        planet.EntityCollection.IsDetectCollision(animal, planet))
+                        animal.Decay(planet);
+                }
             }
 
             planetViewer.Update(planet);

@@ -24,7 +24,7 @@ namespace AntiCulturePlanet
 
         protected override EntitySprite BuildEntitySprite()
         {
-            return SpriteManager.GetSprite(this.GetType());
+            return SpriteManager.GetSprite(this.GetType(), false);
         }
 
         protected override PositionCriteria BuildPositionCriteria()

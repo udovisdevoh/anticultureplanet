@@ -79,7 +79,7 @@ namespace AntiCulturePlanet
         /// <returns>Plant's sprite</returns>
         protected override EntitySprite BuildEntitySprite()
         {
-            return SpriteManager.GetSprite(this.GetType());
+            return SpriteManager.GetSprite(this.GetType(), false);
         }
         #endregion
 

@@ -20,14 +20,6 @@ namespace AntiCulturePlanet
             return 2;
         }
 
-        /// <summary>
-        /// Build entity sprite
-        /// </summary>
-        protected override EntitySprite BuildEntitySprite()
-        {
-            return SpriteManager.GetSprite(this.GetType());
-        }
-
         protected override double BuildDefaultIntegrity()
         {
             return 10;

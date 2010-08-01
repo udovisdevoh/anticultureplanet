@@ -196,7 +196,7 @@ namespace AntiCulturePlanet
         /// <param name="timeDelta">time delta</param>
         internal void TryMakeWalkFightOrFlight(Planet planet, Random random, double timeDelta)
         {
-            if (random.Next(0, 60) == 0)
+            if (random.Next(0, 5) == 0)
             {
                 AbstractEntity nearestPrey, nearestPredator;
                 bool isNearestPreyCloserThanPredator;
@@ -208,11 +208,11 @@ namespace AntiCulturePlanet
                     this.AngleRadian = Optics.GetAngleRadianTo(this, nearestPredator) + Math.PI;
             }
 
-            Physics.TryMakeWalk(this, speed, planet, timeDelta * 4.0);
+            Physics.TryMakeWalk(this, speed, planet, timeDelta * 40.0);
 
             if (planet.EntityCollection.IsDetectCollision(this, planet))
             {
-                Physics.TryMakeWalk(this, speed * 1.01, Math.PI, planet, timeDelta * 4.0);
+                Physics.TryMakeWalk(this, speed * 1.01, Math.PI, planet, timeDelta * 40.0);
                 this.AngleRadian = random.NextDouble() * Math.PI * 2.0;
             }
         }
@@ -280,7 +280,7 @@ namespace AntiCulturePlanet
         /// <returns>Animal's sprite</returns>
         protected override EntitySprite BuildEntitySprite()
         {
-            return SpriteManager.GetSprite(this.GetType());
+            return SpriteManager.GetSprite(this.GetType(), true);
         }
 
         /// <summary>
