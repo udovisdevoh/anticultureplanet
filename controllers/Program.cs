@@ -226,8 +226,8 @@ namespace AntiCulturePlanet
                                 animal.TryEat(nearestPrey, planet);
                         }
                     }
-                    
-                    animal.FoodReserve -= animal.Size / 500.0;
+
+                    animal.FoodReserve -= ((animal.Size / 250.0) * Program.SpeedMultiplier / 10.0);
                     if (animal.FoodReserve <= 0 ||
                         animal.Integrity <= 0 ||
                         planet.EntityCollection.IsDetectCollision(animal, planet))

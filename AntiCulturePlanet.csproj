@@ -59,6 +59,7 @@
     <Compile Include="models\entities\animals\humans\ManEntity.cs" />
     <Compile Include="models\entities\animals\humans\WomanEntity.cs" />
     <Compile Include="models\entities\animals\RatEntity.cs" />
+    <Compile Include="models\entities\animals\TigerEntity.cs" />
     <Compile Include="models\entities\minerals\AbstractMineralEntity.cs" />
     <Compile Include="models\entities\plants\AbstractPlantEntity.cs" />
     <Compile Include="models\entities\plants\FruitEntity.cs" />
@@ -174,6 +175,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\graphics\entities\SoilEntity0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\graphics\entities\TigerEntity0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\graphics\entities\TrunkEntity0.png">
@@ -327,6 +331,7 @@
     <None Include="assets\graphics\originals\SmallTree.fla" />
     <None Include="assets\graphics\originals\Soil.fla" />
     <None Include="assets\graphics\originals\Stone1.fla" />
+    <None Include="assets\graphics\originals\Tiger.fla" />
     <None Include="assets\graphics\originals\Trunk.fla" />
   </ItemGroup>
   <ItemGroup>

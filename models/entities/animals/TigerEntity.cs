@@ -6,28 +6,19 @@ using System.Text;
 namespace AntiCulturePlanet
 {
     /// <summary>
-    /// Represents some kind of rodant
+    /// Tiger entity
     /// </summary>
-    class RatEntity : AbstractAnimalEntity
+    class TigerEntity : AbstractAnimalEntity
     {
         #region Static
         private static HashSet<Type> preyTypeList;
 
-        private static HashSet<Type> predatorTypeList;
-
-        static RatEntity()
+        static TigerEntity()
         {
             preyTypeList = new HashSet<Type>();
-            preyTypeList.Add(new SmallCocoTreeEntity().GetType());
-            preyTypeList.Add(new SmallFruitTreeEntity().GetType());
-            preyTypeList.Add(new SmallPineTreeEntity().GetType());
-            preyTypeList.Add(new PlantEntity().GetType());
-            preyTypeList.Add(new FruitEntity().GetType());
-            preyTypeList.Add(new SeedPlantEntity().GetType());
-            preyTypeList.Add(new SeedFruitTreeEntity().GetType());
-
-            predatorTypeList = new HashSet<Type>();
-            predatorTypeList.Add(new TigerEntity().GetType());
+            preyTypeList.Add(new BeaverEntity().GetType());
+            preyTypeList.Add(new RatEntity().GetType());
+            preyTypeList.Add(new CorpseEntity().GetType());
         }
         #endregion
 
@@ -43,7 +34,8 @@ namespace AntiCulturePlanet
 
         protected override HashSet<Type> BuildPredatorTypeList()
         {
-            return predatorTypeList;
+            #warning Implement
+            return null;
         }
 
         protected override double BuildSizeAtBirth()
@@ -53,7 +45,7 @@ namespace AntiCulturePlanet
 
         protected override double BuildMinimumSizeForReproduction()
         {
-            return 1.3;
+            return 2.1;
         }
 
         protected override double BuildMinimumFoodReserveForReproduction()
@@ -73,7 +65,7 @@ namespace AntiCulturePlanet
 
         protected override AbstractAnimalEntity GetOffspringEntity()
         {
-            return new RatEntity();
+            return new BeaverEntity();
         }
 
         protected override double BuildReproductionCycleTime()
@@ -83,7 +75,7 @@ namespace AntiCulturePlanet
 
         protected override double BuildMaximumFoodReserve()
         {
-            return 30;
+            return 120;
         }
 
         protected override double BuildGrowthRate()
@@ -93,7 +85,7 @@ namespace AntiCulturePlanet
 
         protected override double BuildSpeed()
         {
-            return 0.2;
+            return 0.3;
         }
 
         protected override double BuildViewRangeRadius()
@@ -103,7 +95,7 @@ namespace AntiCulturePlanet
 
         protected override double BuildEatingRate()
         {
-            return 1.3;
+            return 2.4;
         }
     }
 }

@@ -103,13 +103,14 @@ namespace AntiCulturePlanet
             minimumFoodReserveForReproduction = BuildMinimumFoodReserveForReproduction();
             maximumSize = BuildMaximumSize();
             maximumFoodReserve = BuildMaximumFoodReserve();
-            foodReserve = maximumFoodReserve;
             growthRate = BuildGrowthRate();
             minimumFoodReserveForGrowth = BuildMinimumFoodReserveForGrowth();
             speed = BuildSpeed();
             viewRangeRadius = BuildViewRangeRadius();
             eatingRate = BuildEatingRate();
             AngleDegree = 90;
+            Size = sizeAtBirth;
+            foodReserve = Size;
         }
         #endregion
 
@@ -221,16 +222,16 @@ namespace AntiCulturePlanet
                     this.AngleRadian = Optics.GetAngleRadianTo(this, nearestPredator) + Math.PI;
             }
 
-            Physics.TryMakeWalk(this, speed, planet, timeDelta * 40.0);
+            Physics.TryMakeWalk(this, speed, planet, timeDelta * 4.0 * Program.SpeedMultiplier);
 
             if (planet.EntityCollection.IsDetectCollision(this, planet))
             {
-                Physics.TryMakeWalk(this, speed * 1.01, Math.PI, planet, timeDelta * 40.0);
-                //this.AngleRadian = random.NextDouble() * Math.PI * 2.0;
-                if (random.Next(0, 2) == 0)
-                    this.AngleRadian += Math.PI / 4.0;
+                Physics.TryMakeWalk(this, speed * 1.01, Math.PI, planet, timeDelta * 4.0 * Program.SpeedMultiplier);
+                this.AngleRadian = random.NextDouble() * Math.PI * 2.0;
+                /*if (random.Next(0, 2) == 0)
+                    this.AngleRadian += Math.PI / 2.0;
                 else
-                    this.AngleRadian -= Math.PI / 4.0;
+                    this.AngleRadian -= Math.PI / 2.0;*/
             }
         }
 
