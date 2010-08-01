@@ -22,6 +22,7 @@ namespace AntiCulturePlanet
             preyTypeList.Add(new PlantEntity().GetType());
             preyTypeList.Add(new FruitEntity().GetType());
             preyTypeList.Add(new SeedPlantEntity().GetType());
+            preyTypeList.Add(new SeedFruitTreeEntity().GetType());
         }
         #endregion
 
@@ -30,12 +31,12 @@ namespace AntiCulturePlanet
             return 200;
         }
 
-        public override HashSet<Type> BuildPreyTypeList()
+        protected override HashSet<Type> BuildPreyTypeList()
         {
             return preyTypeList;
         }
 
-        public override HashSet<Type> BuildPredatorTypeList()
+        protected override HashSet<Type> BuildPredatorTypeList()
         {
             #warning Implement
             return null;
@@ -46,27 +47,27 @@ namespace AntiCulturePlanet
             return 3;
         }
 
-        public override double BuildSizeAtBirth()
+        protected override double BuildSizeAtBirth()
         {
             return 0.5;
         }
 
-        public override double BuildMinimumSizeForReproduction()
+        protected override double BuildMinimumSizeForReproduction()
         {
             return 1.3;
         }
 
-        public override double BuildMinimumFoodReserveForReproduction()
+        protected override double BuildMinimumFoodReserveForReproduction()
         {
             return 1;
         }
 
-        public override double BuildMinimumFoodReserveForGrowth()
+        protected override double BuildMinimumFoodReserveForGrowth()
         {
             return 0.5;
         }
 
-        public override double BuildMaximumSize()
+        protected override double BuildMaximumSize()
         {
             return 1.5;
         }
@@ -94,6 +95,11 @@ namespace AntiCulturePlanet
         protected override double BuildSpeed()
         {
             return 0.2;
+        }
+
+        protected override double BuildViewRangeRadius()
+        {
+            return 5;
         }
     }
 }

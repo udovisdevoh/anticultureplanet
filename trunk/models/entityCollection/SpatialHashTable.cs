@@ -135,6 +135,59 @@ namespace AntiCulturePlanet
         {
             return bucketGrid[random.Next(columnCount), random.Next(rowCount)];
         }
+
+        /// <summary>
+        /// Finds nearest prey and predator for entity
+        /// </summary>
+        /// <param name="animal">animal</param>
+        /// <param name="nearestPrey">nearest prey (can be null if none are found)</param>
+        /// <param name="nearestPredator">nearest predator (can be null if none are found)</param>
+        /// <param name="isNearestPreyCloserThanPredator">whether prey is closer than predator</param>
+        internal void GetNearestViewablePreyAndPredator(AbstractAnimalEntity animal, out AbstractEntity nearestPrey, out AbstractEntity nearestPredator, out bool isNearestPreyCloserThanPredator)
+        {
+            double nearestPreyDistance = -1;
+            double nearestPredatorDistance = -1;
+            nearestPrey = null;
+            nearestPredator = null;
+
+            int leftBound = GetLeftSightColumn(animal);
+            int rightBound = GetRightSightColumn(animal);
+            int topBound = GetTopSightRow(animal);
+            int bottomBound = GetBottomSightRow(animal);
+
+            for (int x = leftBound; x <= rightBound; x++)
+            {
+                for (int y = topBound; y <= bottomBound; y++)
+                {
+                    foreach (AbstractEntity otherEntity in bucketGrid[x, y])
+                    {
+                        if (otherEntity != animal)
+                        {
+                            if (animal.PreyTypeList != null && animal.PreyTypeList.Contains(otherEntity.GetType()))
+                            {
+                                double currentDistance = GetDistance(animal, otherEntity);
+                                if (nearestPreyDistance < 0 || currentDistance < nearestPreyDistance)
+                                {
+                                    nearestPreyDistance = currentDistance;
+                                    nearestPrey = otherEntity;
+                                }
+                            }
+                            else if (animal.PredatorTypeList != null && animal.PredatorTypeList.Contains(otherEntity.GetType()))
+                            {
+                                double currentDistance = GetDistance(animal, otherEntity);
+                                if (nearestPredatorDistance < 0 || currentDistance < nearestPredatorDistance)
+                                {
+                                    nearestPredatorDistance = currentDistance;
+                                    nearestPredator = otherEntity;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            isNearestPreyCloserThanPredator = nearestPreyDistance < nearestPredatorDistance || nearestPredatorDistance < 0;
+        }
         #endregion
 
         #region Private Methods
@@ -188,6 +241,58 @@ namespace AntiCulturePlanet
             while (leftBound < 0) leftBound += columnCount;
             while (leftBound >= columnCount) leftBound -= columnCount;
             return leftBound;
+        }
+
+        /// <summary>
+        /// Get left sight row for animal
+        /// </summary>
+        /// <param name="animal">animal</param>
+        /// <returns>left sight row for animal</returns>
+        private int GetLeftSightColumn(AbstractAnimalEntity animal)
+        {
+            int leftSight = (int)((animal.X - animal.ViewRangeRadius) / (double)bucketSize);
+            while (leftSight < 0) leftSight += columnCount;
+            while (leftSight >= columnCount) leftSight -= columnCount;
+            return leftSight;
+        }
+
+        /// <summary>
+        /// Get right sight row for animal
+        /// </summary>
+        /// <param name="animal">animal</param>
+        /// <returns>right sight row for animal</returns>
+        private int GetRightSightColumn(AbstractAnimalEntity animal)
+        {
+            int rightSight = (int)Math.Ceiling((animal.X + animal.ViewRangeRadius) / (double)bucketSize);
+            while (rightSight < 0) rightSight += columnCount;
+            while (rightSight >= columnCount) rightSight -= columnCount;
+            return rightSight;
+        }
+
+        /// <summary>
+        /// Get bottom bound row for animal
+        /// </summary>
+        /// <param name="animal">animal</param>
+        /// <returns>bottom bound row for animal</returns>
+        private int GetBottomSightRow(AbstractAnimalEntity animal)
+        {
+            int bottomSight = (int)Math.Ceiling((animal.Y + animal.ViewRangeRadius) / (double)bucketSize);
+            while (bottomSight < 0) bottomSight += rowCount;
+            while (bottomSight >= rowCount) bottomSight -= rowCount;
+            return bottomSight;
+        }
+
+        /// <summary>
+        /// Get top bound row for animal
+        /// </summary>
+        /// <param name="animal">animal</param>
+        /// <returns>top bound row for animal</returns>
+        private int GetTopSightRow(AbstractAnimalEntity animal)
+        {
+            int topSight = (int)((animal.Y - animal.ViewRangeRadius) / (double)bucketSize);
+            while (topSight < 0) topSight += rowCount;
+            while (topSight >= rowCount) topSight -= rowCount;
+            return topSight;
         }
 
         /// <summary>

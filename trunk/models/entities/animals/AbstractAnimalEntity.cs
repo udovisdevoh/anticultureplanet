@@ -76,6 +76,11 @@ namespace AntiCulturePlanet
         /// Speed
         /// </summary>
         private double speed;
+
+        /// <summary>
+        /// Entity's viewing range
+        /// </summary>
+        private double viewRangeRadius;
         #endregion
 
         #region Constructor
@@ -97,83 +102,11 @@ namespace AntiCulturePlanet
             growthRate = BuildGrowthRate();
             minimumFoodReserveForGrowth = BuildMinimumFoodReserveForGrowth();
             speed = BuildSpeed();
+            viewRangeRadius = BuildViewRangeRadius();
         }
         #endregion
 
-        #region Implementation
-        /// <summary>
-        /// Return animal's corpse
-        /// </summary>
-        /// <param name="planet">planet</param>
-        /// <returns>animal's corpse</returns>
-        protected override IEnumerable<AbstractEntity> GetDecayEntities(Planet planet)
-        {
-            return new AbstractEntity[] { new CorpseEntity() };
-        }
-
-        /// <summary>
-        /// Position criteria
-        /// </summary>
-        /// <returns>Position criteria</returns>
-        protected override PositionCriteria BuildPositionCriteria()
-        {
-            return PositionCriteria.Ground;
-        }
-
-        /// <summary>
-        /// ZIndex layer
-        /// </summary>
-        /// <returns>ZIndex layer</returns>
-        protected override ZIndexLayer BuildZIndexLayer()
-        {
-            return ZIndexLayer.OnFloor;
-        }
-
-        /// <summary>
-        /// Build Is keep sprite of previous entity
-        /// </summary>
-        /// <returns>Is keep sprite of previous entity</returns>
-        protected override bool BuildIsKeepSpriteOfPreviousEntity()
-        {
-            return false;
-        }
-
-        /// <summary>
-        /// Build Is keep size of previous entity
-        /// </summary>
-        /// <returns>Is keep size of previous entity</returns>
-        protected override bool BuildIsKeepSizeOfPreviousEntity()
-        {
-            return false;
-        }
-
-        /// <summary>
-        /// Whether entity is affected by collisions
-        /// </summary>
-        /// <returns></returns>
-        protected override bool BuildIsAffectedByCollision()
-        {
-            return true;
-        }
-
-        /// <summary>
-        /// Animal's sprite
-        /// </summary>
-        /// <returns>Animal's sprite</returns>
-        protected override EntitySprite BuildEntitySprite()
-        {
-            return SpriteManager.GetSprite(this.GetType());
-        }
-
-        /// <summary>
-        /// Maximum size, or default size (full size)
-        /// </summary>
-        /// <returns>Maximum size, or default size (full size)</returns>
-        protected override double BuildSize()
-        {
-            return BuildMaximumSize();
-        }
-
+        #region Internal Methods
         /// <summary>
         /// Try make animal reproduce
         /// </summary>
@@ -262,73 +195,145 @@ namespace AntiCulturePlanet
         /// <param name="timeDelta">time delta</param>
         internal void TryMakeWalkFightOrFlight(Planet planet, Random random, double timeDelta)
         {
-            #warning Uncomment
-            /*AbstractEntity closestEntity = planet.EntityCollection.GetClosestEntity(this);
-
-            if (closestEntity != null)
+            if (random.Next(0, 300) == 0)
             {
-                if (preyTypeList.Contains(closestEntity.GetType()))
-                {
-                    this.AngleRadian = Optics.GetAngleRadianTo(this, closestEntity);
-                }
-                else if (predatorTypeList.Contains(closestEntity.GetType()))
-                {
-                    this.AngleRadian = Optics.GetAngleRadianTo(this, closestEntity) + Math.PI;
-                }
-            }*/
+                AbstractEntity nearestPrey, nearestPredator;
+                bool isNearestPreyCloserThanPredator;
+                planet.EntityCollection.SpatialHashTable.GetNearestViewablePreyAndPredator(this, out nearestPrey, out nearestPredator, out isNearestPreyCloserThanPredator);
+
+                if (nearestPrey != null && isNearestPreyCloserThanPredator)
+                    this.AngleRadian = Optics.GetAngleRadianTo(this, nearestPrey);
+                else if (nearestPredator != null && !isNearestPreyCloserThanPredator)
+                    this.AngleRadian = Optics.GetAngleRadianTo(this, nearestPredator) + Math.PI;
+            }
 
             Physics.TryMakeWalk(this, speed, planet, timeDelta * 4.0);
 
             if (planet.EntityCollection.IsDetectCollision(this, planet))
             {
-                Physics.TryMakeWalk(this, speed, Math.PI, planet, timeDelta * 4.0);
-                this.AngleDegree = (random.NextDouble() * 360.0);
+                Physics.TryMakeWalk(this, speed * 1.01, Math.PI, planet, timeDelta * 4.0);
+                this.AngleRadian = random.NextDouble() * Math.PI * 2.0;
             }
         }
         #endregion
 
-        #region Abstract
+        #region Protected Methods
+        /// <summary>
+        /// Return animal's corpse
+        /// </summary>
+        /// <param name="planet">planet</param>
+        /// <returns>animal's corpse</returns>
+        protected override IEnumerable<AbstractEntity> GetDecayEntities(Planet planet)
+        {
+            return new AbstractEntity[] { new CorpseEntity() };
+        }
+
+        /// <summary>
+        /// Position criteria
+        /// </summary>
+        /// <returns>Position criteria</returns>
+        protected override PositionCriteria BuildPositionCriteria()
+        {
+            return PositionCriteria.Ground;
+        }
+
+        /// <summary>
+        /// ZIndex layer
+        /// </summary>
+        /// <returns>ZIndex layer</returns>
+        protected override ZIndexLayer BuildZIndexLayer()
+        {
+            return ZIndexLayer.OnFloor;
+        }
+
+        /// <summary>
+        /// Build Is keep sprite of previous entity
+        /// </summary>
+        /// <returns>Is keep sprite of previous entity</returns>
+        protected override bool BuildIsKeepSpriteOfPreviousEntity()
+        {
+            return false;
+        }
+
+        /// <summary>
+        /// Build Is keep size of previous entity
+        /// </summary>
+        /// <returns>Is keep size of previous entity</returns>
+        protected override bool BuildIsKeepSizeOfPreviousEntity()
+        {
+            return false;
+        }
+
+        /// <summary>
+        /// Whether entity is affected by collisions
+        /// </summary>
+        /// <returns></returns>
+        protected override bool BuildIsAffectedByCollision()
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// Animal's sprite
+        /// </summary>
+        /// <returns>Animal's sprite</returns>
+        protected override EntitySprite BuildEntitySprite()
+        {
+            return SpriteManager.GetSprite(this.GetType());
+        }
+
+        /// <summary>
+        /// Maximum size, or default size (full size)
+        /// </summary>
+        /// <returns>Maximum size, or default size (full size)</returns>
+        protected override double BuildSize()
+        {
+            return BuildMaximumSize();
+        }
+        #endregion
+
+        #region Abstract Methods
         /// <summary>
         /// Get list of entity type that can be eaten by this animal (null if none)
         /// </summary>
         /// <returns>list of entity type that can be eaten by this animal (null if none)</returns>
-        public abstract HashSet<Type> BuildPreyTypeList();
+        protected abstract HashSet<Type> BuildPreyTypeList();
 
         /// <summary>
         /// Get list of entity type that can eat this animal (null if none)
         /// </summary>
         /// <returns>list of entity type that can eat this animal (null if none)</returns>
-        public abstract HashSet<Type> BuildPredatorTypeList();
+        protected abstract HashSet<Type> BuildPredatorTypeList();
 
         /// <summary>
         /// Size at birth
         /// </summary>
         /// <returns>size at birth</returns>
-        public abstract double BuildSizeAtBirth();
+        protected abstract double BuildSizeAtBirth();
 
         /// <summary>
         /// Minimum size for reproduction (must be smaller or equal to default size)
         /// </summary>
         /// <returns>Minimum size for reproduction (must be smaller or equal to default size)</returns>
-        public abstract double BuildMinimumSizeForReproduction();
+        protected abstract double BuildMinimumSizeForReproduction();
 
         /// <summary>
         /// Minimum food reserve for reproduction (must be smaller or equal to default size)
         /// </summary>
         /// <returns>Minimum food reserve for reproduction (must be smaller or equal to default size)</returns>
-        public abstract double BuildMinimumFoodReserveForReproduction();
+        protected abstract double BuildMinimumFoodReserveForReproduction();
 
         /// <summary>
         /// Minimum food reserve for growth (must be smaller or equal to default size)
         /// </summary>
         /// <returns>Minimum food reserve for growth (must be smaller or equal to default size)</returns>
-        public abstract double BuildMinimumFoodReserveForGrowth();
+        protected abstract double BuildMinimumFoodReserveForGrowth();
 
         /// <summary>
         /// Maximum size
         /// </summary>
         /// <returns>Maximum size</returns>
-        public abstract double BuildMaximumSize();
+        protected abstract double BuildMaximumSize();
 
         /// <summary>
         /// Build reproduction cycle time (seconds)
@@ -360,6 +365,12 @@ namespace AntiCulturePlanet
         /// </summary>
         /// <returns>walking speed</returns>
         protected abstract double BuildSpeed();
+
+        /// <summary>
+        /// Build view range (radius)
+        /// </summary>
+        /// <returns>view range (radius)</returns>
+        protected abstract double BuildViewRangeRadius();
         #endregion
 
         #region Properties
@@ -378,6 +389,30 @@ namespace AntiCulturePlanet
         {
             get{return foodReserve;}
             set { foodReserve = value; }
+        }
+
+        /// <summary>
+        /// Prey type list
+        /// </summary>
+        public HashSet<Type> PreyTypeList
+        {
+            get{return preyTypeList;}
+        }
+
+        /// <summary>
+        /// Predator type list
+        /// </summary>
+        public HashSet<Type> PredatorTypeList
+        {
+            get { return predatorTypeList; }
+        }
+
+        /// <summary>
+        /// View range radius
+        /// </summary>
+        public double ViewRangeRadius
+        {
+            get { return viewRangeRadius; }
         }
         #endregion
     }

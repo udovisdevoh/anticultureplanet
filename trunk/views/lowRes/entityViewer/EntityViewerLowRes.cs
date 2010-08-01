@@ -86,7 +86,7 @@ namespace AntiCulturePlanet
                             {
                                 int spriteWidth = (int)Math.Round(entity.Size * tilePixelWidth);
                                 int spriteHeight = (int)Math.Round(entity.Size * tilePixelHeight);
-                                Surface spriteSurface = entity.EntitySprite.GetSurface(spriteWidth, spriteHeight);
+                                Surface spriteSurface = entity.EntitySprite.GetSurface(spriteWidth, spriteHeight, (int)entity.AngleDegree);
                                 int absolutePositionX = (int)Math.Round(entity.X * tilePixelWidth) - spriteWidth / 2 + tilePixelWidth / 2;
                                 int absolutePositionY = (int)Math.Round(entity.Y * tilePixelHeight) - spriteHeight / 2 + tilePixelHeight / 2;
 

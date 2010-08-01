@@ -49,8 +49,9 @@ namespace AntiCulturePlanet
         /// </summary>
         /// <param name="width">width</param>
         /// <param name="height">height</param>
+        /// <param name="angle">angle</param>
         /// <returns>surface of specified size</returns>
-        internal Surface GetSurface(int width, int height)
+        internal Surface GetSurface(int width, int height, int angle)
         {
             Surface surface;
             if (!scallingCache.TryGetValue(width * 128 + height, out surface))
@@ -62,6 +63,11 @@ namespace AntiCulturePlanet
                 else
                     surface = originalSurface.CreateScaledSurface(scaleX, scaleY, true);
                 scallingCache.Add(width * 128 + height, surface);
+            }
+
+            if (angle != 0)
+            {
+                surface = surface.CreateRotatedSurface(360 - angle);
             }
 
             return surface;
