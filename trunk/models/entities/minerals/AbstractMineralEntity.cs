@@ -44,5 +44,10 @@ namespace AntiCulturePlanet
         {
             return true;
         }
+
+        protected override EntitySprite BuildEntitySprite()
+        {
+            return SpriteManager.GetSprite(this.GetType(), false);
+        }
     }
 }

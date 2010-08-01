@@ -28,6 +28,11 @@ namespace AntiCulturePlanet
         /// To cache scalled sprites
         /// </summary>
         private Dictionary<int, Surface> scallingCache;
+
+        /// <summary>
+        /// Whether the sprite rotates
+        /// </summary>
+        private bool isRotate;
         #endregion
 
         #region Consturctor
@@ -35,8 +40,10 @@ namespace AntiCulturePlanet
         /// Build entity sprite
         /// </summary>
         /// <param name="imageFileName">image file name</param>
-        public EntitySprite(string imageFileName)
+        /// <param name="isRotate">whether the sprite rotates</param>
+        public EntitySprite(string imageFileName, bool isRotate)
         {
+            this.isRotate = isRotate;
             this.imageFileName = imageFileName;
             originalSurface = new Surface("assets/graphics/entities/" + imageFileName);
             scallingCache = new Dictionary<int, Surface>();
@@ -54,7 +61,17 @@ namespace AntiCulturePlanet
         internal Surface GetSurface(int width, int height, int angle)
         {
             Surface surface;
-            if (!scallingCache.TryGetValue(width * 128 + height, out surface))
+
+            if (isRotate)
+            {
+                angle = ((int)Math.Round(angle / 8.0)) * 8;
+            }
+            else
+            {
+                angle = 0;
+            }
+
+            if (!scallingCache.TryGetValue(width * 128 + height + angle * 46080, out surface))
             {
                 double scaleX = (double)(width) / (double)(originalSurface.Width);
                 double scaleY = (double)(height) / (double)(originalSurface.Height);
@@ -62,12 +79,19 @@ namespace AntiCulturePlanet
                     surface = originalSurface;
                 else
                     surface = originalSurface.CreateScaledSurface(scaleX, scaleY, true);
-                scallingCache.Add(width * 128 + height, surface);
-            }
 
-            if (angle != 0)
-            {
-                surface = surface.CreateRotatedSurface(270 - angle);
+                int rotation = 270 - angle;
+                while (rotation >= 360)
+                    rotation -= 360;
+                while (rotation < 0)
+                    rotation += 360;
+
+                if (isRotate)
+                {
+                    surface = surface.CreateRotatedSurface(270 - angle);
+                }
+
+                scallingCache.Add(width * 128 + height + angle * 46080, surface);
             }
 
             return surface;
