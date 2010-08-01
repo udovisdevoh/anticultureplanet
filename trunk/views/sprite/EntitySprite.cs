@@ -67,7 +67,7 @@ namespace AntiCulturePlanet
 
             if (angle != 0)
             {
-                surface = surface.CreateRotatedSurface(360 - angle);
+                surface = surface.CreateRotatedSurface(270 - angle);
             }
 
             return surface;

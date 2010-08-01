@@ -103,6 +103,7 @@ namespace AntiCulturePlanet
             minimumFoodReserveForGrowth = BuildMinimumFoodReserveForGrowth();
             speed = BuildSpeed();
             viewRangeRadius = BuildViewRangeRadius();
+            AngleDegree = 90;
         }
         #endregion
 
@@ -195,7 +196,7 @@ namespace AntiCulturePlanet
         /// <param name="timeDelta">time delta</param>
         internal void TryMakeWalkFightOrFlight(Planet planet, Random random, double timeDelta)
         {
-            if (random.Next(0, 300) == 0)
+            if (random.Next(0, 60) == 0)
             {
                 AbstractEntity nearestPrey, nearestPredator;
                 bool isNearestPreyCloserThanPredator;
