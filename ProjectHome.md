@@ -1,0 +1,1 @@
+Self evolving creature in a RTS like simulation game. Something similar to virtual ant colonies.
